@@ -1,5 +1,7 @@
 {
   "name": "salesapp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
