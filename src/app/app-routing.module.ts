@@ -26,6 +26,14 @@ const routes: Routes = [
   {
     path: 'leadllist',
     loadChildren: () => import('./leadllist/leadllist.module').then( m => m.LeadllistPageModule)
+  },
+  {
+    path: 'leadalert',
+    loadChildren: () => import('./leadalert/leadalert.module').then( m => m.LeadalertPageModule)
+  },
+  {
+    path: 'leaddetails',
+    loadChildren: () => import('./leaddetails/leaddetails.module').then( m => m.LeaddetailsPageModule)
   }
 ];
 
