@@ -1,0 +1,106 @@
+<ion-header no-border>
+  <ion-toolbar [class.show-background]="showToolbar">
+    <ion-buttons slot="end">
+      <ion-back-button text="" icon="close-circle" defaultHref="/leaddetails"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="calendar_container">
+    <ion-calendar [(ngModel)]="dateMulti" [options]="optionsMulti" [format]="'DD-MM-YYYY'">
+    </ion-calendar>
+  </div><!-- /calendar_container -->
+  <div class="ion-padding white_bg">
+  <div class="heading_log">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <div class="ion-text-start">
+            23 December 2020
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="ion-text-end">
+            Today
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div><!-- /heading_log -->
+
+  <div class="log_list">
+    <ul>
+      <li class="odd">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <div class="time">
+                3:00<span>PM</span>
+              </div>
+            </ion-col>
+            <ion-col size="9">
+              <div class="notes">
+                <h3>Call back Mark Adam</h3>
+                <p>Bandar Baru Setia Awan Perdana</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </li>
+      <li class="even">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <div class="time">
+                3:00<span>PM</span>
+              </div>
+            </ion-col>
+            <ion-col size="9">
+              <div class="notes">
+                <h3>Call back Mark Adam</h3>
+                <p>Bandar Baru Setia Awan Perdana</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </li>
+      <li class="odd">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <div class="time">
+                3:00<span>PM</span>
+              </div>
+            </ion-col>
+            <ion-col size="9">
+              <div class="notes">
+                <h3>Call back Mark Adam</h3>
+                <p>Bandar Baru Setia Awan Perdana</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </li>
+      <li class="even">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <div class="time">
+                3:00<span>PM</span>
+              </div>
+            </ion-col>
+            <ion-col size="9">
+              <div class="notes">
+                <h3>Call back Mark Adam</h3>
+                <p>Bandar Baru Setia Awan Perdana</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </li>
+    </ul>
+  </div><!-- /log_list -->
+</div>
+
+</ion-content>

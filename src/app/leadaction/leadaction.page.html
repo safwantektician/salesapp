@@ -1,0 +1,40 @@
+<ion-header no-border>
+  <ion-toolbar [class.show-background]="showToolbar">
+    <ion-buttons slot="end">
+      <ion-back-button text="" icon="close-circle" defaultHref="/leaddetails"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="lead_info">
+    <h2>Mark Adam</h2>
+    <p>Bandar Baru Setia Awan Perdana</p>
+  </div><!-- /lead_info -->
+  <div class="ion-padding">
+    <div class="action_base">
+      <form>
+        <ion-item>
+          <ion-label position="floating">Lead Status</ion-label>
+          <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status">
+            <ion-select-option value="f">Create Quotation</ion-select-option>
+            <ion-select-option value="m">Not Interested</ion-select-option>
+          </ion-select>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">Follow Up</ion-label>
+          <ion-datetime displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date"></ion-datetime>
+          <ion-icon name="calendar" slot="end"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Notes</ion-label>
+          <ion-textarea placeholder="Start typing..."></ion-textarea>
+        </ion-item>
+
+        <ion-button expand="block">Save</ion-button>
+        </form>
+      </div><!-- /action_base -->
+  </div>
+</ion-content>

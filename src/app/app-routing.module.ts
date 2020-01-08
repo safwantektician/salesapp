@@ -34,6 +34,14 @@ const routes: Routes = [
   {
     path: 'leaddetails',
     loadChildren: () => import('./leaddetails/leaddetails.module').then( m => m.LeaddetailsPageModule)
+  },
+  {
+    path: 'activitylog',
+    loadChildren: () => import('./activitylog/activitylog.module').then( m => m.ActivitylogPageModule)
+  },
+  {
+    path: 'leadaction',
+    loadChildren: () => import('./leadaction/leadaction.module').then( m => m.LeadactionPageModule)
   }
 ];
 

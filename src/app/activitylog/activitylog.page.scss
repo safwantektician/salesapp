@@ -1,0 +1,68 @@
+ion-toolbar {
+    --background:transparent;
+    --ion-color-base: transparent !important;
+    ion-buttons {
+        margin-right: 10px;
+        margin-top: 10px;
+        ion-back-button {
+            --icon-font-size:40px;
+        }
+    }
+}
+
+ion-content {
+    --background:url('../../assets/sales_mobile_bg.jpg');
+    .white_bg {
+        background-color: #F5F5F5;
+    }
+    ion-calendar {
+        background-color: #F5F5F5;
+    }
+    .heading_log {
+        color:#15232E;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-bottom: 5px;
+        background: #fff;
+    }
+    .log_list {
+        ul {
+            margin:0; padding:0;
+        }
+        li {
+            border-left:3px solid #000;
+            padding-top:10px; padding-bottom:0px;
+            -webkit-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
+-moz-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
+box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
+        }
+        li.odd {
+            border-color:#00BE33;
+        }
+        li.even {
+            border-color:#0019BE;
+        }
+        ul li {
+            display:block;
+            .time {
+                font-weight: bold;
+                font-size: 18px;
+                text-align: center;
+                span {
+                    display:block;
+                }
+            }
+            .notes {
+                h3 {
+                    font-size: 18px;
+                    font-weight: normal;
+                    margin-top:0; margin-bottom:5px;
+                }
+                p {
+                    color:#B3C0CE;
+                    margin-top:0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,91 @@
+ion-toolbar {
+    --background:url('../../assets/sales_mobile_bg.jpg');
+    --color:#fff !important;
+    ion-label {
+        text-align: center;
+        h2 {
+            font-size: 27px;
+        }
+        p {
+            color:#FFE180;
+        }
+    }
+    ion-avatar {
+        width: 70px;
+        height: 70px;
+        display: block;
+        margin: 20px auto;
+    }
+    ion-chip {
+        text-transform: uppercase;
+        font-size: 11px;
+        padding-top:1px !important;
+        padding-bottom: 1px !important;
+        padding-left:15px;
+        padding-right:15px;
+        height: 23px;
+        background-color: #ECFCF3;
+        margin: 0 auto;
+    }
+}
+ion-content {
+    .section_title {
+        display:block;
+        background-color: #F6F6F6;
+        border-top: 1px solid #707070;
+        border-bottom: 1px solid #707070;
+        h2 {
+            font-size:14px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            padding-left:20px;
+            color: #7B7B7B;
+            font-weight: normal;
+            margin-top: 10px;
+        }
+    }
+    .details {
+        padding: 20px;
+        ion-icon {
+            font-size: 35px;
+            color:#031587;
+        }
+        ion-item {
+            margin-bottom: 10px;
+        }
+        ion-label {
+            h2 {
+                font-weight: normal;
+            }
+            p {
+                font-weight: bold;
+                color: #000;
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+ion-footer {
+    .footer_cta {
+        padding: 15px 5px 15px 5px;
+        ion-icon {
+            color:#fff;
+            font-size: 30px;
+            padding: 15px;
+        }
+        .circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            display: block;
+            margin: 0 auto;
+        }
+        .circle.orange {
+            background-color:#FEA41B ;
+        }
+        .circle.cyan {
+            background-color:#0090AE ;
+        }
+    }
+}

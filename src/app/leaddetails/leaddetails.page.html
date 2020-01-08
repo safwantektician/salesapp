@@ -1,9 +1,72 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>leaddetails</ion-title>
+      <ion-avatar>
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <ion-label>
+        <h2>Mark Adam</h2>
+        <p>Bandar Baru Setia Awan Perdana</p>
+        <ion-chip color="success">Follow Up</ion-chip>
+      </ion-label>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content>
+  <div class="section_title">
+    <h2>Lead Details</h2>
+  </div><!-- /section_title -->
+  <div class="details">
+    <ion-item lines="none">
+      <ion-icon name="call" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Phone Number</h2>
+        <p>+6017-249 2669</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="mail" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Email Address</h2>
+        <p>mark.adam@gmail.com</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="disc" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Lead Source</h2>
+        <p>Early Bird Google Ads 1</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="person" slot="start"></ion-icon>
+      <ion-label>
+        <h2>Sales Person</h2>
+        <p>Bennie Lee</p>
+      </ion-label>
+    </ion-item>
+  </div><!-- /details -->
 
 </ion-content>
+<ion-footer>
+  <div class="footer_cta">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          Lefffff
+        </ion-col>
+        <ion-col size="3">
+          <div class="circle orange" routerLink="/activitylog" routerDirection="leaddetails">
+            <ion-icon name="calendar"></ion-icon>
+          </div><!-- /circle -->
+        </ion-col>
+        <ion-col size="3">
+          <div class="circle cyan" routerLink="/leadaction" routerDirection="leaddetails">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-footer>
