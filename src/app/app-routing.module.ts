@@ -42,6 +42,10 @@ const routes: Routes = [
   {
     path: 'leadaction',
     loadChildren: () => import('./leadaction/leadaction.module').then( m => m.LeadactionPageModule)
+  },
+  {
+    path: 'loginredirect',
+    loadChildren: () => import('./loginredirect/loginredirect.module').then( m => m.LoginredirectPageModule)
   }
 ];
 
