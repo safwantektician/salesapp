@@ -1,18 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-      <ion-avatar>
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-      </ion-avatar>
-      <ion-label>
-        <h2>Mark Adam</h2>
-        <p>Bandar Baru Setia Awan Perdana</p>
-        <ion-chip color="success">Follow Up</ion-chip>
-      </ion-label>
+<ion-header no-border>
+  <ion-toolbar [class.show-background]="showToolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="arrow-round-back" defaultHref="/leadllist"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
-  
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
+  <div class="avatar_lead">
+    <ion-avatar>
+      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>
+    <ion-label>
+      <h2>Mark Adam</h2>
+      <p>Bandar Baru Setia Awan Perdana</p>
+      <ion-chip color="success">
+        <ion-label>Follow Up</ion-label>
+      </ion-chip>
+    </ion-label>
+  </div><!-- /avatar_lead -->
   <div class="section_title">
     <h2>Lead Details</h2>
   </div><!-- /section_title -->

@@ -2,10 +2,11 @@ ion-toolbar {
     --background:transparent;
     --ion-color-base: transparent !important;
     ion-buttons {
-        margin-right: 10px;
         margin-top: 10px;
         ion-back-button {
             --icon-font-size:40px;
+            --color:#fff;
+            opacity: .5;
         }
     }
 }
@@ -36,5 +37,6 @@ ion-content {
     ion-button {
         --background: #DEF6D2 !important;
         color: #129E03 !important;
+        font-size: 18px;
     }
 }

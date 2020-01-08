@@ -6,6 +6,8 @@ ion-toolbar {
         margin-top: 10px;
         ion-back-button {
             --icon-font-size:40px;
+            --color:#fff;
+            opacity: .5;
         }
     }
 }
