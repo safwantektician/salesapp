@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'leadacceptsuccess',
     loadChildren: () => import('./leadacceptsuccess/leadacceptsuccess.module').then( m => m.LeadacceptsuccessPageModule)
+  },
+  {
+    path: 'leadacceptfailed',
+    loadChildren: () => import('./leadacceptfailed/leadacceptfailed.module').then( m => m.LeadacceptfailedPageModule)
   }
 ];
 
