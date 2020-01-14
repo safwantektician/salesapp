@@ -1,0 +1,44 @@
+ion-content {
+    --background:url('../../assets/sales_mobile_bg.jpg');
+    .success_accept {
+        text-align: center;
+        background: #fff;
+        border-radius: 5px;
+        width: 90%;
+        display: block;
+        padding-top: 20px;
+        margin: 30px auto;
+        img {
+            display: block;
+            width: 60%;
+            margin: 0 auto;
+        }
+        span {
+            display:block;
+            font-style: italic;
+        }
+        .action_time {
+            padding: 10px 20px;
+            background: #F1F1F1;
+            border-radius: 5px;
+            h4 {
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 14px;
+                font-weight: normal;
+                color:#A2A2A2;
+            }
+            p {
+                margin: 0 0 20px 0;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+            .immediate {
+                color:#E50000;
+            }
+            ion-button {
+                font-size: 1rem;
+            }
+        }
+    }
+}

@@ -5,7 +5,7 @@ ion-content {
     --background:url('../../assets/sales_mobile_bg.jpg');
     --color:#fff;
     .title_header {
-        margin-top:70px;
+        margin-top:50px;
         h4 {
             font-weight: normal;
             color:#A4E9FF;
@@ -23,10 +23,14 @@ ion-content {
     }
     .lead_info {
         position: relative;
+        .info_lead {
+            height: 200px;
+        }
         h1 {
             font-weight: 200;
             font-size: 35px;
-            margin-top:30px;
+            margin-top:10px;
+            margin-bottom: 20px;
         }
         ion-avatar {
             text-align: center;
@@ -34,13 +38,92 @@ ion-content {
             width: 150px !important;
             height: 150px;
             position: absolute;
-            left: 30%;
-            margin-left: -30px;
-            /* z-index: 9999; */
+            top:10px;
+            left: 40%;
+            margin-left: -40px;
+            z-index: 999;
+            margin-top: 10px;
+        }
+        .pulse {
+            display: block;
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top:20px;
+            left: 40%;
+            margin-left: -40px;
+            border-radius: 50%;
+            background: #DEF6D2;
+            cursor: pointer;
+            box-shadow: 0 0 0 #A4E9FF;
+            animation: pulse 1s infinite;
+          }
+          .pulse:hover {
+            animation: none;
+          }
+          
+          @-webkit-keyframes pulse {
+            0% {
+              -webkit-box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            70% {
+                -webkit-box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                -webkit-box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+          }
+          @keyframes pulse {
+            0% {
+              -moz-box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+              box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            }
+            70% {
+                -moz-box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                -moz-box-shadow: 0 0 0 0 rgba(255, 255, 253, 0);
+                box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+            }
+          }
+          
+        ion-list, .list-md, .bg-transparent {
+            --background: transparent;
+            background: transparent;
+        }
+        ion-item-sliding {
+            background: #B6F5BF;
+            border-radius: 30px;
+            -webkit-box-shadow: -1px 14px 19px -12px rgba(0,0,0,0.32);
+            -moz-box-shadow: -1px 14px 19px -12px rgba(0,0,0,0.32);
+            box-shadow: -1px 14px 19px -12px rgba(0,0,0,0.32);
+            ion-label {
+                text-align: center;
+                line-height: normal;
+                color:#1A7200;
+                text-shadow: 1px 0px 0px #FFFFFF;
+                font-size: 20px;
+                margin-left: -20px;
+            }
+            ion-icon {
+                padding-right:0; margin-right:0;
+                --background: #1A7200;
+                opacity: 1;
+            }
+            ion-item-option {
+                --background: #1A7200;
+                --color:#fff;
+                ion-icon {
+                --color:#fff !important;
+                --background: #fff !important;
+                padding-right: 15px;
+                }
+            }
         }
     }
     ion-item {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         padding: 0;
         ion-icon {
             margin-top:20px;
@@ -63,36 +146,6 @@ ion-content {
             font-weight: normal;
         }
     }
-    .lds-ripple {
-        display: inline-block;
-        position: relative;
-        width: 180px;
-        height: 180px;
-      }
-      .lds-ripple div {
-        position: absolute;
-        border: 4px solid #fff;
-        opacity: 1;
-        border-radius: 50%; 
-        animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-      }
-      .lds-ripple div:nth-child(2) {
-        animation-delay: -0.5s;
-      }
-      @keyframes lds-ripple {
-        0% {
-          top: 120px;
-          left: 120px;
-          width: 0;
-          height: 0;
-          opacity: 1;
-        }
-        100% {
-          top: 0px;
-          left: 0px;
-          width: 180px;
-          height: 180px;
-          opacity: 0;
-        }
-      }
+    
+    
 }
