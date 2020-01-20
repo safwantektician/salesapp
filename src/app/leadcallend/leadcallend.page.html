@@ -1,0 +1,48 @@
+<ion-content fullscreen>
+  <div class="success_accept">
+    <div class="action_time">
+      <img src="assets/icon/call_done.png">
+      <h2>Call Ended</h2>
+      <p class="duration"><ion-icon name="time"></ion-icon> Call duration: <span>10 Minutes</span></p>
+      <div class="ion-padding">
+        <div class="action_base">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6" class="ion-text-left">
+                <label>Name:</label>
+                <p>Safwan Rahman</p>
+              </ion-col>
+              <ion-col size="6" class="ion-text-right">
+                <label>Project:</label>
+                <p>Bandar Baru Setia Awan Perdana</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <form>
+            <ion-item>
+              <ion-label position="floating">Lead Status</ion-label>
+              <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status">
+                <ion-select-option value="f">Create Quotation</ion-select-option>
+                <ion-select-option value="m">Not Interested</ion-select-option>
+              </ion-select>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label position="floating">Follow Up</ion-label>
+              <ion-datetime displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date"></ion-datetime>
+              <ion-icon name="calendar" slot="end"></ion-icon>
+            </ion-item>
+    
+            <ion-item lines="none">
+              <ion-label position="floating">Notes</ion-label>
+              <ion-textarea placeholder="Start typing..."></ion-textarea>
+            </ion-item>
+    
+            <ion-button color="warning" expand="block" routerLink="/leadllist">Save</ion-button>
+            </form>
+          </div><!-- /action_base -->
+      </div>
+    </div><!-- /action_time -->
+    
+  </div><!-- /success_accept -->
+</ion-content>

@@ -1,11 +1,23 @@
 ion-toolbar {
     --background:url('../../assets/sales_mobile_bg.jpg');
     --color:#fff !important;
+    small {
+        font-size: 14px;
+        margin-right: 20px;
+    }
 }
 ion-content {
-    padding-top:20px;
+    --background: #EFF3F8;
     ion-avatar img {
         width: 100% !important;
+    }
+    ion-item {
+        border-radius: 5px;
+        padding:10px;
+        background: #fff;
+        width: 95%;
+        display: block;
+        margin: 10px auto;
     }
     ion-label {
         h2 {

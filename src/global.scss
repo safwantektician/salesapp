@@ -24,3 +24,15 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+/* Error Message Style */
+.error_box {
+    background-color: #FCE7E9;
+    color:#ff0000;
+    padding:10px 10px 10px 10px;
+    display:block;
+    border-radius:5px;
+    margin-bottom:10px;
+    border: 1px solid #ff0000;
+}

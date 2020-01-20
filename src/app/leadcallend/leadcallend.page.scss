@@ -6,15 +6,11 @@ ion-content {
         border-radius: 5px;
         width: 90%;
         display: block;
-        padding-top: 20px;
         margin: 30px auto;
         img {
             display: block;
-            width: 60%;
+            width: 30%;
             margin: 0 auto;
-        }
-        img.loader {
-            width: inherit;
         }
         span {
             display:block;
@@ -27,7 +23,7 @@ ion-content {
         }
         .action_time {
             padding: 10px 20px 20px 20px;
-            background: #F1F1F1;
+            background: #E7FAF1;
             border-radius: 5px;
             ion-col {
                 font-weight: bold;
@@ -53,18 +49,35 @@ ion-content {
                 }
                 margin-bottom:10px;
             }
-            p {
-                margin: 0 0 20px 0;
-                font-size: 1.5rem;
-                font-weight: bold;
-            }
-            .immediate {
-                color:#E50000;
-                text-transform: uppercase;
-            }
             ion-button {
                 font-size: 1rem;
             }
+            ion-icon {
+                line-height: 20px;
+            }
+            p.duration {
+                span {
+                    font-weight: bold;
+                    display: initial !important;
+                }
+            }
+        }
+    }
+    .action_base {
+        border-top:1px dotted #c6d0eb;
+        ion-button {
+            margin-top:20px;
+        }
+        label {
+            font-weight: normal;
+            color:#206100;
+            display:block;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        p {
+            font-weight: normal;
+            font-size: 16px;
         }
     }
 }

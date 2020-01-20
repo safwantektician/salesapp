@@ -1,9 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
+<ion-header no-border>
+  <ion-toolbar [class.show-background]="showToolbar">
+    <ion-title>My Profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="profile_header">
+    <ion-avatar>
+      <img src="https://i.pravatar.cc/150" />
+    </ion-avatar>
+    <h3>Arvindder Zain</h3>
+    <p>arvindder.zain@tektician.com</p>
+  </div><!-- /profile_header -->
 
 </ion-content>

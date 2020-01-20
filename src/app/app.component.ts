@@ -31,6 +31,22 @@ export class AppComponent {
       url: '/profile',
       icon: 'person'
     }
+    ,
+    {
+      title: 'Lead Activity Log',
+      url: '/activitylog',
+      icon: 'person'
+    },
+    {
+      title: 'Lead Accept Success',
+      url: '/leadacceptsuccess',
+      icon: 'person'
+    },
+    {
+      title: 'Lead Accept Failed',
+      url: '/leadacceptfailed',
+      icon: 'person'
+    }
   ];
 
   constructor(
