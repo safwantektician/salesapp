@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'leadcallend',
     loadChildren: () => import('./leadcallend/leadcallend.module').then( m => m.LeadcallendPageModule)
+  },
+  {
+    path: 'forgetpass',
+    loadChildren: () => import('./forgetpass/forgetpass.module').then( m => m.ForgetpassPageModule)
   }
 ];
 

@@ -3,7 +3,7 @@ ion-content {
     --background:url('../../assets/sales_mobile_bg.jpg');
     --color:#fff;
     .title_header {
-        margin-top:100px;
+        margin-top:80px;
         h4 {
             font-weight: normal;
             color:#A4E9FF;
@@ -37,5 +37,9 @@ ion-content {
             margin-top:15px;
             font-weight: normal;
         }
+    }
+    .forget {
+        margin-top:20px;
+        display:block;
     }
 }

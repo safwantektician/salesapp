@@ -1,0 +1,27 @@
+ion-toolbar {
+    --background: transparent !important;
+    --ion-color-base: transparent !important;
+    ion-buttons {
+        ion-back-button {
+            --icon-font-size:30px;
+            --color:#fff;
+        }
+    }
+}
+
+ion-content {
+    /* --background:#1627AC; */
+    --background:url('../../assets/sales_mobile_bg.jpg');
+    --color:#fff;
+    ion-button {
+        height:50px;
+        font-size:16px;
+        margin-top:15px;
+    }
+    img.lock {
+        width: 20%;
+        /* opacity: .6; */
+        display: block;
+        margin: 0 auto;
+    }
+}

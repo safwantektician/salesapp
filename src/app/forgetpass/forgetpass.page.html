@@ -1,0 +1,29 @@
+<ion-header no-border>
+  <ion-toolbar [class.show-background]="showToolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="arrow-round-back" defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <img class="lock" src="/assets/icon/lock.png" />
+  <div class="title_header ion-padding ion-text-center">
+    <h2>Forgot Password?</h2>
+    <p>Enter the email address associated with your account</p>
+  </div><!-- /title_header -->
+  <div class="login_form ion-padding">
+    <div class="error_box">
+      Error message display here
+    </div>
+    <form>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email"></ion-input>
+      <ion-icon name="mail" slot="start"></ion-icon>
+    </ion-item>
+    <ion-button color="warning" routerLink="/login" expand="block">Reset Password</ion-button>
+    </form>
+  </div><!-- /login_form -->
+
+</ion-content>
