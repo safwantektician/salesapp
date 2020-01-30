@@ -1,27 +1,29 @@
-
-
 <ion-content class="ion-padding">
   <div class="title_header ion-padding">
     <h4>Log In</h4>
     <h2>Sales App</h2>
   </div><!-- /title_header -->
   <div class="login_form ion-padding">
-    <div class="error_box">
-      Error message display here
+    <div class="error_box" *ngIf="errors.length">
+      <ul>
+        <li *ngFor="let error of errors">
+          {{error}}
+        </li>
+      </ul>
     </div>
-    <form>
+    <form [formGroup]="candidate" (ngSubmit)="logForm()">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
-      <ion-input></ion-input>
+      <ion-input type="text" formControlName="username"></ion-input>
       <ion-icon name="mail" slot="start"></ion-icon>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" formControlName="password"></ion-input>
       <ion-icon name="lock" slot="start"></ion-icon>
     </ion-item>
-    <ion-button routerLink="/loginredirect" expand="block">Login <ion-icon name="unlock" slot="end"></ion-icon></ion-button>
+    <ion-button [disabled]="!candidate.valid" expand="block" type="submit">Login <ion-icon name="unlock" slot="end"></ion-icon></ion-button>
     <p routerLink="/forgetpass" class="forget ion-text-center">Forget Password?</p>
     </form>
   </div><!-- /login_form -->
