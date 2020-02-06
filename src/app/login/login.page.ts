@@ -1,6 +1,8 @@
-import { MenuController } from '@ionic/angular';
+import { MenuController, Events } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../api/login.service'
+import { LoginService } from '../api/login.service';
+import { LeadService } from '../api/lead.service';
+
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -14,7 +16,7 @@ export class LoginPage implements OnInit {
   private candidate : FormGroup;
   public errors: any = [];
 
-  constructor(private formBuilder: FormBuilder, private login: LoginService, private router: Router, public menuCtrl: MenuController) {
+  constructor(private formBuilder: FormBuilder, private login: LoginService, private router: Router, public menuCtrl: MenuController, public events: Events, public lead: LeadService) {
     this.candidate = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -49,6 +51,9 @@ export class LoginPage implements OnInit {
       }
       if(result.success)
       {
+        setTimeout( () => {          
+          this.events.publish('leadComing', { leadComing: true, leadData: this.lead.getLeadDetail()});
+        }, 10000);
         this.menuCtrl.enable(true);
         this.router.navigate(['/leadllist']);
         console.log('success');

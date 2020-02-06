@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import { Platform, AlertController,MenuController } from '@ionic/angular';
+import { Platform, AlertController,MenuController,Events } from '@ionic/angular';
 import { Router } from '@angular/router'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoginService } from './api/login.service'
 import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
+import { Vibration } from '@ionic-native/vibration/ngx';
 
 declare var cordova:any
 @Component({
@@ -54,6 +55,9 @@ export class AppComponent {
         }
     ];
 
+    public leadComing: boolean = false;
+    public leadData: any;
+
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
@@ -61,10 +65,11 @@ export class AppComponent {
         private oneSignal: OneSignal,
         private alertCtrl: AlertController,
         private backgroundMode: BackgroundMode,
-    public menuCtrl: MenuController
-
+    public menuCtrl: MenuController,
+    public events: Events,
+    public vibration: Vibration
     ) {
-        
+
 
         this.backgroundMode.enable();
         this.backgroundMode.excludeFromTaskList();
@@ -78,6 +83,16 @@ export class AppComponent {
         // this.backgroundMode.onactivate
 
         this.initializeApp();
+        this.events.subscribe('leadComing', (data) => {
+                this.leadComing = data.leadComing;
+                this.leadData = data.leadData;
+                if(this.leadComing){
+                  this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
+                  setTimeout( () => {
+                    this.leadClose();
+                  }, 10000);
+                }
+        });
     }
 
     initializeApp() {
@@ -87,6 +102,12 @@ export class AppComponent {
             this.setupPush();
       this.menuCtrl.enable(false);
         });
+    }
+
+    leadClose()
+    {
+        this.vibration.vibrate(0);
+        this.events.publish('leadComing', { leadComing: false, leadData: {} });
     }
 
 

@@ -26,4 +26,38 @@
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
+  <ion-content class="ion-padding lead_action" *ngIf="leadComing">
+    <div class="title_header ion-padding">
+      <h4>Incoming Lead</h4>
+      <h2>{{leadData.company}}</h2>
+    </div><!-- /title_header -->
+    <div class="lead_info ion-padding">
+
+      <div class="info_lead">
+        <ion-avatar>
+          <img class="pulse-slow" src="{{leadData.displayImage}}">
+        </ion-avatar>
+        <div class="pulse"></div>
+      </div>
+      <h1>{{leadData.name}}</h1>
+      <ion-list class="bg-transparent">
+
+        <ion-item-sliding>
+          <ion-item lines="none" color="none">
+            <ion-label>
+               Slide Left to Accept
+            </ion-label>
+            <ion-icon name="arrow-back" slot="start"></ion-icon>
+
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option routerLink="/leadacceptsuccess">
+              <ion-icon slot="icon-only"  name="call"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+
+    </div><!-- /login_form -->
+    </ion-content>
 </ion-app>
