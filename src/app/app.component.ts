@@ -92,7 +92,7 @@ export class AppComponent {
 
     setupPush() {
         // I recommend to put these into your environment.ts
-        this.oneSignal.startInit('7725e010-fd6c-4eba-bd0e-1853b47547b6', '441235747442');
+        this.oneSignal.startInit('e63df6ae-d064-4e82-881d-7875aa7304ea', '441235747442');
 
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
 
@@ -105,7 +105,7 @@ export class AppComponent {
             let msg = data.payload.body;
             let title = data.payload.title;
             let additionalData = data.payload.additionalData;
-            this.showAlert(title, msg, additionalData.task);
+            this.showAlert(title, msg, additionalData);
         });
 
         // Get FCMToken and UserId
@@ -114,13 +114,15 @@ export class AppComponent {
             localStorage.setItem('fcmUserId', data.userId)
         })
 
+        this.oneSignal.sendTag('group','2');
+
         // Notification was really clicked/opened
         this.oneSignal.handleNotificationOpened().subscribe(data => {
             // Just a note that the data is a different place here!
             console.log(data)
             let additionalData = data.notification.payload.additionalData;
 
-            this.showAlert('Notification opened', 'You already read this before', additionalData.task);
+            this.showAlert('Notification opened', 'You already read this before', additionalData);
         });
 
         this.oneSignal.endInit();
