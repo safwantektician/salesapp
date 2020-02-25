@@ -96,7 +96,9 @@
       "onesignal-cordova-plugin": {},
       "cordova-plugin-foreground-service": {},
       "cordova-plugin-background-mode": {},
-      "cordova-plugin-advanced-http": {},
+      "cordova-plugin-advanced-http": {
+        "OKHTTP_VERSION": "3.10.0"
+      },
       "cordova-plugin-vibration": {}
     },
     "platforms": [

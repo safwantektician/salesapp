@@ -9,7 +9,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { Socket } from 'ngx-socket-io';
-
+import { SocketService } from './api/socket.service'
 
 declare var cordova:any
 
@@ -73,7 +73,8 @@ export class AppComponent {
     public vibration: Vibration,
     private login: LoginService,
     private router: Router,
-    private socket: Socket
+    private socket: Socket,
+    private socketService : SocketService
     ) {
 
 
@@ -101,22 +102,25 @@ export class AppComponent {
         });
 
         this.events.subscribe('loginSuccess', (data) => {
+        // Get testspace lead
+            this.socketService.getLeadList()
+
           //console.log(data.userInfo.data.access_token);
-          console.log(data);
-          this.socket.connect();
+        //   console.log(data);
+        //   this.socket.connect();
 
-          this.socket.on('connect', async(data)=> {
-              console.log('connected from client')
-          });
-          this.socket.on('error', async(data) => {
-              console.log(data)
-          });
+        //   this.socket.on('connect', async(data)=> {
+        //       console.log('connected from client')
+        //   });
+        //   this.socket.on('error', async(data) => {
+        //       console.log(data)
+        //   });
 
-          this.socket.emit('lead-list', {resp: 'team'})
+        //   this.socket.emit('lead-list', {resp: 'team'})
 
-          this.socket.on('lead-list-responce', async (data) => {
-              console.log(data)
-          })
+        //   this.socket.on('lead-list-responce', async (data) => {
+        //       console.log(data)
+        //   })
 
         });
         //socket.init();
@@ -200,42 +204,42 @@ export class AppComponent {
 }
 
 
-var socket = {
-    _socket: null,
+// var socket = {
+//     _socket: null,
 
-    init: function() {
-        if (!window.hasOwnProperty('WebSocket'))
-            return;
+//     init: function() {
+//         if (!window.hasOwnProperty('WebSocket'))
+//             return;
 
-        this._socket = new WebSocket('wss://echo.websocket.org');
+//         this._socket = new WebSocket('wss://echo.websocket.org');
 
-        this._socket.onopen    = function(evt) { socket.onOpen(evt); };
-        this._socket.onclose   = function(evt) { socket.onClose(evt); };
-        this._socket.onmessage = function(evt) { socket.onMessage(evt); };
-        this._socket.onerror   = function(evt) { socket.onError(evt); };
-    },
+//         this._socket.onopen    = function(evt) { socket.onOpen(evt); };
+//         this._socket.onclose   = function(evt) { socket.onClose(evt); };
+//         this._socket.onmessage = function(evt) { socket.onMessage(evt); };
+//         this._socket.onerror   = function(evt) { socket.onError(evt); };
+//     },
 
-    onOpen: function(evt) {
-        console.log('CONNECTED');
-        this.doSend('background-mode plugin rocks');
-    },
+//     onOpen: function(evt) {
+//         console.log('CONNECTED');
+//         this.doSend('background-mode plugin rocks');
+//     },
 
-    onClose: function(evt) {
-        console.log('DISCONNECTED');
-    },
+//     onClose: function(evt) {
+//         console.log('DISCONNECTED');
+//     },
 
-    onMessage: function(evt) {
-        console.log('RECEIVED: ' + evt.data);
-    },
+//     onMessage: function(evt) {
+//         console.log('RECEIVED: ' + evt.data);
+//     },
 
-    onError: function(evt) {
-        console.log('ERROR: ' + evt.data);
-    },
+//     onError: function(evt) {
+//         console.log('ERROR: ' + evt.data);
+//     },
 
-    doSend: function(message) {
-        if (this._socket) {
-            console.log('SENT: ' + message);
-            this._socket.send(message);
-        }
-    }
-};
+//     doSend: function(message) {
+//         if (this._socket) {
+//             console.log('SENT: ' + message);
+//             this._socket.send(message);
+//         }
+//     }
+// };

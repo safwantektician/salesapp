@@ -18,7 +18,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SocketService } from './api/socket.service'
 
-const config: SocketIoConfig = { url: 'http://35.240.205.140:7000/testspace', options: { autoConnect : true } };
+const config: SocketIoConfig = { url: 'http://35.240.182.194:7000/testspace', options: { autoConnect : true } };
 
 @NgModule({
   declarations: [AppComponent],
