@@ -103,7 +103,7 @@ export class AppComponent {
         this.events.subscribe('loginSuccess', (data) => {
         // Get testspace lead
             this.socketService.connect()
-            this.socketService.getLeadList()
+            console.log(this.socketService.getLeadList());
 
           //console.log(data.userInfo.data.access_token);
         //   console.log(data);

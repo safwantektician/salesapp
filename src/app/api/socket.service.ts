@@ -46,6 +46,7 @@ export class SocketService{
       this.socket.emit('lead-list')
 
       this.socket.on('lead-list-response', (data) => {
+        console.log(data);
         return data;
       })
     }
