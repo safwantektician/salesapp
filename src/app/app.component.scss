@@ -5,15 +5,15 @@ ion-split-pane{
         ion-content{            
             --background: #0D167E !important; 
             .side_profile {
-                /* padding-top:80px; */
+                padding-top:30px;
                 /* margin-bottom:50px; */
                 h3 {
                     color:#fff;
                 }
             }
-            ion-list-header{ 
+            ion-list-header{
                 --background: #0D167E !important;
-                --color: #FFFFFF !important;   
+                --color: #FFFFFF !important;
             }
             ion-item{
                 --background: #0D167E !important;

@@ -62,16 +62,13 @@ export class AppComponent {
         private backgroundMode: BackgroundMode
     ) {
         
-
         this.backgroundMode.enable();
         this.backgroundMode.excludeFromTaskList();
         // this.backgroundMode.overrideBackButton();
         // this.backgroundMode.setDefaults({silent: true});
-
         // cordova.plugins.backgroundMode.on('activate', function(){
         //     console.log("hai")
         // })
-
         // this.backgroundMode.onactivate
 
         this.initializeApp();
@@ -84,8 +81,6 @@ export class AppComponent {
             this.setupPush()
         });
     }
-
-
     setupPush() {
         // I recommend to put these into your environment.ts
         this.oneSignal.startInit('7725e010-fd6c-4eba-bd0e-1853b47547b6', '441235747442');
@@ -118,11 +113,8 @@ export class AppComponent {
 
             this.showAlert('Notification opened', 'You already read this before', additionalData.task);
         });
-
         this.oneSignal.endInit();
     }
-
-
     async showAlert(title, msg, task) {
         const alert = await this.alertCtrl.create({
             header: title,
@@ -138,4 +130,58 @@ export class AppComponent {
         })
         alert.present();
     }
+    async presentAlertPrompt() {
+        const alert = await this.alertCtrl.create({
+          header: 'Do Not Disturb',
+          inputs: [
+            {
+              name: 'checkbox3',
+              type: 'checkbox',
+              label: '5 Minutes',
+              value: 'value3'
+            },
+            {
+              name: 'checkbox4',
+              type: 'checkbox',
+              label: '10 Minutes',
+              value: 'value4'
+            },
+            {
+              name: 'checkbox5',
+              type: 'checkbox',
+              label: '15 Minutes',
+              value: 'value5'
+            },
+            /* {
+              name: 'reason_dnd',
+              type: 'textarea',
+              placeholder: 'Reason'
+            },
+            {
+              name: 'minutes_dnd',
+              type: 'select'
+            }*/
+          ], 
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {
+                console.log('Confirm Cancel');
+              }
+            }, {
+              text: 'Set Now',
+              handler: () => {
+                console.log('Confirm Ok');
+              }
+            }
+          ]
+        });
+      
+        await alert.present();
+        let result = await alert.onDidDismiss();
+        console.log(result);
+        
+      }
 }
