@@ -15,11 +15,6 @@ import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { IonicStorageModule } from '@ionic/storage';
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { SocketService } from './api/socket.service'
-
-const config: SocketIoConfig = { url: 'http://35.240.182.194:7000/testspace', options: { autoConnect : true } };
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,7 +23,6 @@ const config: SocketIoConfig = { url: 'http://35.240.182.194:7000/testspace', op
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
-    SocketIoModule.forRoot(config)
   ],
   providers: [
     StatusBar,
@@ -39,7 +33,6 @@ const config: SocketIoConfig = { url: 'http://35.240.182.194:7000/testspace', op
     Vibration,
     OneSignal,
     BackgroundMode,
-    SocketService
   ],
   bootstrap: [AppComponent]
 })

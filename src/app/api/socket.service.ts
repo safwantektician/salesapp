@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { LoginService } from './login.service';
 // import { Storage } from '@ionic/storage';
+import * as io from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,27 @@ export class SocketService{
 //   ngOnInit() {
 //   }
 
+    private socket: any;
+
     constructor(
-      private socket: Socket
+      private login: LoginService
+      //private socket: Socket
     ){}
+
+    connect()
+    {
+      const auth = this.login.getUserDetails();
+      console.log(auth);
+      this.socket = io.connect('http://35.240.182.194:7000/'+auth.instance, {
+          query: `token=`+auth.access_token
+      })
+    }
 
     getLeadList(){
       this.socket.emit('lead-list')
 
       this.socket.on('lead-list-response', (data) => {
-        console.log(data)
+        return data;
       })
     }
 
