@@ -29,3 +29,10 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+package-lock.json.orig
+package-lock_BACKUP_5779.json
+package-lock_BASE_5779.json
+package-lock_LOCAL_5779.json
+package-lock_REMOTE_5779.json
+package.json.orig
+src/app/app.component.ts.orig

@@ -8,7 +8,7 @@ import { LoginService } from './api/login.service'
 import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { Socket } from 'ngx-socket-io';
+//import { Socket } from 'ngx-socket-io';
 import { SocketService } from './api/socket.service'
 
 declare var cordova:any
