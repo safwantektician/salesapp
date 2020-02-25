@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HTTP } from '@ionic-native/http/ngx';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,10 @@ import { HTTP } from '@ionic-native/http/ngx';
 export class LoginService {
 
   isLoggedIn: boolean = false;
-  apiUrl: string = 'http://35.240.205.140:7000';
+  apiUrl: string = 'http://35.240.182.194:7000';
   authUser: any = [];
 
-  constructor(private http: HTTP) { }
+  constructor(private http: HTTP, private storage: Storage) { }
 
   doLogin(url, param={}, headers={})
   {
@@ -23,7 +24,9 @@ export class LoginService {
         let results = JSON.parse(data.data);
         this.isLoggedIn = true;
         this.authUser = results.data;
-        observer.next(results);
+        this.storage.set('authUser', this.authUser).then((response) => {
+          observer.next(results);
+        });
   //      observer.complete();
       }).catch(error => {
       //  console.log(param);
@@ -48,7 +51,21 @@ export class LoginService {
 
   getUserDetails()
   {
+    this.storage.get('authUser').then((response) => {
+      if (response) {
+        this.authUser = response
+      }
+    });
     return this.authUser;
+  }
+
+  DoLogout()
+  {
+    this.storage.remove('authUser').then(() => {
+      this.isLoggedIn = false;
+      this.authUser = [];
+    });
+    return true;
   }
 
 }

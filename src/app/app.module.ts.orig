@@ -8,17 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+<<<<<<< .merge_file_BFCGsV
 import { HTTP } from '@ionic-native/http/ngx';
 import { LoginService } from './api/login.service'
-import { Vibration } from '@ionic-native/vibration/ngx';
-import { OneSignal } from '@ionic-native/onesignal/ngx'
+
+
+=======
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
-import { IonicStorageModule } from '@ionic/storage';
-
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { SocketService } from './api/socket.service'
-
-const config: SocketIoConfig = { url: 'http://35.240.205.140:7000/testspace', options: { autoConnect : true } };
+import { HTTP } from '@ionic-native/http/ngx'
+>>>>>>> .merge_file_pC3tCB
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,20 +25,21 @@ const config: SocketIoConfig = { url: 'http://35.240.205.140:7000/testspace', op
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule,
-    IonicStorageModule.forRoot(),
-    SocketIoModule.forRoot(config)
+    AppRoutingModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+<<<<<<< .merge_file_BFCGsV
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     LoginService,
-    HTTP,
-    Vibration,
+    HTTP
+=======
     OneSignal,
     BackgroundMode,
-    SocketService
+    HTTP,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+>>>>>>> .merge_file_pC3tCB
   ],
   bootstrap: [AppComponent]
 })

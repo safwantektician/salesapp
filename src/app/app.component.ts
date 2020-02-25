@@ -8,8 +8,11 @@ import { LoginService } from './api/login.service'
 import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { Socket } from 'ngx-socket-io';
+
 
 declare var cordova:any
+
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',
@@ -67,7 +70,10 @@ export class AppComponent {
         private backgroundMode: BackgroundMode,
     public menuCtrl: MenuController,
     public events: Events,
-    public vibration: Vibration
+    public vibration: Vibration,
+    private login: LoginService,
+    private router: Router,
+    private socket: Socket
     ) {
 
 
@@ -93,6 +99,27 @@ export class AppComponent {
                   }, 10000);
                 }
         });
+
+        this.events.subscribe('loginSuccess', (data) => {
+          //console.log(data.userInfo.data.access_token);
+          console.log(data);
+          this.socket.connect();
+
+          this.socket.on('connect', async(data)=> {
+              console.log('connected from client')
+          });
+          this.socket.on('error', async(data) => {
+              console.log(data)
+          });
+
+          this.socket.emit('lead-list', {resp: 'team'})
+
+          this.socket.on('lead-list-responce', async (data) => {
+              console.log(data)
+          })
+
+        });
+        //socket.init();
     }
 
     initializeApp() {
@@ -100,7 +127,7 @@ export class AppComponent {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
             this.setupPush();
-      this.menuCtrl.enable(false);
+            this.menuCtrl.enable(false);
         });
     }
 
@@ -108,6 +135,13 @@ export class AppComponent {
     {
         this.vibration.vibrate(0);
         this.events.publish('leadComing', { leadComing: false, leadData: {} });
+    }
+
+    logout()
+    {
+      this.login.DoLogout();
+      this.menuCtrl.enable(false);
+      this.router.navigate(['/login']);
     }
 
 
@@ -164,3 +198,44 @@ export class AppComponent {
         alert.present();
     }
 }
+
+
+var socket = {
+    _socket: null,
+
+    init: function() {
+        if (!window.hasOwnProperty('WebSocket'))
+            return;
+
+        this._socket = new WebSocket('wss://echo.websocket.org');
+
+        this._socket.onopen    = function(evt) { socket.onOpen(evt); };
+        this._socket.onclose   = function(evt) { socket.onClose(evt); };
+        this._socket.onmessage = function(evt) { socket.onMessage(evt); };
+        this._socket.onerror   = function(evt) { socket.onError(evt); };
+    },
+
+    onOpen: function(evt) {
+        console.log('CONNECTED');
+        this.doSend('background-mode plugin rocks');
+    },
+
+    onClose: function(evt) {
+        console.log('DISCONNECTED');
+    },
+
+    onMessage: function(evt) {
+        console.log('RECEIVED: ' + evt.data);
+    },
+
+    onError: function(evt) {
+        console.log('ERROR: ' + evt.data);
+    },
+
+    doSend: function(message) {
+        if (this._socket) {
+            console.log('SENT: ' + message);
+            this._socket.send(message);
+        }
+    }
+};
