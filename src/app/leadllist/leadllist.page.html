@@ -11,85 +11,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-item lines="none" routerLink="/leaddetails">
+  <ion-item lines="none" (click)="onClick(data)" *ngFor="let data of leadData">
     <ion-avatar slot="start">
       <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
     </ion-avatar>
     <ion-label>
-      <h2>Mark Adam</h2>
-      <p>Bandar Baru Setia Awan Perdana</p>
+      <h2>{{data.customer}}</h2>
+      <p>{{data.company_name}}</p>
     </ion-label>
     <ion-chip slot="end" color="tertiary">Follow Up</ion-chip>
-  </ion-item>
-  <ion-item lines="none" routerLink="/leaddetails">
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>
-      <h2>Zaya Ariffin</h2>
-      <p>Setia Residen</p>
-    </ion-label>
-    <ion-chip slot="end" color="warning">Call Back</ion-chip>
-  </ion-item>
-  <ion-item lines="none" routerLink="/leaddetails">
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>
-      <h2>Mark Adam</h2>
-      <p>Bandar Baru Setia Awan Perdana</p>
-    </ion-label>
-    <ion-chip slot="end" color="success">Paid Deposit</ion-chip>
-  </ion-item>
-  <ion-item lines="none" routerLink="/leaddetails">
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>
-      <h2>Mark Adam</h2>
-      <p>Bandar Baru Setia Awan Perdana</p>
-    </ion-label>
-    <ion-chip slot="end" color="danger">Not Interested</ion-chip>
-  </ion-item>
-  <ion-item lines="none" routerLink="/leaddetails">
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>
-      <h2>Mark Adam</h2>
-      <p>Bandar Baru Setia Awan Perdana</p>
-    </ion-label>
-    <ion-chip slot="end" color="tertiary">Follow Up</ion-chip>
-  </ion-item>
-  <ion-item lines="none" routerLink="/leaddetails">
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>
-      <h2>Zaya Ariffin</h2>
-      <p>Setia Residen</p>
-    </ion-label>
-    <ion-chip slot="end" color="warning">Call Back</ion-chip>
-  </ion-item>
-  <ion-item lines="none" routerLink="/leaddetails">
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>
-      <h2>Mark Adam</h2>
-      <p>Bandar Baru Setia Awan Perdana</p>
-    </ion-label>
-    <ion-chip slot="end" color="success">Paid Deposit</ion-chip>
-  </ion-item>
-  <ion-item lines="none" routerLink="/leaddetails">
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>
-      <h2>Mark Adam</h2>
-      <p>Bandar Baru Setia Awan Perdana</p>
-    </ion-label>
-    <ion-chip slot="end" color="danger">Not Interested</ion-chip>
   </ion-item>
 
 

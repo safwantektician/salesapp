@@ -14,6 +14,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { IonicStorageModule } from '@ionic/storage';
+import { SocketService } from './api/socket.service'
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import { IonicStorageModule } from '@ionic/storage';
     Vibration,
     OneSignal,
     BackgroundMode,
+    SocketService,
   ],
   bootstrap: [AppComponent]
 })

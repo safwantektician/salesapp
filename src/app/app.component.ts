@@ -102,8 +102,13 @@ export class AppComponent {
 
         this.events.subscribe('loginSuccess', (data) => {
         // Get testspace lead
-            this.socketService.connect()
-            console.log(this.socketService.getLeadList());
+            // this.socketService.connect()
+            this.socketService.connectSocket()
+            this.socketService.getLeadPush().subscribe(data => {
+                console.log(data)
+                this.router.navigate(['/leadalert',{data}])
+            })
+            // console.log(this.socketService.getLeadList());
 
           //console.log(data.userInfo.data.access_token);
         //   console.log(data);

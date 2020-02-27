@@ -18,8 +18,8 @@ export class LoginPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private login: LoginService, private router: Router, public menuCtrl: MenuController, public events: Events, public lead: LeadService) {
     this.candidate = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: ['arvindder@tektician.com', Validators.required],
+      password: ['test_123', Validators.required],
     });
     //this.disableButton = this.candidate.valid;
    }
@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
       if(result.success)
       {
         setTimeout( () => {
-          this.events.publish('leadComing', { leadComing: true, leadData: this.lead.getLeadDetail()});
+          // this.events.publish('leadComing', { leadComing: true, leadData: this.lead.getLeadDetail()});
         }, 10000);
         //this.events.publish('menuCtrl', {display: true});
         this.events.publish('loginSuccess', {userInfo: result});

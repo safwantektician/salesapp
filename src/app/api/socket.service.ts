@@ -1,57 +1,104 @@
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { LoginService } from './login.service';
-// import { Storage } from '@ionic/storage';
+import { Observable, observable } from 'rxjs';
+
 import * as io from 'socket.io-client';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class SocketService{
+// import { environment } from './../../../environments/environment';
 
-//   public user: any;
+// /* importing interfaces starts */
+// import { Auth } from './../../interfaces/auth';
+// import { ChatListResponse } from './../../interfaces/chat-list-response';
+// import { MessageSocketEvent } from './../../interfaces/message-socket-event';
+// import { Message } from './../../interfaces/message';
+/* importing interfaces ends */
 
+@Injectable()
+export class SocketService {
 
-//   constructor(private login: LoginService) {
-//     //const token = this.user.data.access_token;
-//     super({ url: 'http://35.240.205.140:7000/testspace', options: {} });
-// /*
-//     super({ url: 'http://35.240.182.194:7000/dev.tektician.com:32006', options: {
-//         query: 'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoiYXJ2aW5kZGVyQHRla3RpY2lhbi5jb20iLCJpbnN0YW5jZSI6ImRldi50ZWt0aWNpYW4uY29tOjMyMDA2IiwidGVhbSI6InRlYW0gZ2FsYWN0aWMiLCJpYXQiOjE1ODIxODMxNjgsImV4cCI6MTY2ODU4MzE2OH0.RzmnGvpfc5a5ZeAmtWpEHXHEkwflMe4DTv0waA9zX8I'
-//     } });
-//     */
-//     console.log(window.localStorage.getItem('authUser'));
-//   }
+	private BASE_URL = 'http://35.240.182.194:7000/dev.tektician.com:32006';
+	public socket;
 
-//   ngOnInit() {
-//   }
+	constructor() { }
 
-    private socket: any;
+	/*
+	* Method to connect the users to socket
+	*/
+	connectSocket(): void {
+		this.socket = io(this.BASE_URL, { query: `token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoiYXJ2aW5kZGVyQHRla3RpY2lhbi5jb20iLCJpbnN0YW5jZSI6ImRldi50ZWt0aWNpYW4uY29tOjMyMDA2IiwidGVhbSI6InRlYW0gZ2FsYWN0aWMiLCJpYXQiOjE1ODE5MTEyOTQsImV4cCI6MTY2ODMxMTI5NH0.29Yf4BVKJSDXb1KKFKZG1UJ6SNcw0Et-MZVsNAbV-0k` });
+		console.log(this.socket)
+	}
 
-    constructor(
-      private login: LoginService
-      //private socket: Socket
-    ){}
+	getLeadList(): Observable<any> {
+		this.socket.emit('lead-list');
+		return new Observable(observer => {
+			this.socket.on('lead-list-response', (data: any) => {
+				observer.next(data);
+			});
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
+		});
+	}
 
-    connect()
-    {
-      const auth = this.login.getUserDetails();
-      console.log(auth);
-      this.socket = io.connect('http://35.240.182.194:7000/'+auth.instance, {
-          query: `token=`+auth.access_token
-      })
-    }
+	getLeadPush(): Observable<any>{
+		return new Observable(observer => {
+			this.socket.on('leads-push',(data)=>{
+				observer.next(data);
+			})
+		})
+	}
 
-    getLeadList(){
-      this.socket.emit('lead-list')
+	// /*
+	// * Method to emit the logout event.
+	// */
+	// logout(userId: { userId: string}): Observable<Auth> {
+	// 	this.socket.emit('logout', userId);
+	// 	return new Observable(observer => {
+	// 		this.socket.on('logout-response', (data: Auth) => {
+	// 			observer.next(data);
+	// 		});
+	// 		return () => {
+	// 			this.socket.disconnect();
+	// 		};
+	// 	});
+	// }
 
-      this.socket.on('lead-list-response', (data) => {
-        console.log(data);
-        return data;
-      })
-    }
+	// /*
+	// * Method to receive chat-list-response event.
+	// */
+	// getChatList(userId: string = null): Observable<ChatListResponse> {
+	// 	if (userId !== null) {
+	// 		this.socket.emit('chat-list', { userId: userId });
+	// 	}
+	// 	return new Observable(observer => {
+	// 		this.socket.on('chat-list-response', (data: ChatListResponse) => {
+	// 			observer.next(data);
+	// 		});
+	// 		return () => {
+	// 			this.socket.disconnect();
+	// 		};
+	// 	});
+	// }
 
-    // sendMessage(msg: string){
-    //   thi
-    // }
+	// /*
+	// * Method to emit the add-messages event.
+	// */
+	// sendMessage(message: MessageSocketEvent): void {
+	// 	this.socket.emit('add-message', message);
+	// }
+
+	// /*
+	// * Method to receive add-message-response event.
+	// */
+	// receiveMessages(): Observable<Message> {
+	// 	return new Observable(observer => {
+	// 		this.socket.on('add-message-response', (data) => {
+	// 			observer.next(data);
+	// 		});
+
+	// 		return () => {
+	// 			this.socket.disconnect();
+	// 		};
+	// 	});
+	// }
 }

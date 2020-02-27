@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../api/login.service'
-
+import { SocketService } from '../api/socket.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-leadllist',
@@ -10,11 +11,20 @@ import { LoginService } from '../api/login.service'
 export class LeadllistPage implements OnInit {
 
   public user: any;
+  public leadData: any;
 
-  constructor(private login: LoginService) { }
+  constructor(private login: LoginService, private socket: SocketService, private route: Router) {
+    this.socket.getLeadList().subscribe(data => {
+      this.leadData = JSON.parse(data)
+    })
+  }
 
   ngOnInit() {
     this.user = this.login.getUserDetails();
+  }
+
+  onClick(data){
+    this.route.navigate(['/leaddetails',data])
   }
 
 }

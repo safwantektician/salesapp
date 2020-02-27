@@ -12,8 +12,8 @@
       <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
     </ion-avatar>
     <ion-label>
-      <h2>Mark Adam</h2>
-      <p>Bandar Baru Setia Awan Perdana</p>
+      <h2>{{data.customer}}</h2>
+      <p>{{data.company_name}}</p>
       <ion-chip color="success">
         <ion-label>Follow Up</ion-label>
       </ion-chip>
@@ -34,21 +34,21 @@
       <ion-icon name="mail" slot="start"></ion-icon>
       <ion-label>
         <h2>Email Address</h2>
-        <p>mark.adam@gmail.com</p>
+        <p>{{data.email_id}}</p>
       </ion-label>
     </ion-item>
     <ion-item lines="none">
       <ion-icon name="disc" slot="start"></ion-icon>
       <ion-label>
         <h2>Lead Source</h2>
-        <p>Early Bird Google Ads 1</p>
+        <p>{{data.source}}</p>
       </ion-label>
     </ion-item>
     <ion-item lines="none">
       <ion-icon name="person" slot="start"></ion-icon>
       <ion-label>
         <h2>Sales Person</h2>
-        <p>Bennie Lee</p>
+        <p>{{data.lead_name}}</p>
       </ion-label>
     </ion-item>
     
