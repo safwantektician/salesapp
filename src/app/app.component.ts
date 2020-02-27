@@ -105,8 +105,16 @@ export class AppComponent {
             // this.socketService.connect()
             this.socketService.connectSocket()
             this.socketService.getLeadPush().subscribe(data => {
-                console.log(data)
-                this.router.navigate(['/leadalert',{data}])
+              console.log(data);
+                this.leadComing = true;
+                this.leadData = JSON.parse(data)[0];
+                if(this.leadComing){
+                  this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
+                  setTimeout( () => {
+                    this.leadClose();
+                  }, 10000);
+                }
+                //this.router.navigate(['/leadalert',{data}])
             })
             // console.log(this.socketService.getLeadList());
 
