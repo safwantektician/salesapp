@@ -103,7 +103,7 @@ export class AppComponent {
         this.events.subscribe('loginSuccess', (data) => {
         // Get testspace lead
             // this.socketService.connect()
-            this.socketService.connectSocket()
+            this.socketService.connectSocket(data)
             this.socketService.getLeadPush().subscribe(data => {
               console.log(data);
                 this.leadComing = true;
@@ -112,7 +112,7 @@ export class AppComponent {
                   this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
                   setTimeout( () => {
                     this.leadClose();
-                  }, 10000);
+                  }, 90000);
                 }
                 //this.router.navigate(['/leadalert',{data}])
             })

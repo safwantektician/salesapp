@@ -15,7 +15,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class SocketService {
 
-	private BASE_URL = 'http://35.240.182.194:7000/dev.tektician.com:32006';
+	private BASE_URL = 'http://35.240.182.194:8000/dev.tektician.com:32006';
 	public socket;
 
 	constructor() { }
@@ -23,9 +23,10 @@ export class SocketService {
 	/*
 	* Method to connect the users to socket
 	*/
-	connectSocket(): void {
-		this.socket = io(this.BASE_URL, { query: `token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoiYXJ2aW5kZGVyQHRla3RpY2lhbi5jb20iLCJpbnN0YW5jZSI6ImRldi50ZWt0aWNpYW4uY29tOjMyMDA2IiwidGVhbSI6InRlYW0gZ2FsYWN0aWMiLCJpYXQiOjE1ODE5MTEyOTQsImV4cCI6MTY2ODMxMTI5NH0.29Yf4BVKJSDXb1KKFKZG1UJ6SNcw0Et-MZVsNAbV-0k` });
+	connectSocket(token): void {
+		this.socket = io(this.BASE_URL, { query: `token=${token.userInfo.data.access_token}` });
 		console.log(this.socket)
+		// console.log(token.userInfo.data.access_token)
 	}
 
 	getLeadList(): Observable<any> {
@@ -47,6 +48,8 @@ export class SocketService {
 			})
 		})
 	}
+
+
 
 	// /*
 	// * Method to emit the logout event.
