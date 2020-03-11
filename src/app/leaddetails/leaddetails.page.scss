@@ -93,22 +93,28 @@ ion-footer {
         border-top: 1px solid #ccc;
         padding: 0 5px 0 5px;
         ion-icon {
-            color:#fff;
+            color:#000;
             font-size: 30px;
-            padding: 15px;
+            padding: 10px;
         }
         .circle {
-            width: 60px;
-            height: 60px;
+            width: 51px;
+            height: 51px;
             border-radius: 30px;
             display: block;
             margin: 0 auto;
         }
         .circle.orange {
-            background-color:#FEA41B ;
+            background-color:#FEA41B;
+            ion-icon {
+                color:#fff;
+            }
         }
         .circle.cyan {
-            background-color:#0090AE ;
+            background-color:#0090AE;
+            ion-icon {
+                color:#fff;
+            }
         }
         ion-list, .list-md {
             --background:transparent;
@@ -122,16 +128,17 @@ ion-footer {
         ion-item-sliding {
             background: #B6F5BF;
             border-radius: 30px;
-            -webkit-box-shadow: -1px 14px 19px -12px rgba(0,0,0,0.32);
-            -moz-box-shadow: -1px 14px 19px -12px rgba(0,0,0,0.32);
-            box-shadow: -1px 14px 19px -12px rgba(0,0,0,0.32);
+            -webkit-box-shadow: -1px 5px 19px -12px rgba(0,0,0,0.32);
+            -moz-box-shadow: -1px 5px 19px -12px rgba(0,0,0,0.32);
+            box-shadow: -1px 5px 19px -12px rgba(0,0,0,0.32);
             ion-label {
                 text-align: center;
                 line-height: normal;
-                color:#1A7200;
+                color:#000;
                 text-shadow: 1px 0px 0px #FFFFFF;
-                font-size: 16px;
-                margin-left: -20px;
+                font-size: 18px;
+                margin-left: -18px;
+                font-weight: 300;
             }
             ion-icon {
                 padding-right:0; margin-right:0;
@@ -139,18 +146,21 @@ ion-footer {
                 --color: #1A7200;
                 opacity: 1;
                 padding: 0;
-
             }
             ion-item-option {
+                width: 100%;
                 --background: #1A7200;
                 --color:#fff;
                 ion-icon {
-                --color:#fff !important;
-                --background: #fff !important;
-                padding-right: 15px;
-                width: 100%;
+                    color:#fff;
+                    padding-right: 15px;
                 }
             }
+        }
+    }
+    .item-sliding-active-slide {
+        ion-label {
+            display: none;
         }
     }
 }

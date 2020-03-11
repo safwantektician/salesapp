@@ -2,11 +2,14 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <div class="side_profile ion-padding">
-          <ion-avatar>
+        <div class="side_profile">
+          <!-- <ion-avatar>
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-          </ion-avatar>
-          <h3>Sales Agent</h3>
+          </ion-avatar> -->
+          <ion-item>
+            <ion-label>Safwan Rahman</ion-label>
+            <ion-toggle ionChange="presentAlertPrompt()" checked color="success"></ion-toggle>
+          </ion-item>
         </div><!-- /side_profile -->
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
