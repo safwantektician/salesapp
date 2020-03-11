@@ -3,15 +3,24 @@ ion-content {
     --background:url('../../assets/sales_mobile_bg.jpg');
     --color:#fff;
     .title_header {
-        margin-top:80px;
+        margin-top:30px;
         h4 {
             font-weight: normal;
             color:#A4E9FF;
             font-size: 23px;
         }
         h2 {
-            font-size: 40px;
+            font-size: 15px;
             margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        img {
+            display:block;
+            margin: 0 auto;
+            width: 150px;
         }
     }
     ion-item {
@@ -27,7 +36,7 @@ ion-content {
         }
     }
     .login_form {
-        margin-top: 100px;
+        margin-top: 30px;
         ion-button {
             display:block;
             --background: #FEA41B;
