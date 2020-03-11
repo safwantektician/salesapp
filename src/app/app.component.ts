@@ -90,14 +90,15 @@ export class AppComponent {
 
         this.initializeApp();
         this.events.subscribe('leadComing', (data) => {
-                this.leadComing = data.leadComing;
-                this.leadData = data.leadData;
-                if(this.leadComing){
-                  this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
-                  setTimeout( () => {
-                    this.leadClose();
-                  }, 10000);
-                }
+                // this.leadComing = data.leadComing;
+                // this.leadData = data.leadData;
+                // if(this.leadComing){
+                //   this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
+                //   setTimeout( () => {
+                //     this.leadClose();
+                //   }, 10000);
+                // }
+                this.router.navigate(['/leadalert',{data}])
         });
 
         this.events.subscribe('loginSuccess', (data) => {
@@ -105,16 +106,16 @@ export class AppComponent {
             // this.socketService.connect()
             this.socketService.connectSocket(data)
             this.socketService.getLeadPush().subscribe(data => {
-              console.log(data);
-                this.leadComing = true;
-                this.leadData = JSON.parse(data)[0];
-                if(this.leadComing){
-                  this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
-                  setTimeout( () => {
-                    this.leadClose();
-                  }, 90000);
-                }
-                //this.router.navigate(['/leadalert',{data}])
+                console.log(data);
+                // this.leadComing = true;
+                // this.leadData = JSON.parse(data)[0];
+                // if(this.leadComing){
+                //   this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
+                //   setTimeout( () => {
+                //     this.leadClose();
+                //   }, 90000);
+                // }
+                this.router.navigate(['/leadalert',{data}])
             })
             // console.log(this.socketService.getLeadList());
 
@@ -164,7 +165,7 @@ export class AppComponent {
 
     setupPush() {
         // I recommend to put these into your environment.ts
-        this.oneSignal.startInit('7725e010-fd6c-4eba-bd0e-1853b47547b6', '441235747442');
+        this.oneSignal.startInit('a00c5f60-a0da-4d0a-a42f-97b7b08551cf', '486774138767');
 
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
 

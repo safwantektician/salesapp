@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, observable } from 'rxjs';
+import { Observable, observable, BehaviorSubject } from 'rxjs';
 
 import * as io from 'socket.io-client';
 
@@ -41,15 +41,75 @@ export class SocketService {
 		});
 	}
 
+	// Get leads push
 	getLeadPush(): Observable<any>{
 		return new Observable(observer => {
 			this.socket.on('leads-push',(data)=>{
 				observer.next(data);
 			})
+			
+			// Close the connection to avoid multiple data entry
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
 		})
 	}
 
+	// Listener for canceling leads 'MIDWAY' if the leads are accepted by others
+	cancelLeads(): Observable<any>{
+		return new Observable(observable => {
+			this.socket.on('leads-awarded-cancel-others', (data)=> {
+				console.log(data)
+				observable.next(data)
+				// observable.complete()
+			})
 
+			// Close the connection to avoid multiple data entry
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
+		})
+	}
+
+	// Accept Leads - returns if accepted or declined
+	acceptLeads(leadDetails:Object): Observable<any>{
+		
+		this.socket.emit('leads-accepted', leadDetails)
+
+		return new Observable(observable => {
+			// let toReturn = new BehaviorSubject();
+			this.socket.on('leads-awarding-status', (data) => {
+				// console.log(data)
+				observable.next(data)
+				observable.complete()
+			})
+
+			// Close the connection to avoid multiple data entry
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
+		})
+	}
+
+	// Send data after call ended to server : returns promise
+	callEnded(leadDetails: Object): Promise<any>{
+		return new Promise(async (resolve,reject) => {
+			try{
+				// Emit to socket. 
+				this.socket.emit('leads-after-call', leadDetails, (ack) => {
+					// resolve acknowlegement
+					resolve(ack)
+				})
+				return
+			} catch(error) {
+				// Handle error - Please add you error processing here
+				reject(false)
+				return
+			}
+			
+		})
+		
+	}
 
 	// /*
 	// * Method to emit the logout event.
