@@ -10,6 +10,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { Vibration } from '@ionic-native/vibration/ngx';
 //import { Socket } from 'ngx-socket-io';
 import { SocketService } from './api/socket.service'
+import { HttpService } from '../service/http.service'
 
 declare var cordova: any
 
@@ -73,7 +74,8 @@ export class AppComponent {
 		public vibration: Vibration,
 		private login: LoginService,
 		private router: Router,
-		private socketService: SocketService
+		private socketService: SocketService,
+		private http: HttpService
 	) {
 		this.backgroundMode.enable();
 		this.backgroundMode.excludeFromTaskList();
@@ -101,6 +103,9 @@ export class AppComponent {
 			// Get testspace lead
 			// this.socketService.connect()
 			this.socketService.connectSocket(data)
+			// Save user email on localstorage
+			localStorage.setItem('email',data.userInfo.data.email)
+			this.http.setDeviceDetails()
 			this.socketService.getLeadPush().subscribe(data => {
 				console.log(data);
 				// this.leadComing = true;

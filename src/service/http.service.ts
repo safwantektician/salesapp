@@ -11,16 +11,17 @@ export class HttpService {
         private http: HTTP
     ) { }
 
-    async getDeviceDetails(): Promise<HTTPResponse> {
-        return await this.http.get(environment.apiUrl + '/users/device/details', {}, { 'Authorization': 'bearer token' })
-    }
+    // async getDeviceDetails(): Promise<HTTPResponse> {
+    //     return await this.http.get(environment.apiUrl + '/users/device/details', {}, { 'Authorization': 'bearer token' })
+    // }
 
 
     async setDeviceDetails(): Promise<HTTPResponse> {
         let data = {
             fcmtoken: localStorage.getItem('fcmToken'),
-            fcmuserid: localStorage.getItem('fcmUserId')
+            fcmuserid: localStorage.getItem('fcmUserId'),
+            email: localStorage.getItem('email')
         }
-        return await this.http.post(environment.apiUrl + '/users/device/details', {data}, { 'Authorization': 'bearer token' })
+        return await this.http.post(environment.apiUrl + `/auth/setDeviceDetails?fcmToken=${data.fcmtoken}&fcmUserId=${data.fcmuserid}&email=${data.email}`, {}, { 'Authorization': 'bearer token' })
     }
 }

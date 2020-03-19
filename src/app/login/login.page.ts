@@ -51,9 +51,9 @@ export class LoginPage implements OnInit {
       }
       if(result.success)
       {
-        setTimeout( () => {
-          // this.events.publish('leadComing', { leadComing: true, leadData: this.lead.getLeadDetail()});
-        }, 10000);
+        // setTimeout( () => {
+        //   // this.events.publish('leadComing', { leadComing: true, leadData: this.lead.getLeadDetail()});
+        // }, 10000);
         //this.events.publish('menuCtrl', {display: true});
         this.events.publish('loginSuccess', {userInfo: result});
         this.menuCtrl.enable(true);
