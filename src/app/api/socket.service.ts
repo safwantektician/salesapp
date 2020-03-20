@@ -33,11 +33,20 @@ export class SocketService {
 		this.socket.emit('lead-list');
 		return new Observable(observer => {
 			this.socket.on('lead-list-response', (data: any) => {
+				console.log('come here');
 				observer.next(data);
 			});
 			// return () => {
 			// 	this.socket.disconnect();
 			// };
+		});
+	}
+
+	setDoNotDisturb(timer=300): Observable<any> {
+		return new Observable(observer => {
+			this.socket.emit('user-dnd',{time:timer},(ack) => {
+	    	observer.next(ack);
+			});
 		});
 	}
 
@@ -47,7 +56,7 @@ export class SocketService {
 			this.socket.on('leads-push',(data)=>{
 				observer.next(data);
 			})
-			
+
 			// Close the connection to avoid multiple data entry
 			// return () => {
 			// 	this.socket.disconnect();
@@ -73,7 +82,7 @@ export class SocketService {
 
 	// Accept Leads - returns if accepted or declined
 	acceptLeads(leadDetails:Object): Observable<any>{
-		
+
 		this.socket.emit('leads-accepted', leadDetails)
 
 		return new Observable(observable => {
@@ -95,7 +104,7 @@ export class SocketService {
 	callEnded(leadDetails: Object): Promise<any>{
 		return new Promise(async (resolve,reject) => {
 			try{
-				// Emit to socket. 
+				// Emit to socket.
 				this.socket.emit('leads-after-call', leadDetails, (ack) => {
 					// resolve acknowlegement
 					resolve(ack)
@@ -106,9 +115,9 @@ export class SocketService {
 				reject(false)
 				return
 			}
-			
+
 		})
-		
+
 	}
 
 	// /*

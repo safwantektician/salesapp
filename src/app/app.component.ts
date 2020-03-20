@@ -61,6 +61,8 @@ export class AppComponent {
 
 	public leadComing: boolean = false;
 	public leadData: any;
+	public user: any;
+	public toggleValue: boolean = false;
 
 	constructor(
 		private platform: Platform,
@@ -103,6 +105,7 @@ export class AppComponent {
 			// Get testspace lead
 			// this.socketService.connect()
 			console.log(data);
+			this.user = data.userInfo.data;
 			this.socketService.connectSocket(data)
 			// Save user email on localstorage
 			localStorage.setItem('email',data.userInfo.data.email)
@@ -213,26 +216,28 @@ export class AppComponent {
 		alert.present();
 	}
 	async presentAlertPrompt() {
+		this.toggleValue = !this.toggleValue;
+		
 		const alert = await this.alertCtrl.create({
 			header: 'Do Not Disturb',
 			inputs: [
 				{
-					name: 'checkbox3',
-					type: 'checkbox',
+					name: 'dnd',
+					type: 'radio',
 					label: '5 Minutes',
-					value: 'value3'
+					value: '300'
 				},
 				{
-					name: 'checkbox4',
-					type: 'checkbox',
+					name: 'dnd',
+					type: 'radio',
 					label: '10 Minutes',
-					value: 'value4'
+					value: '600'
 				},
 				{
-					name: 'checkbox5',
-					type: 'checkbox',
+					name: 'dnd',
+					type: 'radio',
 					label: '15 Minutes',
-					value: 'value5'
+					value: '900'
 				},
 				/* {
 				  name: 'reason_dnd',
@@ -254,16 +259,28 @@ export class AppComponent {
 					}
 				}, {
 					text: 'Set Now',
-					handler: () => {
+					handler: (data:string) => {
+						console.log(data);
 						console.log('Confirm Ok');
 					}
 				}
 			]
 		});
 
-		await alert.present();
-		let result = await alert.onDidDismiss();
-		console.log(result);
+		console.log(this.toggleValue);
+
+		if(this.toggleValue === true){
+			await alert.present();
+			let result = await alert.onDidDismiss();
+			console.log(result.data.values);
+			this.socketService.setDoNotDisturb(result.data.values).subscribe(data => {
+				console.log(data);
+			});
+		}else{
+			this.socketService.setDoNotDisturb(0).subscribe(data => {
+				console.log(data);
+			});
+		}
 
 	}
 }

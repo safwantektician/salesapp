@@ -59,7 +59,7 @@ export class LoginService {
   {
     this.storage.get('authUser').then((response) => {
       if (response) {
-        return this.authUser = response
+        this.authUser = response
       }
     });
     return this.authUser;
@@ -71,6 +71,8 @@ export class LoginService {
       this.isLoggedIn = false;
       this.authUser = [];
     });
+    localStorage.removeItem('isLogin');
+    localStorage.removeItem('authUser');
     return true;
   }
 

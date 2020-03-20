@@ -7,8 +7,8 @@
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
           </ion-avatar> -->
           <ion-item>
-            <ion-label>Safwan Rahman</ion-label>
-            <ion-toggle ionChange="presentAlertPrompt()" checked color="success"></ion-toggle>
+            <ion-label *ngIf="user">{{user.email}}</ion-label>
+            <ion-toggle (ionChange)="presentAlertPrompt()" color="success" [checked]="toggleValue"></ion-toggle>
           </ion-item>
         </div><!-- /side_profile -->
         <ion-list lines="none">
