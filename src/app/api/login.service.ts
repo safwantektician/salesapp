@@ -8,11 +8,15 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginService {
 
-  isLoggedIn: boolean = false;
+  isLoggedIn: any = false;
   apiUrl: string = 'http://35.240.182.194:8000';
   authUser: any = [];
 
-  constructor(private http: HTTP, private storage: Storage) { }
+  constructor(private http: HTTP, private storage: Storage) {
+    if(localStorage.getItem('isLogin')){
+      this.isLoggedIn = localStorage.getItem('isLogin');
+    }
+  }
 
   doLogin(url, param={}, headers={})
   {
@@ -22,9 +26,11 @@ export class LoginService {
       .then(data => {
         //console.log(data);
         let results = JSON.parse(data.data);
+        localStorage.setItem('isLogin', 'true');
         this.isLoggedIn = true;
         this.authUser = results.data;
         this.storage.set('authUser', this.authUser).then((response) => {
+          localStorage.setItem('authUser', data.data);
           observer.next(results);
         });
   //      observer.complete();
@@ -53,7 +59,7 @@ export class LoginService {
   {
     this.storage.get('authUser').then((response) => {
       if (response) {
-        this.authUser = response
+        return this.authUser = response
       }
     });
     return this.authUser;

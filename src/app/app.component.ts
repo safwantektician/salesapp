@@ -102,6 +102,7 @@ export class AppComponent {
 		this.events.subscribe('loginSuccess', (data) => {
 			// Get testspace lead
 			// this.socketService.connect()
+			console.log(data);
 			this.socketService.connectSocket(data)
 			// Save user email on localstorage
 			localStorage.setItem('email',data.userInfo.data.email)

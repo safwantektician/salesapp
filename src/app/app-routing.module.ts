@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from "./api/auth-guard.service";
+import { AuthRememberService } from "./api/auth-remember.service";
+
 
 
 const routes: Routes = [
@@ -12,6 +14,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    canActivate: [AuthRememberService]
   },
   {
     path: 'home',
