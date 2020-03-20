@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
 export class LoginService {
 
   isLoggedIn: boolean = false;
-  apiUrl: string = 'http://35.240.182.194:7000';
+  apiUrl: string = 'http://35.240.182.194:8000';
   authUser: any = [];
 
   constructor(private http: HTTP, private storage: Storage) { }

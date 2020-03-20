@@ -2,11 +2,14 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <div class="side_profile ion-padding">
-          <ion-avatar>
+        <div class="side_profile">
+          <!-- <ion-avatar>
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-          </ion-avatar>
-          <h3>Sales Agent</h3>
+          </ion-avatar> -->
+          <ion-item>
+            <ion-label>Safwan Rahman</ion-label>
+            <ion-toggle ionChange="presentAlertPrompt()" checked color="success"></ion-toggle>
+          </ion-item>
         </div><!-- /side_profile -->
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
@@ -26,11 +29,11 @@
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
-  <ion-content class="ion-padding lead_action" *ngIf="leadComing">
+  <!-- <ion-content class="ion-padding lead_action" *ngIf="leadComing">
     <div class="title_header ion-padding">
       <h4>Incoming Lead</h4>
       <h2>{{leadData.company_name}}</h2>
-    </div><!-- /title_header -->
+    </div>
     <div class="lead_info ion-padding">
 
       <div class="info_lead">
@@ -58,6 +61,6 @@
         </ion-item-sliding>
       </ion-list>
 
-    </div><!-- /login_form -->
-    </ion-content>
+    </div>
+    </ion-content> -->
 </ion-app>

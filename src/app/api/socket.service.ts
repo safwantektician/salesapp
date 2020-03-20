@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, observable } from 'rxjs';
+import { Observable, observable, BehaviorSubject } from 'rxjs';
 
 import * as io from 'socket.io-client';
 
@@ -15,7 +15,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class SocketService {
 
-	private BASE_URL = 'http://35.240.182.194:7000/dev.tektician.com:32006';
+	private BASE_URL = 'http://35.240.182.194:8000/dev.tektician.com:32006';
 	public socket;
 
 	constructor() { }
@@ -23,9 +23,10 @@ export class SocketService {
 	/*
 	* Method to connect the users to socket
 	*/
-	connectSocket(): void {
-		this.socket = io(this.BASE_URL, { query: `token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoiYXJ2aW5kZGVyQHRla3RpY2lhbi5jb20iLCJpbnN0YW5jZSI6ImRldi50ZWt0aWNpYW4uY29tOjMyMDA2IiwidGVhbSI6InRlYW0gZ2FsYWN0aWMiLCJpYXQiOjE1ODE5MTEyOTQsImV4cCI6MTY2ODMxMTI5NH0.29Yf4BVKJSDXb1KKFKZG1UJ6SNcw0Et-MZVsNAbV-0k` });
+	connectSocket(token): void {
+		this.socket = io(this.BASE_URL, { query: `token=${token.userInfo.data.access_token}` });
 		console.log(this.socket)
+		// console.log(token.userInfo.data.access_token)
 	}
 
 	getLeadList(): Observable<any> {
@@ -40,12 +41,74 @@ export class SocketService {
 		});
 	}
 
+	// Get leads push
 	getLeadPush(): Observable<any>{
 		return new Observable(observer => {
 			this.socket.on('leads-push',(data)=>{
 				observer.next(data);
 			})
+			
+			// Close the connection to avoid multiple data entry
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
 		})
+	}
+
+	// Listener for canceling leads 'MIDWAY' if the leads are accepted by others
+	cancelLeads(): Observable<any>{
+		return new Observable(observable => {
+			this.socket.on('leads-awarded-cancel-others', (data)=> {
+				console.log(data)
+				observable.next(data)
+				// observable.complete()
+			})
+
+			// Close the connection to avoid multiple data entry
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
+		})
+	}
+
+	// Accept Leads - returns if accepted or declined
+	acceptLeads(leadDetails:Object): Observable<any>{
+		
+		this.socket.emit('leads-accepted', leadDetails)
+
+		return new Observable(observable => {
+			// let toReturn = new BehaviorSubject();
+			this.socket.on('leads-awarding-status', (data) => {
+				// console.log(data)
+				observable.next(data)
+				observable.complete()
+			})
+
+			// Close the connection to avoid multiple data entry
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
+		})
+	}
+
+	// Send data after call ended to server : returns promise
+	callEnded(leadDetails: Object): Promise<any>{
+		return new Promise(async (resolve,reject) => {
+			try{
+				// Emit to socket. 
+				this.socket.emit('leads-after-call', leadDetails, (ack) => {
+					// resolve acknowlegement
+					resolve(ack)
+				})
+				return
+			} catch(error) {
+				// Handle error - Please add you error processing here
+				reject(false)
+				return
+			}
+			
+		})
+		
 	}
 
 	// /*

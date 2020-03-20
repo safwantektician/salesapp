@@ -1,6 +1,9 @@
 ion-toolbar {
     --background:url('../../assets/sales_mobile_bg.jpg');
     --color:#fff !important;
+    ion-title {
+        font-size: 18px;
+    }
     small {
         font-size: 14px;
         margin-right: 20px;
@@ -21,12 +24,17 @@ ion-content {
     }
     ion-label {
         h2 {
-            font-size: 18px;
+            font-size: 15px;
+        }
+        p {
+            font-size: 12px;
+            white-space: initial;
+            line-height: 16px;
         }
     }
     ion-chip {
         text-transform: uppercase;
-        font-size: 11px;
+        font-size: 10px;
         padding-top:1px !important;
         padding-bottom: 1px !important;
         padding-left:15px;
