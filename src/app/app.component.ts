@@ -68,12 +68,12 @@ export class AppComponent {
         private oneSignal: OneSignal,
         private alertCtrl: AlertController,
         private backgroundMode: BackgroundMode,
-    public menuCtrl: MenuController,
-    public events: Events,
-    public vibration: Vibration,
-    private login: LoginService,
-    private router: Router,
-    private socketService : SocketService
+        public menuCtrl: MenuController,
+        public events: Events,
+        public vibration: Vibration,
+        private login: LoginService,
+        private router: Router,
+        private socketService : SocketService
     ) {
 
 
