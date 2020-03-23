@@ -15,7 +15,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class SocketService {
 
-	private BASE_URL = 'http://35.240.182.194:8000/dev.tektician.com:32006';
+	private BASE_URL = 'http://35.240.182.194:7000/dev.tektician.com:32006';
 	public socket;
 
 	constructor() { }
@@ -53,7 +53,8 @@ export class SocketService {
 	// Get leads push
 	getLeadPush(): Observable<any>{
 		return new Observable(observer => {
-			this.socket.on('leads-push',(data)=>{
+			this.socket.on('leads-incoming-call',(data)=>{
+				console.log(data);
 				observer.next(data);
 			})
 
@@ -65,6 +66,7 @@ export class SocketService {
 	}
 
 	// Listener for canceling leads 'MIDWAY' if the leads are accepted by others
+/*
 	cancelLeads(): Observable<any>{
 		return new Observable(observable => {
 			this.socket.on('leads-awarded-cancel-others', (data)=> {
@@ -79,19 +81,37 @@ export class SocketService {
 			// };
 		})
 	}
+*/
+
+	declineLead(leadDetails:Object): Observable<any>{
+		return new Observable(observable => {
+			//console.log(leadDetails);
+			this.socket.emit('leads-call-denied', leadDetails, (data)=> {
+				//console.log(data)
+				observable.next(data)
+				// observable.complete()
+			});
+			// Close the connection to avoid multiple data entry
+			// return () => {
+			// 	this.socket.disconnect();
+			// };
+		})
+	}
 
 	// Accept Leads - returns if accepted or declined
 	acceptLeads(leadDetails:Object): Observable<any>{
 
-		this.socket.emit('leads-accepted', leadDetails)
-
 		return new Observable(observable => {
 			// let toReturn = new BehaviorSubject();
-			this.socket.on('leads-awarding-status', (data) => {
+//			this.socket.on('leads-awarding-status', (data) => {
 				// console.log(data)
-				observable.next(data)
-				observable.complete()
-			})
+//				observable.next(data)
+//				observable.complete()
+//			})
+
+				this.socket.emit('leads-call-accepeted', leadDetails, (data)=> {
+						console.log(data)
+				});
 
 			// Close the connection to avoid multiple data entry
 			// return () => {
@@ -105,7 +125,7 @@ export class SocketService {
 		return new Promise(async (resolve,reject) => {
 			try{
 				// Emit to socket.
-				this.socket.emit('leads-after-call', leadDetails, (ack) => {
+				this.socket.emit('leads-call-conclude', leadDetails, (ack) => {
 					// resolve acknowlegement
 					resolve(ack)
 				})
@@ -117,7 +137,15 @@ export class SocketService {
 			}
 
 		})
+	}
 
+	leadExpire(): Observable<any>
+	{
+		return new Observable(observable => {
+			this.socket.on('leads-expired-cancel-all', (data) => {
+				console.log(data);
+			});
+		});
 	}
 
 	// /*

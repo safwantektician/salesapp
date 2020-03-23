@@ -18,7 +18,10 @@ export class LeadalertPage implements OnInit {
   ) {
     this.activateRoute.params.subscribe(params => {
       this.data = JSON.parse(params.data)
+      console.log(this.data);
     });
+
+    /*
     this.socket.cancelLeads().subscribe(data => {
       if (data.lead == this.data[0].doctype_name) {
         this.router.navigate(['/leadacceptfailed'])
@@ -28,7 +31,13 @@ export class LeadalertPage implements OnInit {
       // } else if (data.fight == 203){
       // 	this.router.navigate()
       // }
-    })
+    });
+*/
+    this.socket.leadExpire().subscribe(data => {
+      this.router.navigate(['/leadllist']);
+    });
+
+
   }
 
   ngOnInit() {
@@ -36,13 +45,12 @@ export class LeadalertPage implements OnInit {
 
   acceptLeads(leads) {
     // console.log(leads)
-
-    let data = {
-      lead: leads['doctype_name']
-    }
+//    let data = {
+//      lead: leads['doctype_name']
+//    }
 
     this.socket.acceptLeads(JSON.stringify(data)).subscribe(resp => {
-      console.log(resp)
+      //console.log(resp)
       if (resp.code == 200) {
         this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(leads) }])
       } else {
@@ -52,58 +60,33 @@ export class LeadalertPage implements OnInit {
 
   }
 
-  async presentAlertPrompt() {
+  async declineAlertPrompt(leadDetails) {
+    console.log(leadDetails);
     const alert = await this.alert.create({
-      header: 'Do Not Disturb',
-      inputs: [
-        {
-          name: 'checkbox3',
-          type: 'checkbox',
-          label: '5 Minutes',
-          value: 'value3'
-        },
-        {
-          name: 'checkbox4',
-          type: 'checkbox',
-          label: '10 Minutes',
-          value: 'value4'
-        },
-        {
-          name: 'checkbox5',
-          type: 'checkbox',
-          label: '15 Minutes',
-          value: 'value5'
-        },
-        /* {
-          name: 'reason_dnd',
-          type: 'textarea',
-          placeholder: 'Reason'
-        },
-        {
-          name: 'minutes_dnd',
-          type: 'select'
-        }*/
-      ],
+      header: 'Are you sure?',
+      message: 'You are really sure you want to decline this lead!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'No',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Set Now',
+          text: 'Yes',
           handler: () => {
-            console.log('Confirm Ok');
+            //console.log(leadDetails);
+            this.socket.declineLead(JSON.parse(leadDetails)).subscribe(resp => {
+              console.log(resp);
+            });
+            console.log('Confirm Okay');
           }
         }
       ]
     });
 
     await alert.present();
-    let result = await alert.onDidDismiss();
-    console.log(result);
   }
 
 }

@@ -1,7 +1,7 @@
 <ion-content class="ion-padding">
   <div class="title_header ion-padding">
     <h4>Incoming Lead</h4>
-    <h2>{{data[0].company_name}}</h2>
+    <h2>Company Name</h2>
   </div><!-- /title_header -->
   <div class="lead_info ion-padding">
 
@@ -12,7 +12,7 @@
       </ion-avatar>
       <div class="pulse"></div>
     </div>
-    <h1>{{data[0].customer}}</h1>
+    <h1>Customer Name</h1>
     <ion-list class="bg-transparent">
       <ion-item-sliding>
         <ion-item lines="none" color="none">
@@ -30,8 +30,8 @@
       </ion-item-sliding>
     </ion-list>
     <div class="dnd ion-text-center">
-      <ion-icon slot="icon-only" (click)="presentAlertPrompt()" name="close-circle-outline" size="large"></ion-icon>
+      <ion-icon slot="icon-only" (click)="declineAlertPrompt(data[0])" name="close-circle-outline" size="large"></ion-icon>
     </div>
-    
+
   </div><!-- /login_form -->
 </ion-content>
