@@ -48,14 +48,16 @@ export class LeadalertPage implements OnInit {
 //    let data = {
 //      lead: leads['doctype_name']
 //    }
+    console.log(leads);
 
-    this.socket.acceptLeads(JSON.stringify(data)).subscribe(resp => {
+    this.socket.acceptLead(JSON.stringify(leads)).subscribe(resp => {
       //console.log(resp)
-      if (resp.code == 200) {
-        this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(leads) }])
-      } else {
-        this.router.navigate(['/leadacceptfailed', { data: JSON.stringify(leads) }])
-      }
+      console.log(resp);
+      //if (resp.code == 200) {
+      //  this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(leads) }])
+      //} else {
+      //  this.router.navigate(['/leadacceptfailed', { data: JSON.stringify(leads) }])
+      //}
     })
 
   }
@@ -77,8 +79,9 @@ export class LeadalertPage implements OnInit {
           text: 'Yes',
           handler: () => {
             //console.log(leadDetails);
-            this.socket.declineLead(JSON.parse(leadDetails)).subscribe(resp => {
+            this.socket.declineLead(JSON.stringify(leadDetails)).subscribe(resp => {
               console.log(resp);
+              this.router.navigate(['/leadllist']);
             });
             console.log('Confirm Okay');
           }

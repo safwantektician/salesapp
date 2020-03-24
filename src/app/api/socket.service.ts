@@ -88,7 +88,7 @@ export class SocketService {
 			//console.log(leadDetails);
 			this.socket.emit('leads-call-denied', leadDetails, (data)=> {
 				//console.log(data)
-				observable.next(data)
+				observable.next(data);
 				// observable.complete()
 			});
 			// Close the connection to avoid multiple data entry
@@ -99,8 +99,8 @@ export class SocketService {
 	}
 
 	// Accept Leads - returns if accepted or declined
-	acceptLeads(leadDetails:Object): Observable<any>{
-
+	acceptLead(leadDetails:Object): Observable<any>{
+		console.log(leadDetails);
 		return new Observable(observable => {
 			// let toReturn = new BehaviorSubject();
 //			this.socket.on('leads-awarding-status', (data) => {
@@ -108,16 +108,18 @@ export class SocketService {
 //				observable.next(data)
 //				observable.complete()
 //			})
-
+				console.log(leadDetails);
 				this.socket.emit('leads-call-accepeted', leadDetails, (data)=> {
 						console.log(data)
+						observable.next(data);
+						//observable.complete();
 				});
 
 			// Close the connection to avoid multiple data entry
 			// return () => {
 			// 	this.socket.disconnect();
 			// };
-		})
+		});
 	}
 
 	// Send data after call ended to server : returns promise
@@ -144,6 +146,7 @@ export class SocketService {
 		return new Observable(observable => {
 			this.socket.on('leads-expired-cancel-all', (data) => {
 				console.log(data);
+				observable.next(data);
 			});
 		});
 	}

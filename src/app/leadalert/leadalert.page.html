@@ -23,14 +23,14 @@
 
         </ion-item>
         <ion-item-options>
-          <ion-item-option (click)="acceptLeads(data[0])">
+          <ion-item-option (click)="acceptLeads(data)">
             <ion-icon slot="icon-only" name="call"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
     <div class="dnd ion-text-center">
-      <ion-icon slot="icon-only" (click)="declineAlertPrompt(data[0])" name="close-circle-outline" size="large"></ion-icon>
+      <ion-icon slot="icon-only" (click)="declineAlertPrompt(data)" name="close-circle-outline" size="large"></ion-icon>
     </div>
 
   </div><!-- /login_form -->
