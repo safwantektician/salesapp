@@ -15,6 +15,8 @@ import { OneSignal } from '@ionic-native/onesignal/ngx'
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { IonicStorageModule } from '@ionic/storage';
 import { SocketService } from './api/socket.service'
+import { CallNumber } from '@ionic-native/call-number/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +37,7 @@ import { SocketService } from './api/socket.service'
     OneSignal,
     BackgroundMode,
     SocketService,
+    CallNumber
   ],
   bootstrap: [AppComponent]
 })

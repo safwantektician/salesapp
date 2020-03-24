@@ -53,6 +53,11 @@ export class LeadalertPage implements OnInit {
     this.socket.acceptLead(JSON.stringify(leads)).subscribe(resp => {
       //console.log(resp)
       console.log(resp);
+      if(resp.code == '200'){
+        this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(resp.data) }]);
+      }else{
+        this.router.navigate(['/leadacceptfailed', { data: JSON.stringify(resp.data) }]);
+      }
       //if (resp.code == 200) {
       //  this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(leads) }])
       //} else {

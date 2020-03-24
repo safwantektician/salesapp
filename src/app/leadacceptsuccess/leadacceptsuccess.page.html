@@ -20,9 +20,9 @@
            <ion-col size="8" class="ion-text-left"><h4 color="success">Initiating call in <span>5 second(s)</span></h4></ion-col> -->
         </ion-row>
       </ion-grid>
-      <ion-button expand="block" color="success" routerLink="/leadcallend">Call Now</ion-button>
+      <ion-button expand="block" color="success" (click)="callNow(data.mobile_no)">Call Now</ion-button>
       <ion-button expand="block" color="medium" routerLink="/leadllist">Lead List</ion-button>
     </div><!-- /action_time -->
-    
+
   </div><!-- /success_accept -->
 </ion-content>

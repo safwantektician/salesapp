@@ -21,6 +21,7 @@
     "@angular/router": "~8.1.2",
     "@ionic-native/background-mode": "^5.19.1",
     "@ionic-native/calendar": "^5.20.0",
+    "@ionic-native/call-number": "^5.23.0",
     "@ionic-native/core": "^5.20.0",
     "@ionic-native/foreground-service": "^5.19.1",
     "@ionic-native/http": "^5.20.0",
@@ -30,6 +31,7 @@
     "@ionic-native/vibration": "^5.20.0",
     "@ionic/angular": "^4.11.10",
     "@ionic/storage": "^2.2.0",
+    "call-number": "^1.0.1",
     "cordova-android": "^8.1.0",
     "cordova-browser": "6.0.0",
     "cordova-plugin-advanced-http": "^2.4.0",
@@ -100,7 +102,8 @@
       "cordova-plugin-advanced-http": {
         "OKHTTP_VERSION": "3.10.0"
       },
-      "cordova-plugin-vibration": {}
+      "cordova-plugin-vibration": {},
+      "mx.ferreyra.callnumber": {}
     },
     "platforms": [
       "android",
