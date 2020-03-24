@@ -1,37 +1,36 @@
 <ion-content class="ion-padding">
   <div class="title_header ion-padding">
-    <h4>Incoming Lead</h4>
-    <h2>Company Name</h2>
+    <h4>Lead Alert</h4>
   </div><!-- /title_header -->
   <div class="lead_info ion-padding">
 
     <div class="info_lead">
       <ion-avatar>
-        <img class="pulse-slow"
-          src="https://comelite-arch.com/wp-content/uploads/2018/09/Small-House-Designs-in-Saudi-Arabia-1-thegem-blog-default.jpg">
+        <img class="pulse-slow" src="assets/leads_thumb.png">
       </ion-avatar>
       <div class="pulse"></div>
     </div>
-    <h1>Customer Name</h1>
+    <h1>Incoming Lead...</h1>
     <ion-list class="bg-transparent">
       <ion-item-sliding>
         <ion-item lines="none" color="none">
           <ion-label>
-            Slide Left to Accept
+             Slide Left to Accept
           </ion-label>
-          <ion-icon name="arrow-back" slot="start" (click)="acceptLeads(data[0])"></ion-icon>
+          <ion-icon name="arrow-back" slot="start" (click)="acceptLeads(data)"></ion-icon>
 
         </ion-item>
         <ion-item-options>
           <ion-item-option (click)="acceptLeads(data)">
-            <ion-icon slot="icon-only" name="call"></ion-icon>
+            <ion-icon slot="icon-only"  name="checkmark" size="large"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
     <div class="dnd ion-text-center">
       <ion-icon slot="icon-only" (click)="declineAlertPrompt(data)" name="close-circle-outline" size="large"></ion-icon>
+      <small>Do Not Disturb</small>
     </div>
 
   </div><!-- /login_form -->
-</ion-content>
+  </ion-content>
