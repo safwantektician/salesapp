@@ -9,7 +9,8 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 })
 export class LeadacceptsuccessPage implements OnInit {
 
-	public data: any
+	public data: any;
+	public startCall: any;
 	constructor(
 		private activateRoute: ActivatedRoute,
 		private router: Router,
@@ -26,8 +27,10 @@ export class LeadacceptsuccessPage implements OnInit {
 	{
 		console.log(numer);
 
-		this.callNumber.callNumber(numer, true)
-  	.then(res => console.log('Launched dialer!', res))
+		this.callNumber.callNumber(numer, false)
+  	.then((res) => {
+			this.startCall = new Date;
+		})
   	.catch(err => console.log('Error launching dialer', err));
 	}
 

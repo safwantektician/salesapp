@@ -151,6 +151,13 @@ export class AppComponent {
 			this.splashScreen.hide();
 			this.setupPush();
 			this.menuCtrl.enable(false);
+			platform.resume.subscribe ((e) => {
+        console.trace("call on going");
+			});
+			platform.pause.subscribe ( (e) => {
+        console.trace("call ended");
+				this.router.navigate(['/leadcallend']);
+			});
 		});
 	}
 
@@ -217,7 +224,7 @@ export class AppComponent {
 	}
 	async presentAlertPrompt() {
 		this.toggleValue = !this.toggleValue;
-		
+
 		const alert = await this.alertCtrl.create({
 			header: 'Do Not Disturb',
 			inputs: [
