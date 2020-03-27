@@ -28,18 +28,27 @@ export class LeadacceptsuccessPage implements OnInit {
 	{
 		console.log(number);
 
+		this.callNumber.callNumber(number, false)
+		  	.then((res) => {
+					this.startCall = new Date;
+					cordova.plugins.CordovaCall.speakerOn((data2) => {
+						console.log('speakerOn');
+					},(error2) => {});
+					cordova.plugins.CordovaCall.connectCall((data2) => {
+						console.log('Call Connected');
+					},(error2) => {});
+				})
+		  	.catch(err => console.log('Error launching dialer', err));
+/*
 		cordova.plugins.CordovaCall.callNumber(number, (data) => {
 				console.log(data);
-				cordova.plugins.CordovaCall.speakerOn((data2) => {
-					console.log('speakerOn');
-				},(error2) => {});
-				cordova.plugins.CordovaCall.connectCall((data2) => {
-					console.log('Call Connected');
-				},(error2) => {});
+
 		},
 		(error) => {
 			console.log(error);
 		});
+
+		*/
 
 /*		this.callNumber.callNumber(numer, false)
   	.then((res) => {
