@@ -151,13 +151,13 @@ export class AppComponent {
 			this.splashScreen.hide();
 			this.setupPush();
 			this.menuCtrl.enable(false);
-			platform.resume.subscribe ((e) => {
-        console.trace("call on going");
-			});
-			platform.pause.subscribe ( (e) => {
-        console.trace("call ended");
-				this.router.navigate(['/leadcallend']);
-			});
+			//this.platform.resume.subscribe ((e) => {
+      //  console.trace("call on going");
+			//});
+			//this.platform.pause.subscribe ( (e) => {
+      //  console.trace("call ended");
+			//	this.router.navigate(['/leadcallend']);
+			//});
 		});
 	}
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { CallNumber } from '@ionic-native/call-number/ngx';
+declare var cordova: any;
 
 @Component({
 	selector: 'app-leadacceptsuccess',
@@ -23,15 +24,23 @@ export class LeadacceptsuccessPage implements OnInit {
 		});
 	}
 
-	callNow(numer:string)
+	callNow(number:string)
 	{
-		console.log(numer);
+		console.log(number);
 
-		this.callNumber.callNumber(numer, false)
+		cordova.plugins.CordovaCall.callNumber(number, (data) => {
+				console.log(data);
+		},
+		(error) => {
+			console.log(error);
+		});
+
+/*		this.callNumber.callNumber(numer, false)
   	.then((res) => {
 			this.startCall = new Date;
 		})
   	.catch(err => console.log('Error launching dialer', err));
+		*/
 	}
 
 	ngOnInit() {
