@@ -10,11 +10,11 @@
             <ion-row>
               <ion-col size="6" class="ion-text-left">
                 <label>Name:</label>
-                <p>Safwan Rahman</p>
+                <p>{{data.customer}}</p>
               </ion-col>
               <ion-col size="6" class="ion-text-right">
                 <label>Project:</label>
-                <p>Bandar Baru Setia Awan Perdana</p>
+                <p>{{data.company_name}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -22,27 +22,34 @@
             <ion-item>
               <ion-label position="floating">Lead Status</ion-label>
               <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status">
-                <ion-select-option value="f">Create Quotation</ion-select-option>
-                <ion-select-option value="m">Not Interested</ion-select-option>
+                <ion-select-option value="Lead">Lead</ion-select-option>
+                <ion-select-option value="Open">Open</ion-select-option>
+                <ion-select-option value="Replied">Replied</ion-select-option>
+                <ion-select-option value="Opportunity">Opportunity</ion-select-option>
+                <ion-select-option value="Quotation">Quotation</ion-select-option>
+                <ion-select-option value="Lost Quotation">Lost Quotation</ion-select-option>
+                <ion-select-option value="Intrested">Intrested</ion-select-option>
+                <ion-select-option value="Converted">Converted</ion-select-option>
+                <ion-select-option value="Do Not Contact">Do Not Contact</ion-select-option>
               </ion-select>
             </ion-item>
-        
+
             <ion-item>
               <ion-label position="floating">Follow Up</ion-label>
               <ion-datetime displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date"></ion-datetime>
               <ion-icon name="calendar" slot="end"></ion-icon>
             </ion-item>
-    
+
             <ion-item lines="none">
               <ion-label position="floating">Notes</ion-label>
               <ion-textarea placeholder="Start typing..."></ion-textarea>
             </ion-item>
-    
+
             <ion-button color="warning" expand="block" routerLink="/leadllist">Save</ion-button>
             </form>
           </div><!-- /action_base -->
       </div>
     </div><!-- /action_time -->
-    
+
   </div><!-- /success_accept -->
 </ion-content>

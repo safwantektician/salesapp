@@ -24,7 +24,7 @@ import { CallLog } from '@ionic-native/call-log/ngx';
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({hardwareBackButton: false}),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
   ],
