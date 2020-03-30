@@ -31,12 +31,22 @@ export class LeadacceptsuccessPage implements OnInit {
 		this.callNumber.callNumber(number, false)
 		  	.then((res) => {
 					this.startCall = new Date;
-					cordova.plugins.CordovaCall.speakerOn((data2) => {
-						console.log('speakerOn');
-					},(error2) => {});
-					cordova.plugins.CordovaCall.connectCall((data2) => {
-						console.log('Call Connected');
-					},(error2) => {});
+					cordova.plugins.PhoneCallIntercept.onCall(function(state) {
+    			console.log("CHANGE STATE: " + state);
+					    switch (state) {
+					        case "RINGING":
+					            console.log("Phone is ringing");
+					            break;
+					        case "OFFHOOK":
+					            console.log("Phone is off-hook/Ongoing Call");
+					            break;
+
+					        case "IDLE":
+					            console.log("Phone is idle, call is ended");
+											this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data) }]);
+					            break;
+					    }
+					});
 				})
 		  	.catch(err => console.log('Error launching dialer', err));
 /*
