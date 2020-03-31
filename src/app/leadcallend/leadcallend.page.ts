@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
+import * as moment from 'moment';
 
 
 @Component({
@@ -9,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 })
 export class LeadcallendPage implements OnInit {
   public data: any;
+  public callLog: any;
+  public displayLog: any;
 
   public customActionSheetOptions: any = {
       header: 'Status',
@@ -19,8 +22,14 @@ export class LeadcallendPage implements OnInit {
     this.activateRoute.params.subscribe(params => {
       console.log(params)
       this.data = JSON.parse(params.data)
-      console.log(this.data)
+      this.callLog = JSON.parse(params.callLog)
+      this.displayLog = '00:00:00'
     });
+    if(this.callLog.duration){
+      var formatted = (<any>moment.duration(this.callLog.duration, 'seconds')).format("hh:mm:ss");
+      //var formatted = duration.format("hh:mm:ss");
+      this.displayLog = formatted;
+    }
   }
 
   ngOnInit() {

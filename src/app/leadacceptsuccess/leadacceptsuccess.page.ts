@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { CallLog, CallLogObject } from '@ionic-native/call-log/ngx';
+import { SocketService } from '../api/socket.service'
 import * as moment from 'moment';
 
 declare var cordova: any;
@@ -21,7 +22,8 @@ export class LeadacceptsuccessPage implements OnInit {
 		private activateRoute: ActivatedRoute,
 		private router: Router,
 		private callNumber: CallNumber,
-		private callLog: CallLog
+		private callLog: CallLog,
+		private socket: SocketService
 	) {
 		this.activateRoute.params.subscribe(params => {
 			console.log(params)
@@ -70,13 +72,24 @@ export class LeadacceptsuccessPage implements OnInit {
 												}]
 												this.callLog.getCallLog(this.filters)
 								        .then((results) => {
-								           console.log(results);
+													//setTimeout(function(){
+														alert(JSON.stringify(results));
+														if(Object.keys(results).length){
+															this.socket.callEnded(JSON.stringify(this.data)).subscribe(resp => {
+																console.log(resp);
+															});
+															//console.log(JSON.stringify(results))
+															//if(results[0]){
+															this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
+															//}
+														//}
+													//},2000);
+															}
 								          })
 								        .catch((e) => {
 													console.log(e);
 												});
 
-											this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data) }]);
 					            break;
 					    }
 						});

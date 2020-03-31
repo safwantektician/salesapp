@@ -30,10 +30,10 @@ export class SocketService {
 	}
 
 	getLeadList(): Observable<any> {
-		this.socket.emit('lead-list');
+		//this.socket.emit('lead-list');
 		return new Observable(observer => {
-			this.socket.on('lead-list-response', (data: any) => {
-				console.log('come here');
+			this.socket.emit('lead-list-page', {start:0,end:20}, (data: any) => {
+				console.log(data);
 				observer.next(data);
 			});
 			// return () => {
@@ -122,21 +122,14 @@ export class SocketService {
 		});
 	}
 
-	// Send data after call ended to server : returns promise
-	callEnded(leadDetails: Object): Promise<any>{
-		return new Promise(async (resolve,reject) => {
-			try{
+	// Send data after call ended to server : returns Observable
+	callEnded(leadDetails: Object): Observable<any>{
+		return new Observable(observable => {
 				// Emit to socket.
 				this.socket.emit('leads-call-conclude', leadDetails, (ack) => {
-					// resolve acknowlegement
-					resolve(ack)
-				})
-				return
-			} catch(error) {
-				// Handle error - Please add you error processing here
-				reject(false)
-				return
-			}
+					// Observable next
+					observable.next(ack);
+				});
 
 		})
 	}
