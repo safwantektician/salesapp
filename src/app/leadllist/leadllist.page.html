@@ -21,6 +21,8 @@
     </ion-label>
     <ion-chip slot="end" color="tertiary">Follow Up</ion-chip>
   </ion-item>
-
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading more...">
+              <ion-infinite-scroll-content></ion-infinite-scroll-content>
+   </ion-infinite-scroll>
 
 </ion-content>

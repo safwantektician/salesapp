@@ -29,10 +29,10 @@ export class SocketService {
 		// console.log(token.userInfo.data.access_token)
 	}
 
-	getLeadList(): Observable<any> {
+	getLeadList(startNo,endNo): Observable<any> {
 		//this.socket.emit('lead-list');
 		return new Observable(observer => {
-			this.socket.emit('lead-list-page', {start:0,end:20}, (data: any) => {
+			this.socket.emit('lead-list-page', {start:startNo,end:endNo}, (data: any) => {
 				console.log(data);
 				observer.next(data);
 			});

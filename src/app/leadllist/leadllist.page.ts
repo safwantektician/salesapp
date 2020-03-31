@@ -12,12 +12,11 @@ export class LeadllistPage implements OnInit {
 
   public user: any;
   public leadData: any;
+  public startNo: any = 0;
+  public endNo: any = 10;
 
   constructor(private login: LoginService, private socket: SocketService, private route: Router) {
-    this.socket.getLeadList().subscribe(data => {
-      console.log(data);
-      this.leadData = data.data;
-    })
+    this.loadlist();
   }
 
   ngOnInit() {
@@ -26,6 +25,29 @@ export class LeadllistPage implements OnInit {
 
   onClick(data){
     this.route.navigate(['/leaddetails',data])
+  }
+
+  loadMore(event)
+  {
+    this.startNo = this.endNo
+    this.endNo = this.endNo + 10
+    this.loadlist(event)
+  }
+
+  loadlist(event?)
+  {
+    this.socket.getLeadList(this.startNo, this.endNo).subscribe(data => {
+      if(data.data == null){
+        if(event){
+          event.target.disabled = true
+        }
+      }else{
+        this.leadData = this.leadData.concat(data.data)
+        if(event){
+          event.target.complete();
+        }
+      }
+    });
   }
 
 }
