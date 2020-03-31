@@ -18,6 +18,7 @@ export class LeadacceptsuccessPage implements OnInit {
 	public data: any;
 	public startCall: any;
 	public filters: CallLogObject[];
+	public previousState: string;
 	constructor(
 		private activateRoute: ActivatedRoute,
 		private router: Router,
@@ -58,38 +59,45 @@ export class LeadacceptsuccessPage implements OnInit {
 					            break;
 					        case "OFFHOOK":
 					            console.log("Phone is off-hook/Ongoing Call");
+											this.previousState = 'OFFHOOK'
 					            break;
 					        case "IDLE":
 					            console.log("Phone is idle, call is ended");
-											this.filters = [{
-													"name": "number",
-													"value": number,
-													"operator": "==",
-												}, {
-													"name": "date",
-													"value": this.startCall,
-													"operator" : ">="
-												}]
-												this.callLog.getCallLog(this.filters)
-								        .then((results) => {
-													//setTimeout(function(){
-														alert(JSON.stringify(results));
-														if(Object.keys(results).length){
-															this.socket.callEnded(JSON.stringify(this.data)).subscribe(resp => {
-																console.log(resp);
-															});
-															//console.log(JSON.stringify(results))
-															//if(results[0]){
-															this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
-															//}
-														//}
-													//},2000);
-															}
-								          })
-								        .catch((e) => {
-													console.log(e);
-												});
+											if (this.previousState = 'OFFHOOK') {
 
+												this.filters = [{
+														"name": "number",
+														"value": number,
+														"operator": "==",
+													}, {
+														"name": "date",
+														"value": this.startCall,
+														"operator" : ">="
+													}]
+													setTimeout(() => {
+														this.callLog.getCallLog(this.filters)
+										        .then((results) => {
+															//setTimeout(function(){
+																alert(JSON.stringify(results));
+																if(Object.keys(results).length){
+																	this.socket.callEnded(JSON.stringify(this.data)).subscribe(resp => {
+																		console.log(resp);
+																	});
+																	//console.log(JSON.stringify(results))
+																	//if(results[0]){
+																	this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
+																	//}
+																//}
+															//},2000);
+																	}
+										          })
+										        .catch((e) => {
+															console.log(e);
+														});
+													},2000);
+													// Set back the state to idle
+													this.previousState = 'IDLE'
+											}
 					            break;
 					    }
 						});
