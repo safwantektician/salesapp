@@ -63,7 +63,7 @@ export class LeadacceptsuccessPage implements OnInit {
 					            break;
 					        case "IDLE":
 					            console.log("Phone is idle, call is ended");
-											if (this.previousState = 'OFFHOOK') {
+											if (this.previousState == 'OFFHOOK') {
 
 												this.filters = [{
 														"name": "number",
