@@ -37,7 +37,7 @@ export class LeadllistPage implements OnInit {
   loadlist(event?)
   {
     this.socket.getLeadList(this.startNo, this.endNo).subscribe(data => {
-      if(data.data == null){
+      if(!data.data.length){
         if(event){
           event.target.disabled = true
         }

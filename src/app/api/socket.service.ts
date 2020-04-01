@@ -32,8 +32,7 @@ export class SocketService {
 	getLeadList(startNo,endNo): Observable<any> {
 		//this.socket.emit('lead-list');
 		return new Observable(observer => {
-			this.socket.emit('lead-list-page', {start:startNo,end:endNo}, (data: any) => {
-				console.log(data);
+			this.socket.emit('lead-list-page', {start:startNo,end:10}, (data: any) => {
 				observer.next(data);
 			});
 			// return () => {
