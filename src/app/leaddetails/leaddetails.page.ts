@@ -16,9 +16,14 @@ export class LeaddetailsPage implements OnInit {
     this.activateRoute.params.subscribe(params => {
       // this.data = JSON.parse(params.data)
       this.data = params
-      console.log(params)
+      //console.log(params)
     });
     // console.log(this.activateRoute.snapshot.paramMap.get('data'))
+  }
+
+  callLead()
+  {
+    this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(this.data) }]);
   }
 
   ngOnInit() {

@@ -32,16 +32,16 @@ export class LeadacceptsuccessPage implements OnInit {
 			console.log(this.data)
 		});
 		// Check permission
-		window.plugins.callLog.hasReadPermission((data, error) => {
-			console.log(data);
-			if (!data) {
-				window.plugins.callLog.requestReadPermission((data, error) => {
-					console.log(data);
-					console.log(error);
-				})
-			}
-			console.log(error)
-		});
+		this.callLog.hasReadPermission().then(hasPermission => {
+ 		 if (!hasPermission) {
+ 			 this.callLog.requestReadPermission().then(results => {
+ 				 //this.getContacts("type","1","==");
+ 				 console.log(results);
+ 			 })
+ 				 .catch(e => console.log(" requestReadPermission " + JSON.stringify(e)));
+ 		 }
+ 	 })
+ 		 .catch(e => console.log(" hasReadPermission " + JSON.stringify(e)));
 	}
 
 	callNow(number:string)

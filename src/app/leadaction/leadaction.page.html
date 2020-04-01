@@ -17,11 +17,18 @@
         <ion-item>
           <ion-label position="floating">Lead Status</ion-label>
           <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status">
-            <ion-select-option value="f">Create Quotation</ion-select-option>
-            <ion-select-option value="m">Not Interested</ion-select-option>
+            <ion-select-option value="Lead">Lead</ion-select-option>
+            <ion-select-option value="Open">Open</ion-select-option>
+            <ion-select-option value="Replied">Replied</ion-select-option>
+            <ion-select-option value="Opportunity">Opportunity</ion-select-option>
+            <ion-select-option value="Quotation">Quotation</ion-select-option>
+            <ion-select-option value="Lost Quotation">Lost Quotation</ion-select-option>
+            <ion-select-option value="Intrested">Intrested</ion-select-option>
+            <ion-select-option value="Converted">Converted</ion-select-option>
+            <ion-select-option value="Do Not Contact">Do Not Contact</ion-select-option>
           </ion-select>
         </ion-item>
-    
+
         <ion-item>
           <ion-label position="floating">Follow Up</ion-label>
           <ion-datetime displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date"></ion-datetime>
@@ -33,7 +40,7 @@
           <ion-textarea placeholder="Start typing..."></ion-textarea>
         </ion-item>
 
-        <ion-button expand="block">Save</ion-button>
+        <ion-button expand="block" routerLink="/leadllist">Save</ion-button>
         </form>
       </div><!-- /action_base -->
   </div>
