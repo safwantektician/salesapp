@@ -11,7 +11,7 @@ import { Router } from '@angular/router'
 export class LeadllistPage implements OnInit {
 
   public user: any;
-  public leadData: any;
+  public leadData: any = [];
   public startNo: any = 0;
   public endNo: any = 10;
 
