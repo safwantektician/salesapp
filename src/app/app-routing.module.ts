@@ -62,6 +62,10 @@ const routes: Routes = [
   {
     path: 'forgetpass',
     loadChildren: () => import('./forgetpass/forgetpass.module').then( m => m.ForgetpassPageModule)
+  },
+  {
+    path: 'tonesetting',
+    loadChildren: () => import('./tonesetting/tonesetting.module').then( m => m.TonesettingPageModule)
   }
 ];
 
