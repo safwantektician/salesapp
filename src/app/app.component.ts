@@ -79,14 +79,6 @@ export class AppComponent {
 		private socketService: SocketService,
 		private http: HttpService
 	) {
-		this.backgroundMode.enable();
-		this.backgroundMode.excludeFromTaskList();
-		// this.backgroundMode.overrideBackButton();
-		// this.backgroundMode.setDefaults({silent: true});
-		// cordova.plugins.backgroundMode.on('activate', function(){
-		//     console.log("hai")
-		// })
-		// this.backgroundMode.onactivate
 
 		this.initializeApp();
 		this.events.subscribe('leadComing', (data) => {
@@ -108,7 +100,7 @@ export class AppComponent {
 			this.user = data.userInfo.data;
 			this.socketService.connectSocket(data)
 			// Save user email on localstorage
-			localStorage.setItem('email',data.userInfo.data.email)
+			localStorage.setItem('email', data.userInfo.data.email)
 			this.http.setDeviceDetails()
 			this.socketService.getLeadPush().subscribe(data => {
 				console.log(data);
@@ -122,6 +114,11 @@ export class AppComponent {
 				// }
 				this.router.navigate(['/leadalert', { data }])
 			})
+
+			this.socketService.getUserDetails().subscribe(data => {
+				localStorage.setItem('UserDetails',data)
+			})
+			this.setupPush();
 			// console.log(this.socketService.getLeadList());
 
 			//console.log(data.userInfo.data.access_token);
@@ -149,16 +146,27 @@ export class AppComponent {
 		this.platform.ready().then(() => {
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
-			this.setupPush();
+			
 			this.menuCtrl.enable(false);
-			//this.platform.resume.subscribe ((e) => {
-      //  console.trace("call on going");
-			//});
-			//this.platform.pause.subscribe ( (e) => {
-      //  console.trace("call ended");
-			//	this.router.navigate(['/leadcallend']);
-			//});
+
+			this.backgroundMode.enable();
+			// this.backgroundMode.excludeFromTaskList();
+			this.backgroundMode.overrideBackButton();
+			// this.backgroundMode.setDefaults({silent: true});
+			// cordova.plugins.backgroundMode.on('activate', function(){
+			//     console.log("hai")
+			// })
+			// this.backgroundMode.onactivate
+			this.platform.pause.subscribe(data => {
+				console.log(data)
+			})
+
+			this.platform.resume.subscribe(data => {
+				console.log(data)
+			})
 		});
+
+
 	}
 
 	leadClose() {
@@ -181,14 +189,15 @@ export class AppComponent {
 
 		// Notifcation was received in general
 		this.oneSignal.handleNotificationReceived().subscribe(data => {
-			console.log(data)
+			// console.log(data)
 			this.backgroundMode.wakeUp()
 			this.backgroundMode.unlock();
 			this.backgroundMode.moveToForeground();
-			let msg = data.payload.body;
-			let title = data.payload.title;
-			let additionalData = data.payload.additionalData;
-			this.showAlert(title, msg, additionalData.task);
+			// this.socketService.getBatch()
+			// let msg = data.payload.body;
+			// let title = data.payload.title;
+			// let additionalData = data.payload.additionalData;
+			// this.showAlert(title, msg, additionalData.task);
 		});
 
 		// Get FCMToken and UserId
@@ -199,11 +208,15 @@ export class AppComponent {
 
 		// Notification was really clicked/opened
 		this.oneSignal.handleNotificationOpened().subscribe(data => {
+			// console.log(data)
 			// Just a note that the data is a different place here!
-			console.log(data)
-			let additionalData = data.notification.payload.additionalData;
-
-			this.showAlert('Notification opened', 'You already read this before', additionalData.task);
+			// console.log(data)
+			// let additionalData = data.notification.payload.additionalData;
+			// console.log(additionalData)
+			this.oneSignal.clearOneSignalNotifications()
+			this.socketService.getBatch()
+			// this.router.navigate(['/leadalert', { data: JSON.stringify(additionalData) }])
+			// this.showAlert('Notification opened', 'You already read this before', additionalData.task);
 		});
 		this.oneSignal.endInit();
 	}
@@ -266,7 +279,7 @@ export class AppComponent {
 					}
 				}, {
 					text: 'Set Now',
-					handler: (data:string) => {
+					handler: (data: string) => {
 						console.log(data);
 						console.log('Confirm Ok');
 					}
@@ -276,14 +289,14 @@ export class AppComponent {
 
 		console.log(this.toggleValue);
 
-		if(this.toggleValue === true){
+		if (this.toggleValue === true) {
 			await alert.present();
 			let result = await alert.onDidDismiss();
 			console.log(result.data.values);
 			this.socketService.setDoNotDisturb(result.data.values).subscribe(data => {
 				console.log(data);
 			});
-		}else{
+		} else {
 			this.socketService.setDoNotDisturb(0).subscribe(data => {
 				console.log(data);
 			});
