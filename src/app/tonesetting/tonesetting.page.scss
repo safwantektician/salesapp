@@ -1,0 +1,32 @@
+ion-toolbar {
+    --background:url('../../assets/sales_mobile_bg.jpg');
+    --color:#fff !important;
+    ion-title {
+        font-size: 18px;
+    }
+    small {
+        font-size: 14px;
+        margin-right: 20px;
+    }
+}
+ion-content {
+    .tone_header {
+        text-align: center;
+        ion-avatar {
+            width:150px;
+            height:150px;
+            display:block;
+            margin: 0 auto;
+        }
+        p {
+            margin: 0;
+        }
+        ion-title {
+            text-transform: uppercase;
+            text-align: left;
+            background: #E4E7E4;
+            color:#444;
+            padding: 10px 15px;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Setting</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tone_header">
+    <ion-title size="small"> Ringtone Setting</ion-title>
+    <ion-item>
+      <ion-label>Incoming Lead Vibration</ion-label>
+      <ion-toggle [(ngModel)]="sausage"></ion-toggle>
+    </ion-item>
+
+    <ion-list>
+      <ion-radio-group value="biff">
+        <ion-list-header>
+          <ion-label>Select Tone:</ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+          <ion-label>Biff</ion-label>
+          <ion-radio slot="start" value="biff"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Griff</ion-label>
+          <ion-radio slot="start" value="griff"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Buford</ion-label>
+          <ion-radio slot="start" value="buford"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+  </div><!-- /tone_header -->
+  <div class="ion-padding">
+    <ion-button expand="block">
+      Save Setting
+    </ion-button>
+  </div>
+</ion-content>
