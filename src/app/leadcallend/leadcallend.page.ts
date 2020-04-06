@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import * as moment from 'moment';
 import { SocketService } from '../api/socket.service'
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-leadcallend',
@@ -22,7 +23,7 @@ export class LeadcallendPage implements OnInit {
       subHeader: 'Select your lead Status'
     };
 
-  constructor(private activateRoute: ActivatedRoute, private router: Router, private socket: SocketService) {
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private socket: SocketService, private loading: LoadingController) {
     this.activateRoute.params.subscribe(params => {
       console.log(params)
       this.data = JSON.parse(params.data)
@@ -40,7 +41,14 @@ export class LeadcallendPage implements OnInit {
   ngOnInit() {
   }
 
-  sendCallDetails(){
+  async sendCallDetails(){
+
+    const loading = await this.loading.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+
+    loading.present()
     console.log(this.selectedDate)
     console.log(this.selectedNote)
     this.subscription = this.socket.callEnded({
@@ -52,7 +60,11 @@ export class LeadcallendPage implements OnInit {
     }).subscribe(data => {
       if(data.code == 200){
         // Navigate to lead list
+        loading.dismiss()
         this.router.navigate(['/leadllist'])
+      } else {
+        loading.dismiss()
+        alert('Error Sending Data')
       }
     })
   }
