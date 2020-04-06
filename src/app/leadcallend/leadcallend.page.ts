@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import * as moment from 'moment';
-
+import { SocketService } from '../api/socket.service'
 
 @Component({
   selector: 'app-leadcallend',
@@ -12,27 +12,53 @@ export class LeadcallendPage implements OnInit {
   public data: any;
   public callLog: any;
   public displayLog: any;
+  public subscription: any;
+  public selectedValue:any;
+  public selectedDate: any;
+  public selectedNote: any;
 
   public customActionSheetOptions: any = {
       header: 'Status',
       subHeader: 'Select your lead Status'
     };
 
-  constructor(private activateRoute: ActivatedRoute, private router: Router) {
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private socket: SocketService) {
     this.activateRoute.params.subscribe(params => {
       console.log(params)
       this.data = JSON.parse(params.data)
       this.callLog = JSON.parse(params.callLog)
       this.displayLog = '00:00:00'
+      
+      if(this.callLog.duration){
+        var formatted = (<any>moment.duration(this.callLog.duration, 'seconds')).format("hh:mm:ss");
+        //var formatted = duration.format("hh:mm:ss");
+        this.displayLog = formatted;
+      }
     });
-    if(this.callLog.duration){
-      var formatted = (<any>moment.duration(this.callLog.duration, 'seconds')).format("hh:mm:ss");
-      //var formatted = duration.format("hh:mm:ss");
-      this.displayLog = formatted;
-    }
   }
 
   ngOnInit() {
+  }
+
+  sendCallDetails(){
+    console.log(this.selectedDate)
+    console.log(this.selectedNote)
+    this.subscription = this.socket.callEnded({
+      data: this.data,
+      callLog: this.callLog,
+      status: this.selectedValue,
+      followUp: this.selectedDate,
+      note: this.selectedNote
+    }).subscribe(data => {
+      if(data.code == 200){
+        // Navigate to lead list
+        this.router.navigate(['/leadllist'])
+      }
+    })
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
   }
 
 }

@@ -89,17 +89,19 @@ export class LeadacceptsuccessPage implements OnInit {
 											.then((results) => {
 												//setTimeout(function(){
 												alert(JSON.stringify(results));
-												if (Object.keys(results).length) {
-													this.socket.callEnded(JSON.stringify(this.data)).subscribe(resp => {
-														console.log(resp);
-													});
+
+												this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
+												// if (Object.keys(results).length) {
+													// this.socket.callEnded(JSON.stringify({data : this.data, callLog:results[0]})).subscribe(resp => {
+													// 	console.log(resp);
+													// });
 													//console.log(JSON.stringify(results))
 													//if(results[0]){
-													this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
+													
 													//}
 													//}
 													//},2000);
-												}
+												// }
 											})
 											.catch((e) => {
 												console.log(e);

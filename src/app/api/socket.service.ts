@@ -146,7 +146,7 @@ export class SocketService {
 	callEnded(leadDetails: Object): Observable<any> {
 		return new Observable(observable => {
 			// Emit to socket.
-			this.socket.emit('leads-call-conclude', leadDetails, (ack) => {
+			this.socket.emit('leads-call-conclude', JSON.stringify(leadDetails), (ack) => {
 				// Observable next
 				observable.next(ack);
 			});
@@ -184,6 +184,10 @@ export class SocketService {
 				observable.next(data);
 			});
 		});
+	}
+
+	TriggerUserDetails() {
+		this.socket.emit('get-user-details')
 	}
 
 	sendAppState(data){

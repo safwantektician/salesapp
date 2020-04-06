@@ -21,7 +21,7 @@
           <form>
             <ion-item>
               <ion-label position="floating">Lead Status</ion-label>
-              <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status">
+              <ion-select [(ngModel)]="selectedValue" name="first" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status">
                 <ion-select-option value="Lead">Lead</ion-select-option>
                 <ion-select-option value="Open">Open</ion-select-option>
                 <ion-select-option value="Replied">Replied</ion-select-option>
@@ -36,16 +36,16 @@
 
             <ion-item>
               <ion-label position="floating">Follow Up</ion-label>
-              <ion-datetime displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date"></ion-datetime>
+              <ion-datetime [(ngModel)]="selectedDate" name="dateselect" displayFormat="DD MMM YYYY HH:mm" min="2020-01" placeholder="Select Date"></ion-datetime>
               <ion-icon name="calendar" slot="end"></ion-icon>
             </ion-item>
 
             <ion-item lines="none">
               <ion-label position="floating">Notes</ion-label>
-              <ion-textarea placeholder="Start typing..."></ion-textarea>
+              <ion-textarea [(ngModel)]="selectedNote" name="notes" placeholder="Start typing..."></ion-textarea>
             </ion-item>
 
-            <ion-button color="warning" expand="block" routerLink="/leadllist">Save</ion-button>
+            <ion-button color="warning" expand="block" (click) = "sendCallDetails()">Save</ion-button>
             </form>
           </div><!-- /action_base -->
       </div>
