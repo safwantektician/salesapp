@@ -33,94 +33,104 @@ export class LeadacceptsuccessPage implements OnInit {
 		});
 		// Check permission
 		this.callLog.hasReadPermission().then(hasPermission => {
- 		 if (!hasPermission) {
- 			 this.callLog.requestReadPermission().then(results => {
- 				 //this.getContacts("type","1","==");
- 				 console.log(results);
- 			 })
- 				 .catch(e => console.log(" requestReadPermission " + JSON.stringify(e)));
- 		 }
- 	 })
- 		 .catch(e => console.log(" hasReadPermission " + JSON.stringify(e)));
+			if (!hasPermission) {
+				this.callLog.requestReadPermission().then(results => {
+					//this.getContacts("type","1","==");
+					console.log(results);
+				})
+					.catch(e => console.log(" requestReadPermission " + JSON.stringify(e)));
+			}
+		})
+			.catch(e => console.log(" hasReadPermission " + JSON.stringify(e)));
 	}
 
-	callNow(number:string)
-	{
+	callNow(number: string) {
 		console.log(number);
 
 		this.callNumber.callNumber(number, false)
-		  	.then((res) => {
-					this.startCall = new Date().valueOf();
-							if (window.PhoneCallIntercept) {
-								window.PhoneCallIntercept.onCall((state) => {
-					    switch (state) {
-					        case "RINGING":
-					            console.log("Phone is ringing");
-					            break;
-					        case "OFFHOOK":
-					            console.log("Phone is off-hook/Ongoing Call");
-											this.previousState = 'OFFHOOK'
-					            break;
-					        case "IDLE":
-					            console.log("Phone is idle, call is ended");
-											if (this.previousState == 'OFFHOOK') {
+			.then((res) => {
+				this.startCall = new Date().valueOf();
+				if (window.PhoneCallIntercept) {
+					window.PhoneCallIntercept.onCall((state) => {
+						switch (state) {
+							case "RINGING":
+								console.log("Phone is ringing");
+								break;
+							case "OFFHOOK":
+								console.log("Phone is off-hook/Ongoing Call");
+								this.previousState = 'OFFHOOK'
+								this.socket.setBuzyState({
+									state: 'OFFHOOK',
+									date: new Date(),
+									data: this.data
+								})
+								break;
+							case "IDLE":
+								console.log("Phone is idle, call is ended");
+								if (this.previousState == 'OFFHOOK') {
 
-												this.filters = [{
-														"name": "number",
-														"value": number,
-														"operator": "==",
-													}, {
-														"name": "date",
-														"value": this.startCall,
-														"operator" : ">="
-													}]
-													setTimeout(() => {
-														this.callLog.getCallLog(this.filters)
-										        .then((results) => {
-															//setTimeout(function(){
-																alert(JSON.stringify(results));
-																if(Object.keys(results).length){
-																	this.socket.callEnded(JSON.stringify(this.data)).subscribe(resp => {
-																		console.log(resp);
-																	});
-																	//console.log(JSON.stringify(results))
-																	//if(results[0]){
-																	this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
-																	//}
-																//}
-															//},2000);
-																	}
-										          })
-										        .catch((e) => {
-															console.log(e);
-														});
-													},2000);
-													// Set back the state to idle
-													this.previousState = 'IDLE'
-											}
-					            break;
-					    }
-						});
-					}
+									this.socket.setBuzyState({
+										state: 'IDLE',
+										date: new Date(),
+										data: this.data
+									})
+									
+									this.filters = [{
+										"name": "number",
+										"value": number,
+										"operator": "==",
+									}, {
+										"name": "date",
+										"value": this.startCall,
+										"operator": ">="
+									}]
+									setTimeout(() => {
+										this.callLog.getCallLog(this.filters)
+											.then((results) => {
+												//setTimeout(function(){
+												alert(JSON.stringify(results));
+												if (Object.keys(results).length) {
+													this.socket.callEnded(JSON.stringify(this.data)).subscribe(resp => {
+														console.log(resp);
+													});
+													//console.log(JSON.stringify(results))
+													//if(results[0]){
+													this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
+													//}
+													//}
+													//},2000);
+												}
+											})
+											.catch((e) => {
+												console.log(e);
+											});
+									}, 2000);
+									// Set back the state to idle
+									this.previousState = 'IDLE'
+								}
+								break;
+						}
+					});
+				}
+			})
+			.catch(err => console.log('Error launching dialer', err));
+		/*
+				cordova.plugins.CordovaCall.callNumber(number, (data) => {
+						console.log(data);
+		
+				},
+				(error) => {
+					console.log(error);
+				});
+		
+				*/
+
+		/*		this.callNumber.callNumber(numer, false)
+				.then((res) => {
+					this.startCall = new Date;
 				})
-		  	.catch(err => console.log('Error launching dialer', err));
-/*
-		cordova.plugins.CordovaCall.callNumber(number, (data) => {
-				console.log(data);
-
-		},
-		(error) => {
-			console.log(error);
-		});
-
-		*/
-
-/*		this.callNumber.callNumber(numer, false)
-  	.then((res) => {
-			this.startCall = new Date;
-		})
-  	.catch(err => console.log('Error launching dialer', err));
-		*/
+				.catch(err => console.log('Error launching dialer', err));
+				*/
 	}
 
 	ngOnInit() {

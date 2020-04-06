@@ -151,18 +151,24 @@ export class AppComponent {
 
 			this.backgroundMode.enable();
 			// this.backgroundMode.excludeFromTaskList();
-			this.backgroundMode.overrideBackButton();
-			// this.backgroundMode.setDefaults({silent: true});
+			// this.backgroundMode.overrideBackButton();
+			this.backgroundMode.setDefaults({silent: true});
 			// cordova.plugins.backgroundMode.on('activate', function(){
 			//     console.log("hai")
 			// })
 			// this.backgroundMode.onactivate
 			this.platform.pause.subscribe(data => {
-				console.log(data)
+				this.socketService.sendAppState({
+					app_state: 'FOREGROUND',
+					date: new Date()
+				})
 			})
 
 			this.platform.resume.subscribe(data => {
-				console.log(data)
+				this.socketService.sendAppState({
+					app_state: 'ACTIVE',
+					date: new Date()
+				})
 			})
 		});
 

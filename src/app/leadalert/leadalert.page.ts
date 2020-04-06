@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { SocketService } from '../api/socket.service'
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-leadalert',
@@ -14,7 +15,8 @@ export class LeadalertPage implements OnInit {
     private activateRoute: ActivatedRoute,
     private router: Router,
     private socket: SocketService,
-    private alert: AlertController
+    private alert: AlertController,
+    private loading: LoadingController
   ) {
     this.activateRoute.params.subscribe(params => {
       this.data = JSON.parse(params.data)
@@ -42,20 +44,31 @@ export class LeadalertPage implements OnInit {
 
   ngOnInit() {
   }
-
-  acceptLeads(leads) {
-    // console.log(leads)
-//    let data = {
-//      lead: leads['doctype_name']
-//    }
+  
+  async presentLoading() {
+    const loading = await this.loading.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    return loading
+  }
+  
+  async acceptLeads(leads) {
     console.log(leads);
+    const loading = await this.loading.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
 
+    loading.present()
     this.socket.acceptLead(JSON.stringify(leads)).subscribe(resp => {
       //console.log(resp)
       console.log(resp);
-      if(resp.code == '200'){
+      if (resp.code == '200') {
+        loading.dismiss()
         this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(resp.data) }]);
-      }else{
+      } else {
+        loading.dismiss()
         this.router.navigate(['/leadacceptfailed', { data: JSON.stringify(resp.data) }]);
       }
       //if (resp.code == 200) {

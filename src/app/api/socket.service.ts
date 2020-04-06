@@ -186,6 +186,14 @@ export class SocketService {
 		});
 	}
 
+	sendAppState(data){
+		this.socket.emit('set-app-state', JSON.stringify(data))
+	}
+
+	setBuzyState(data){
+		this.socket.emit('set-buzy-state', JSON.stringify(data))
+	}
+
 	// /*
 	// * Method to emit the logout event.
 	// */
