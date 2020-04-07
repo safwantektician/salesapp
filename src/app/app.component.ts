@@ -105,10 +105,10 @@ export class AppComponent {
 				localStorage.setItem('vibrate', 'true');
 			}
 
-			if(!localStorage.getItem('ringtone')){
+			if(!localStorage.getItem('tone')){
 				localStorage.setItem('tone','assets/ringtones/media_p_o_l_i_c_e.caf');
 			}
-			
+
 			this.http.setDeviceDetails()
 			this.socketService.getLeadPush().subscribe(data => {
 				console.log(data);

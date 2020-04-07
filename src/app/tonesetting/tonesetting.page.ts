@@ -16,17 +16,17 @@ export class TonesettingPage implements OnInit {
   constructor() {
     console.log(localStorage.getItem('ringtone'));
 
-    if(localStorage.getItem('ringtone') == 'assets/ringtones/media_p_o_l_i_c_e.caf')
+    if(localStorage.getItem('tone') == 'assets/ringtones/media_p_o_l_i_c_e.caf')
     {
       this.ring1 = true;
     }
 
-    if(localStorage.getItem('ringtone') == 'assets/ringtones/assets/ringtones/sound_effect.caf')
+    if(localStorage.getItem('tone') == 'assets/ringtones/assets/ringtones/sound_effect.caf')
     {
       this.ring2 = true;
     }
 
-    if(localStorage.getItem('ringtone') == 'assets/ringtones/no_more_heroes.caf')
+    if(localStorage.getItem('tone') == 'assets/ringtones/no_more_heroes.caf')
     {
       this.ring3 = true;
     }
@@ -35,8 +35,7 @@ export class TonesettingPage implements OnInit {
 
   selectTone(event)
   {
-    console.log(event.target.value);
-    localStorage.setItem('ringtone',event.target.value);
+    localStorage.setItem('tone',event.target.value);
   }
 
   onVibration(event)

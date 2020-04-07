@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../api/login.service'
 import { SocketService } from '../api/socket.service'
 import { Router } from '@angular/router'
+import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 
 @Component({
   selector: 'app-leadllist',
@@ -15,7 +16,7 @@ export class LeadllistPage implements OnInit {
   public startNo: any = 0;
   public endNo: any = 10;
 
-  constructor(private login: LoginService, private socket: SocketService, private route: Router) {
+  constructor(private login: LoginService, private socket: SocketService, private route: Router,private ringtones: NativeRingtones) {
     this.loadlist();
   }
 

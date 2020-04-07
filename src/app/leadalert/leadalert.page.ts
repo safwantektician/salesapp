@@ -46,12 +46,12 @@ export class LeadalertPage implements OnInit {
   }
 
   ngOnInit() {
-    if(localStorage.getItem('ringtone'))
+    if(localStorage.getItem('tone'))
     {
-      this.ringtones.playRingtone(localStorage.getItem('ringtone'));
+      this.ringtones.playRingtone(localStorage.getItem('tone'));
     }
     if(localStorage.getItem('vibrate') == 'true'){
-      this.vibration.vibrate([2000,1000,2000]);
+      this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000]);
     }
   }
 
@@ -79,16 +79,16 @@ export class LeadalertPage implements OnInit {
         if(localStorage.getItem('vibrate') == 'true'){
           this.vibration.vibrate(0);
         }
-        if(localStorage.getItem('ringtone'))
+        if(localStorage.getItem('tone'))
         {
-          this.ringtones.stopRingtone(localStorage.getItem('ringtone'));
+          this.ringtones.stopRingtone(localStorage.getItem('tone'));
         }
         this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(resp.data) }]);
       } else {
         loading.dismiss();
-        if(localStorage.getItem('ringtone'))
+        if(localStorage.getItem('tone'))
         {
-          this.ringtones.stopRingtone(localStorage.getItem('ringtone'));
+          this.ringtones.stopRingtone(localStorage.getItem('tone'));
         }
         if(localStorage.getItem('vibrate') == 'true'){
           this.vibration.vibrate(0);
