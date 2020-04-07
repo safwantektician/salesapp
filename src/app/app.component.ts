@@ -152,7 +152,7 @@ export class AppComponent {
 			this.backgroundMode.enable();
 			// this.backgroundMode.excludeFromTaskList();
 			// this.backgroundMode.overrideBackButton();
-			this.backgroundMode.setDefaults({silent: true});
+			// this.backgroundMode.setDefaults({silent: true});
 			// cordova.plugins.backgroundMode.on('activate', function(){
 			//     console.log("hai")
 			// })

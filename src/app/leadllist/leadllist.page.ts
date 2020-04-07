@@ -51,4 +51,15 @@ export class LeadllistPage implements OnInit {
     });
   }
 
+  doRefresh(event) {
+    this.startNo = 0
+    this.leadData = []
+    this.loadlist();
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
 }
