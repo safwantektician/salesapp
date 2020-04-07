@@ -17,6 +17,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SocketService } from './api/socket.service'
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { CallLog } from '@ionic-native/call-log/ngx';
+import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CallLog } from '@ionic-native/call-log/ngx';
     BackgroundMode,
     SocketService,
     CallNumber,
-    CallLog
+    CallLog,
+    NativeRingtones
   ],
   bootstrap: [AppComponent]
 })

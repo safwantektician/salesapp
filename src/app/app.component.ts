@@ -100,7 +100,15 @@ export class AppComponent {
 			this.user = data.userInfo.data;
 			this.socketService.connectSocket(data)
 			// Save user email on localstorage
-			localStorage.setItem('email', data.userInfo.data.email)
+			localStorage.setItem('email', data.userInfo.data.email);
+			if(!localStorage.getItem('vibrate')){
+				localStorage.setItem('vibrate', 'true');
+			}
+
+			if(!localStorage.getItem('ringtone')){
+				localStorage.setItem('tone','assets/ringtones/media_p_o_l_i_c_e.caf');
+			}
+			
 			this.http.setDeviceDetails()
 			this.socketService.getLeadPush().subscribe(data => {
 				console.log(data);
@@ -146,7 +154,7 @@ export class AppComponent {
 		this.platform.ready().then(() => {
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
-			
+
 			this.menuCtrl.enable(false);
 
 			this.backgroundMode.enable();
