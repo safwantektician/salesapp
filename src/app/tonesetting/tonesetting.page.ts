@@ -16,17 +16,17 @@ export class TonesettingPage implements OnInit {
   constructor() {
     console.log(localStorage.getItem('ringtone'));
 
-    if(localStorage.getItem('tone') == 'assets/ringtones/media_p_o_l_i_c_e.caf')
+    if(localStorage.getItem('tone') == 'assets/ringtones/media_p_o_l_i_c_e.mp3')
     {
       this.ring1 = true;
     }
 
-    if(localStorage.getItem('tone') == 'assets/ringtones/assets/ringtones/sound_effect.caf')
+    if(localStorage.getItem('tone') == 'assets/ringtones/assets/ringtones/sound_effect.mp3')
     {
       this.ring2 = true;
     }
 
-    if(localStorage.getItem('tone') == 'assets/ringtones/no_more_heroes.caf')
+    if(localStorage.getItem('tone') == 'assets/ringtones/no_more_heroes.mp3')
     {
       this.ring3 = true;
     }

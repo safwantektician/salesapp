@@ -106,7 +106,7 @@ export class AppComponent {
 			}
 
 			if(!localStorage.getItem('tone')){
-				localStorage.setItem('tone','assets/ringtones/media_p_o_l_i_c_e.caf');
+				localStorage.setItem('tone','assets/ringtones/media_p_o_l_i_c_e.mp3');
 			}
 
 			this.http.setDeviceDetails()

@@ -25,7 +25,7 @@ export class LeadllistPage implements OnInit {
   }
 
   onClick(data){
-    this.route.navigate(['/leaddetails',data])
+    this.route.navigate(['/leaddetails', { data: JSON.stringify(data) }])
   }
 
   loadMore(event)

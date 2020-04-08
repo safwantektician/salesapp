@@ -16,7 +16,7 @@ export class LeadalertPage implements OnInit {
     private activateRoute: ActivatedRoute,
     private router: Router,
     private socket: SocketService,
-    private alert: AlertController,
+    private alertCtrl: AlertController,
     private loading: LoadingController,
     private vibration: Vibration,
     private ringtones: NativeRingtones
@@ -42,14 +42,17 @@ export class LeadalertPage implements OnInit {
       this.router.navigate(['/leadllist']);
     });
 
-
+    setTimeout(()=>{
+      if(localStorage.getItem('tone'))
+      {
+        this.ringtones.playRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
+        //alert(localStorage.getItem('tone'))
+      }
+    },1000);
   }
 
   ngOnInit() {
-    if(localStorage.getItem('tone'))
-    {
-      this.ringtones.playRingtone(localStorage.getItem('tone'));
-    }
+
     if(localStorage.getItem('vibrate') == 'true'){
       this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000]);
     }
@@ -81,14 +84,14 @@ export class LeadalertPage implements OnInit {
         }
         if(localStorage.getItem('tone'))
         {
-          this.ringtones.stopRingtone(localStorage.getItem('tone'));
+          this.ringtones.stopRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
         }
         this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(resp.data) }]);
       } else {
         loading.dismiss();
         if(localStorage.getItem('tone'))
         {
-          this.ringtones.stopRingtone(localStorage.getItem('tone'));
+          this.ringtones.stopRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
         }
         if(localStorage.getItem('vibrate') == 'true'){
           this.vibration.vibrate(0);
@@ -106,7 +109,7 @@ export class LeadalertPage implements OnInit {
 
   async declineAlertPrompt(leadDetails) {
     console.log(leadDetails);
-    const alert = await this.alert.create({
+    const alert = await this.alertCtrl.create({
       header: 'Are you sure?',
       message: 'You are really sure you want to decline this lead!',
       buttons: [
@@ -123,6 +126,13 @@ export class LeadalertPage implements OnInit {
             //console.log(leadDetails);
             this.socket.declineLead(JSON.stringify(leadDetails)).subscribe(resp => {
               console.log(resp);
+              if(localStorage.getItem('vibrate') == 'true'){
+                this.vibration.vibrate(0);
+              }
+              if(localStorage.getItem('tone'))
+              {
+                this.ringtones.stopRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
+              }
               this.router.navigate(['/leadllist']);
             });
             console.log('Confirm Okay');

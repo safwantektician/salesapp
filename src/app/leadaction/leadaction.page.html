@@ -1,15 +1,15 @@
 <ion-header no-border>
   <ion-toolbar [class.show-background]="showToolbar">
     <ion-buttons slot="end">
-      <ion-back-button text="" icon="close-circle" defaultHref="/leaddetails"></ion-back-button>
+      <ion-back-button text="" icon="close-circle" (click)="leadDetails()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
   <div class="lead_info">
-    <h2>Mark Adam</h2>
-    <p>Bandar Baru Setia Awan Perdana</p>
+    <h2>{{data.customer}}</h2>
+    <p>{{data.company_name}}</p>
   </div><!-- /lead_info -->
   <div class="ion-padding">
     <div class="action_base">
