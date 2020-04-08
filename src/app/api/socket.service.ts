@@ -166,14 +166,14 @@ export class SocketService {
 	getBatch() {
 		let getAuth = localStorage.getItem('authUser')
 		let getUserDetails = localStorage.getItem('UserDetails')
-		this.socket.emit('get-latest-leads',JSON.stringify({'auth': getAuth, 'user': getUserDetails}), (ack) => {
+		this.socket.emit('get-latest-leads', JSON.stringify({ 'auth': getAuth, 'user': getUserDetails }), (ack) => {
 			console.log(ack)
-			if(ack.length > 0){
+			if (ack.length > 0) {
 				this.route.navigate(['/leadalert', { data: JSON.stringify(ack[0].leads.body) }])
 			} else {
 				this.showAlert('LEAD EXPIRED', 'Sorry Leads Expired', 'Exit')
 			}
-			
+
 		});
 	}
 
@@ -190,12 +190,34 @@ export class SocketService {
 		this.socket.emit('get-user-details')
 	}
 
-	sendAppState(data){
+	setFCMToken(data) {
+		console.log('fcm token')
+		this.socket.emit('set-fcm-token', JSON.stringify(data))
+	}
+
+	sendAppState(data) {
 		this.socket.emit('set-app-state', JSON.stringify(data))
 	}
 
-	setBuzyState(data){
+	setBuzyState(data) {
 		this.socket.emit('set-buzy-state', JSON.stringify(data))
+	}
+
+	getResheduleListener() {
+		this.socket.on('leads-incoming-reshedule', (data) => {
+			console.log('icnoming reshedule')
+			this.route.navigate(['/leaddetails', { data: JSON.stringify(data) }])
+		});
+	}
+
+	getIndividualLeadsDetail(data) {
+		console.log(data)
+		return new Promise((resolve, reject) => {
+			this.socket.emit('get-leads-details', JSON.stringify(data), (ack) => {
+				console.log(ack)
+				resolve(ack)
+			})
+		})
 	}
 
 	// /*

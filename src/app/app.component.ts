@@ -101,15 +101,15 @@ export class AppComponent {
 			this.socketService.connectSocket(data)
 			// Save user email on localstorage
 			localStorage.setItem('email', data.userInfo.data.email);
-			if(!localStorage.getItem('vibrate')){
+			if (!localStorage.getItem('vibrate')) {
 				localStorage.setItem('vibrate', 'true');
 			}
 
-			if(!localStorage.getItem('tone')){
-				localStorage.setItem('tone','assets/ringtones/media_p_o_l_i_c_e.mp3');
+			if (!localStorage.getItem('tone')) {
+				localStorage.setItem('tone', 'assets/ringtones/media_p_o_l_i_c_e.mp3');
 			}
 
-			this.http.setDeviceDetails()
+			// this.http.setDeviceDetails()
 			this.socketService.getLeadPush().subscribe(data => {
 				console.log(data);
 				// this.leadComing = true;
@@ -123,8 +123,10 @@ export class AppComponent {
 				this.router.navigate(['/leadalert', { data }])
 			})
 
+			this.socketService.getResheduleListener()
+
 			this.socketService.getUserDetails().subscribe(data => {
-				localStorage.setItem('UserDetails',data)
+				localStorage.setItem('UserDetails', data)
 			})
 			this.setupPush();
 			// console.log(this.socketService.getLeadList());
@@ -218,17 +220,42 @@ export class AppComponent {
 		this.oneSignal.getIds().then((data) => {
 			localStorage.setItem('fcmToken', data.pushToken)
 			localStorage.setItem('fcmUserId', data.userId)
+			this.socketService.setFCMToken({
+				fcmToken: data.pushToken,
+				fcmUserId: data.userId
+			})
 		})
 
 		// Notification was really clicked/opened
 		this.oneSignal.handleNotificationOpened().subscribe(data => {
-			// console.log(data)
+			console.log(data)
 			// Just a note that the data is a different place here!
 			// console.log(data)
-			// let additionalData = data.notification.payload.additionalData;
-			// console.log(additionalData)
-			this.oneSignal.clearOneSignalNotifications()
-			this.socketService.getBatch()
+			let additionalData = data.notification.payload.additionalData;
+
+			if (data.notification.payload.title == "RESHEDULED") {
+
+				setTimeout(() => {
+					const url = this.router.url;
+					const urlParts = url.split(';');
+					console.log(urlParts)
+					if (urlParts.includes('/leaddetails')) {
+						return
+					}
+					this.socketService.getIndividualLeadsDetail({ lead: additionalData.reshedule }).then(data => {
+						this.router.navigate(['/leaddetails', { data: JSON.stringify(data) }])
+					}).catch(error => {
+						console.log(error)
+					})
+					this.oneSignal.clearOneSignalNotifications()
+				}, 400)
+
+			} else {
+				this.socketService.getBatch()
+				this.oneSignal.clearOneSignalNotifications()
+			}
+			
+			// this.socketService.getBatch()
 			// this.router.navigate(['/leadalert', { data: JSON.stringify(additionalData) }])
 			// this.showAlert('Notification opened', 'You already read this before', additionalData.task);
 		});
