@@ -221,6 +221,12 @@ export class AppComponent {
   }
 
 
+	exitApp()
+	{
+		navigator['app'].exitApp();
+	}
+
+
 	setupPush() {
 		// I recommend to put these into your environment.ts
 		this.oneSignal.startInit('a00c5f60-a0da-4d0a-a42f-97b7b08551cf', '486774138767');

@@ -1,9 +1,12 @@
 ion-toolbar {
-    --background:transparent;
+    --background:#233ce1;
     --ion-color-base: transparent !important;
+    ion-title {
+        color:#fff;
+    }
     ion-buttons {
         margin-right: 10px;
-        margin-top: 10px;
+        margin-top: 0px;
         ion-back-button {
             --icon-font-size:40px;
             --color:#fff;
@@ -13,12 +16,9 @@ ion-toolbar {
 }
 
 ion-content {
-    --background:url('../../assets/sales_mobile_bg.jpg');
+    background-color: #fff;
     .white_bg {
         background-color: #fff;
-    }
-    ion-calendar {
-        background-color: #F5F5F5;
     }
     .heading_log {
         color:#15232E;
@@ -27,22 +27,51 @@ ion-content {
         margin-bottom: 5px;
         background: #fff;
     }
+    .name {
+        font-size: 23px;
+        text-transform: none;
+        margin-top:10px;
+    }
+    .status {
+        ion-chip {
+            font-size: 12px;
+        }
+    }
+    .next_follow {
+        font-size: 16px;
+        margin: 0; padding: 0;
+        color:#2FA763;
+        span {
+            display:block;
+            color:#000;
+            font-size: 21px;
+        }
+    }
+    .history {
+        margin-top:20px;
+        background: #eee;
+        padding: 20px;
+        border-radius: 10px;
+        h4 {
+            font-size: 16px;
+            color:#bbb;
+            margin-top: 10px;
+        }
+    }
     .log_list {
+        background: #E1F9E0;
+        color:#248D52;
+
         ul {
             margin:0; padding:0;
         }
         li {
-            border-left:3px solid #000;
-            padding-top:10px; padding-bottom:0px;
+            border-left:4px solid #248D52;
+            padding: 10px;
+            border-radius: 10px;
             -webkit-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
 -moz-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
 box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
-        }
-        li.odd {
-            border-color:#00BE33;
-        }
-        li.even {
-            border-color:#0019BE;
         }
         ul li {
             display:block;
@@ -53,6 +82,9 @@ box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
                 span {
                     display:block;
                 }
+            }
+            p {
+                color:#000;
             }
             .notes {
                 h3 {
@@ -65,6 +97,38 @@ box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
                     margin-top:0;
                 }
             }
+        }
+    }
+    .history_list {
+        text-transform: none !important;
+        ul {
+            margin: 0;
+            padding:0;
+        }
+        ul li {
+            list-style: none;
+            border-bottom: 1px dotted #ccc;
+        }
+        ul li:last-child {
+            border:none !important;
+        }
+        h5 {
+            font-size: 16px;
+        }
+        p.notes {
+            text-transform: none !important;
+        }
+    }
+    /* No Lead Style */
+    .no_lead {
+        text-align: center;
+        margin-top:30px;
+        color:#6e85b4;
+        img {
+            display: block;
+            margin: 0 auto;
+            width: 30%;
+            opacity: .7;
         }
     }
 }

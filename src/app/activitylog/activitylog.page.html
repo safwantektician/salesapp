@@ -3,26 +3,29 @@
     <ion-buttons slot="end">
       <ion-back-button text="" icon="close-circle" defaultHref="/leaddetails"></ion-back-button>
     </ion-buttons>
+    <ion-title>
+      Activity Log
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
-  <div class="calendar_container">
-    <ion-calendar [(ngModel)]="dateMulti" [options]="optionsMulti" [format]="'DD-MM-YYYY'">
-    </ion-calendar>
-  </div><!-- /calendar_container -->
   <div class="ion-padding white_bg">
+    <div class="no_lead">
+      <img src="assets/icon/no-notes.png">
+      <h3>Ops! No note yet</h3>
+    </div><!-- /no_lead -->
   <div class="heading_log">
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <div class="ion-text-start">
-            23 December 2020
+          <div class="ion-text-start name">
+            Mark Adam
           </div>
         </ion-col>
         <ion-col size="6">
-          <div class="ion-text-end">
-            Today
+          <div class="ion-text-end status">
+            <ion-chip slot="end" color="tertiary">Follow Up</ion-chip>
           </div>
         </ion-col>
       </ion-row>
@@ -34,73 +37,36 @@
       <li class="odd">
         <ion-grid>
           <ion-row>
-            <ion-col size="3">
-              <div class="time">
-                3:00<span>PM</span>
-              </div>
-            </ion-col>
-            <ion-col size="9">
-              <div class="notes">
-                <h3>Call back Mark Adam</h3>
-                <p>Bandar Baru Setia Awan Perdana</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </li>
-      <li class="even">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="3">
-              <div class="time">
-                3:00<span>PM</span>
-              </div>
-            </ion-col>
-            <ion-col size="9">
-              <div class="notes">
-                <h3>Call back Mark Adam</h3>
-                <p>Bandar Baru Setia Awan Perdana</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </li>
-      <li class="odd">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="3">
-              <div class="time">
-                3:00<span>PM</span>
-              </div>
-            </ion-col>
-            <ion-col size="9">
-              <div class="notes">
-                <h3>Call back Mark Adam</h3>
-                <p>Bandar Baru Setia Awan Perdana</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </li>
-      <li class="even">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="3">
-              <div class="time">
-                3:00<span>PM</span>
-              </div>
-            </ion-col>
-            <ion-col size="9">
-              <div class="notes">
-                <h3>Call back Mark Adam</h3>
-                <p>Bandar Baru Setia Awan Perdana</p>
-              </div>
+            <ion-col size="12">
+              <h3 class="next_follow"> Next Follow Up Date: <span>Tomorrow</span></h3>
+              <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
             </ion-col>
           </ion-row>
         </ion-grid>
       </li>
     </ul>
   </div><!-- /log_list -->
+
+  <div class="heading_log history">
+    <h4>Activity History</h4>
+    <div class="history_list">
+      <ul>
+        <li>
+          <h5>12 June 2020</h5>
+          <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
+        </li>
+        <li>
+          <h5>12 June 2020</h5>
+          <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
+        </li>
+        <li>
+          <h5>12 June 2020</h5>
+          <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
+        </li>
+      </ul>
+    </div><!-- /log_list -->
+  </div><!-- /heading_log -->
+
 </div>
 
 </ion-content>

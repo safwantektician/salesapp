@@ -11,6 +11,13 @@
 </ion-header>
 
 <ion-content>
+  <div class="no_lead" *ngIf="!leadData">
+    <img src="assets/icon/no-lead-ico.png">
+    <h3>Ops! No lead yet</h3>
+  </div><!-- /no_lead -->
+  <div class="refresh">
+    Pull down to refresh
+  </div>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
