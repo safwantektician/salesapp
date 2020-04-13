@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-
-import { Platform, AlertController, MenuController, Events } from '@ionic/angular';
+import { ViewChildren, QueryList, Component } from '@angular/core';
+import { Platform, AlertController, MenuController, Events, IonRouterOutlet } from '@ionic/angular';
 import { Router } from '@angular/router'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -20,6 +19,9 @@ declare var cordova: any
 	styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+	@ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
+
 	public appPages = [
 		{
 			title: 'Log In',
@@ -180,6 +182,8 @@ export class AppComponent {
 					date: new Date()
 				})
 			})
+
+			this.backButtonEvent();
 		});
 
 
@@ -195,6 +199,26 @@ export class AppComponent {
 		this.menuCtrl.enable(false);
 		this.router.navigate(['/login']);
 	}
+
+	backButtonEvent() {
+		this.platform.backButton.subscribeWithPriority(9999, () => {
+			document.addEventListener('backbutton', function (event) {
+				event.preventDefault();
+				event.stopPropagation();
+			}, false);
+			if (this.router.url === '/leadllist') {
+							navigator['app'].exitApp(); // work for ionic 4
+							return;
+			}else if(this.router.url === '/login'){
+							navigator['app'].exitApp(); // work for ionic 4
+							return;
+			}else {
+						console.log('Navigate Leadlist');
+						this.router.navigate(['/leadllist']);
+						return;
+			}
+		});
+  }
 
 
 	setupPush() {
@@ -254,7 +278,7 @@ export class AppComponent {
 				this.socketService.getBatch()
 				this.oneSignal.clearOneSignalNotifications()
 			}
-			
+
 			// this.socketService.getBatch()
 			// this.router.navigate(['/leadalert', { data: JSON.stringify(additionalData) }])
 			// this.showAlert('Notification opened', 'You already read this before', additionalData.task);

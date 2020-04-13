@@ -74,7 +74,7 @@ export class LeadacceptsuccessPage implements OnInit {
 										date: new Date(),
 										data: this.data
 									})
-									
+
 									this.filters = [{
 										"name": "number",
 										"value": number,
@@ -97,7 +97,7 @@ export class LeadacceptsuccessPage implements OnInit {
 													// });
 													//console.log(JSON.stringify(results))
 													//if(results[0]){
-													
+
 													//}
 													//}
 													//},2000);
@@ -119,12 +119,12 @@ export class LeadacceptsuccessPage implements OnInit {
 		/*
 				cordova.plugins.CordovaCall.callNumber(number, (data) => {
 						console.log(data);
-		
+
 				},
 				(error) => {
 					console.log(error);
 				});
-		
+
 				*/
 
 		/*		this.callNumber.callNumber(numer, false)
@@ -133,6 +133,11 @@ export class LeadacceptsuccessPage implements OnInit {
 				})
 				.catch(err => console.log('Error launching dialer', err));
 				*/
+	}
+
+	leadlist()
+	{
+		this.router.navigate(['/leadllist']);
 	}
 
 	ngOnInit() {

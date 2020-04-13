@@ -25,7 +25,7 @@ import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot({hardwareBackButton: false}),
+    IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
   ],

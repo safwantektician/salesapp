@@ -41,17 +41,16 @@ export class LeadalertPage implements OnInit {
     this.socket.leadExpire().subscribe(data => {
       this.router.navigate(['/leadllist']);
     });
+  }
+
+  ngOnInit() {
 
     setTimeout(()=>{
       if(localStorage.getItem('tone'))
       {
         this.ringtones.playRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
-        //alert(localStorage.getItem('tone'))
       }
     },1000);
-  }
-
-  ngOnInit() {
 
     if(localStorage.getItem('vibrate') == 'true'){
       this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000]);
@@ -105,6 +104,13 @@ export class LeadalertPage implements OnInit {
       //}
     })
 
+  }
+  handleSlide(event: any) {
+    let ratio = event.detail.ratio;
+    if(ratio >= 70)
+    {
+      this.acceptLeads(this.data);
+    }
   }
 
   async declineAlertPrompt(leadDetails) {

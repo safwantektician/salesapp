@@ -12,16 +12,16 @@
     </div>
     <h1>Incoming Lead...</h1>
     <ion-list class="bg-transparent">
-      <ion-item-sliding>
+      <ion-item-sliding (ionDrag)="handleSlide($event)">
         <ion-item lines="none" color="none">
           <ion-label>
              Slide Left to Accept
           </ion-label>
-          <ion-icon name="arrow-back" slot="start" (click)="acceptLeads(data)"></ion-icon>
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
 
         </ion-item>
         <ion-item-options>
-          <ion-item-option (click)="acceptLeads(data)">
+          <ion-item-option>
             <ion-icon slot="icon-only"  name="checkmark" size="large"></ion-icon>
           </ion-item-option>
         </ion-item-options>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router'
+
 
 @Component({
   selector: 'app-leadacceptfailed',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeadacceptfailedPage implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
+
+
+  leadlist()
+  {
+    this.router.navigate(['/leadllist']);
+  }
 
   ngOnInit() {
   }

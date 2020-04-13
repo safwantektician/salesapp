@@ -54,6 +54,7 @@ export class LeadllistPage implements OnInit {
 
   doRefresh(event) {
     this.startNo = 0
+    this.endNo = 10
     this.leadData = []
     this.loadlist();
 
