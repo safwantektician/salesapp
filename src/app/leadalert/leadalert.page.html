@@ -10,6 +10,12 @@
       </ion-avatar>
       <div class="pulse"></div>
     </div>
+    <div id="countdown">
+      <div id="countdown-number">{{timer}}</div>
+      <svg>
+        <circle #myDiv r="18" cx="20" cy="20"></circle>
+      </svg>
+    </div>
     <h1>Incoming Lead...</h1>
     <ion-list class="bg-transparent">
       <ion-item-sliding (ionDrag)="handleSlide($event)">

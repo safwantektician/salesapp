@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { SocketService } from '../api/socket.service'
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-leadalert',
@@ -12,6 +13,8 @@ import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 })
 export class LeadalertPage implements OnInit {
   public data: any
+  public timer: any
+  @ViewChild('myDiv',{ static: false }) myDiv: ElementRef;
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
@@ -21,37 +24,44 @@ export class LeadalertPage implements OnInit {
     private vibration: Vibration,
     private ringtones: NativeRingtones
   ) {
+    
     this.activateRoute.params.subscribe(params => {
       this.data = JSON.parse(params.data)
       console.log(this.data);
+      this.runCountdown()
     });
 
-    /*
-    this.socket.cancelLeads().subscribe(data => {
-      if (data.lead == this.data[0].doctype_name) {
-        this.router.navigate(['/leadacceptfailed'])
-      } else if (data.code == 202) {
-        this.router.navigate(['/leadacceptfailed'])
-      }
-      // } else if (data.fight == 203){
-      // 	this.router.navigate()
-      // }
-    });
-*/
     this.socket.leadExpire().subscribe(data => {
       this.router.navigate(['/leadllist']);
     });
-  }
-
-  ngOnInit() {
 
     setTimeout(()=>{
       if(localStorage.getItem('tone'))
       {
         this.ringtones.playRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
+        //alert(localStorage.getItem('tone'))
       }
     },1000);
+  }
 
+  // Runs the countdown
+  runCountdown(){
+    let expriyTime =  this.data['expiration_time']
+    let currentTime = moment().utcOffset("+08:00")
+    let timeDiff = moment(expriyTime).diff(currentTime,'seconds')
+    this.timer = timeDiff
+    setInterval(()=>{
+      this.timer = --this.timer
+    }, 1000)
+  }
+
+  // Sets the svg circle time
+  ngAfterViewInit() {
+    this.myDiv.nativeElement.style = `animation: countdown ${this.timer}s linear infinite forwards;` 
+  }
+
+
+  ngOnInit() {
     if(localStorage.getItem('vibrate') == 'true'){
       this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000,1000,2000]);
     }
@@ -104,13 +114,6 @@ export class LeadalertPage implements OnInit {
       //}
     })
 
-  }
-  handleSlide(event: any) {
-    let ratio = event.detail.ratio;
-    if(ratio >= 70)
-    {
-      this.acceptLeads(this.data);
-    }
   }
 
   async declineAlertPrompt(leadDetails) {
