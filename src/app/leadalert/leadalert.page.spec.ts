@@ -22,3 +22,4 @@ describe('LeadalertPage', () => {
     expect(component).toBeTruthy();
   });
 });
+
