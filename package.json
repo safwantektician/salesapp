@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "@ionic-native/app-minimize": "^5.23.0",
     "@ionic-native/background-mode": "^5.23.0",
     "@ionic-native/calendar": "^5.20.0",
     "@ionic-native/call-directory": "^5.23.0",
@@ -39,6 +40,7 @@
     "cordova-browser": "6.0.0",
     "cordova-call": "^1.1.6",
     "cordova-plugin-advanced-http": "^2.4.0",
+    "cordova-plugin-appminimize": "^1.0.1",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-calendar": "^5.1.5",
     "cordova-plugin-call-directory": "^1.6.0",
@@ -118,7 +120,8 @@
       "cordova-tektician-phonecallintercept": {},
       "cordova-plugin-call-directory": {},
       "call-number": {},
-      "cordova-plugin-native-ringtones": {}
+      "cordova-plugin-native-ringtones": {},
+      "cordova-plugin-appminimize": {}
     },
     "platforms": [
       "android",

@@ -10,6 +10,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 //import { Socket } from 'ngx-socket-io';
 import { SocketService } from './api/socket.service'
 import { HttpService } from '../service/http.service'
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 declare var cordova: any
 
@@ -79,7 +80,8 @@ export class AppComponent {
 		private login: LoginService,
 		private router: Router,
 		private socketService: SocketService,
-		private http: HttpService
+		private http: HttpService,
+		private appMinimize: AppMinimize
 	) {
 
 		this.initializeApp();
@@ -207,10 +209,10 @@ export class AppComponent {
 				event.stopPropagation();
 			}, false);
 			if (this.router.url === '/leadllist') {
-							navigator['app'].exitApp(); // work for ionic 4
+							this.alertExit()
 							return;
 			}else if(this.router.url === '/login'){
-							navigator['app'].exitApp(); // work for ionic 4
+							this.alertExit()
 							return;
 			}else {
 						console.log('Navigate Leadlist');
@@ -221,9 +223,9 @@ export class AppComponent {
   }
 
 
-	exitApp()
-	{
-		navigator['app'].exitApp();
+	exitApp() {
+		this.alertExit()
+//		navigator['app'].exitApp()
 	}
 
 
@@ -306,6 +308,39 @@ export class AppComponent {
 		})
 		alert.present();
 	}
+
+	async alertExit()
+	{
+		const alertX = await this.alertCtrl.create({
+			header: 'App Termination',
+      message: 'Do you want to minimize or close the app?',
+	    buttons: [
+	      {
+					text: 'Cancel',
+					role: 'cancel',
+					handler: () => {
+						console.log('Application exit prevented!');
+					}
+	      }, {
+	        text: 'Minimize',
+	        handler: () => {
+	          this.appMinimize.minimize();
+	        }
+	      },
+				{
+	        text: 'Exit',
+	        handler: () => {
+	          navigator['app'].exitApp();
+	        }
+	      }
+	    ]
+		});
+		await alertX.present();
+		let resulXt = await alertX.onDidDismiss();
+
+
+	}
+
 	async presentAlertPrompt() {
 		this.toggleValue = !this.toggleValue;
 

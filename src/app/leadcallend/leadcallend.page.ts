@@ -29,7 +29,7 @@ export class LeadcallendPage implements OnInit {
       this.data = JSON.parse(params.data)
       this.callLog = JSON.parse(params.callLog)
       this.displayLog = '00:00:00'
-      
+
       if(this.callLog.duration){
         var formatted = (<any>moment.duration(this.callLog.duration, 'seconds')).format("hh:mm:ss");
         //var formatted = duration.format("hh:mm:ss");
@@ -61,7 +61,7 @@ export class LeadcallendPage implements OnInit {
       if(data.code == 200){
         // Navigate to lead list
         loading.dismiss()
-        this.router.navigate(['/leadllist'])
+        this.router.navigate(['/leaddetails', { data: JSON.stringify(this.data) }])
       } else {
         loading.dismiss()
         alert('Error Sending Data')

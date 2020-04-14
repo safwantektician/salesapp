@@ -18,6 +18,7 @@ import { SocketService } from './api/socket.service'
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { CallLog } from '@ionic-native/call-log/ngx';
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
     SocketService,
     CallNumber,
     CallLog,
-    NativeRingtones
+    NativeRingtones,
+    AppMinimize
   ],
   bootstrap: [AppComponent]
 })
