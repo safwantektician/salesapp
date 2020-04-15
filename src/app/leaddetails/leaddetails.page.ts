@@ -134,7 +134,7 @@ export class LeaddetailsPage implements OnInit {
   }
 
   handleSlide(event: any) {
-    console.log(event.detail.ratio);
+    //console.log(event.detail.ratio);
   let ratio = event.detail.ratio;
     if(ratio >= 3)
     {
