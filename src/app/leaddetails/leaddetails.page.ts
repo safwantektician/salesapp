@@ -17,6 +17,7 @@ export class LeaddetailsPage implements OnInit {
   public startCall: any;
   public filters: CallLogObject[];
   public previousState: string;
+
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
@@ -30,6 +31,7 @@ export class LeaddetailsPage implements OnInit {
       console.log(this.data)
     });
 
+    
     // Check permission
     this.callLog.hasReadPermission().then(hasPermission => {
       if (!hasPermission) {
@@ -42,77 +44,82 @@ export class LeaddetailsPage implements OnInit {
     })
       .catch(e => console.log(" hasReadPermission " + JSON.stringify(e)));
     // console.log(this.activateRoute.snapshot.paramMap.get('data'))
+
+
+    if (window.PhoneCallIntercept) {
+      window.PhoneCallIntercept.onCall((state) => {
+        switch (state) {
+          case "RINGING":
+            console.log("Phone is ringing");
+            break;
+          case "OFFHOOK":
+            console.log("Phone is off-hook/Ongoing Call");
+            this.previousState = 'OFFHOOK'
+            break;
+          case "IDLE":
+            console.log("Phone is idle, call is ended");
+            if (this.previousState == 'OFFHOOK') {
+
+              this.socket.setBuzyState({
+                state: 'IDLE',
+                date: new Date(),
+                data: this.data
+              })
+
+              this.filters = [{
+                "name": "number",
+                "value": this.data.phone,
+                "operator": "==",
+              }, {
+                "name": "date",
+                "value": this.startCall,
+                "operator": ">="
+              }]
+              setTimeout(() => {
+                this.callLog.getCallLog(this.filters)
+                  .then((results) => {
+                    //setTimeout(function(){
+                    alert(JSON.stringify(results));
+
+                    this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
+                    // if (Object.keys(results).length) {
+                    // this.socket.callEnded(JSON.stringify({data : this.data, callLog:results[0]})).subscribe(resp => {
+                    // 	console.log(resp);
+                    // });
+                    //console.log(JSON.stringify(results))
+                    //if(results[0]){
+
+                    //}
+                    //}
+                    //},2000);
+                    // }
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
+              }, 2000);
+              // Set back the state to idle
+              this.previousState = 'IDLE'
+            }
+            break;
+        }
+      });
+    }
   }
 
   callLead(number: string) {
-    this.callNumber.callNumber(number, false)
+
+    // Set Buzy State
+    this.socket.setBuzyState({
+      state: 'BUZY',
+      date: new Date(),
+      data: this.data
+    })
+
+    this.callNumber.callNumber(number, true)
       .then((res) => {
         console.log('calling');
         this.startCall = new Date().valueOf();
-        if (window.PhoneCallIntercept) {
-          window.PhoneCallIntercept.onCall((state) => {
-            switch (state) {
-              case "RINGING":
-                console.log("Phone is ringing");
-                break;
-              case "OFFHOOK":
-                console.log("Phone is off-hook/Ongoing Call");
-                this.previousState = 'OFFHOOK'
-                this.socket.setBuzyState({
-                  state: 'OFFHOOK',
-                  date: new Date(),
-                  data: this.data
-                })
-                break;
-              case "IDLE":
-                console.log("Phone is idle, call is ended");
-                if (this.previousState == 'OFFHOOK') {
-
-                  this.socket.setBuzyState({
-                    state: 'IDLE',
-                    date: new Date(),
-                    data: this.data
-                  })
-
-                  this.filters = [{
-                    "name": "number",
-                    "value": number,
-                    "operator": "==",
-                  }, {
-                    "name": "date",
-                    "value": this.startCall,
-                    "operator": ">="
-                  }]
-                  setTimeout(() => {
-                    this.callLog.getCallLog(this.filters)
-                      .then((results) => {
-                        //setTimeout(function(){
-                        alert(JSON.stringify(results));
-
-                        this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
-                        // if (Object.keys(results).length) {
-                        // this.socket.callEnded(JSON.stringify({data : this.data, callLog:results[0]})).subscribe(resp => {
-                        // 	console.log(resp);
-                        // });
-                        //console.log(JSON.stringify(results))
-                        //if(results[0]){
-
-                        //}
-                        //}
-                        //},2000);
-                        // }
-                      })
-                      .catch((e) => {
-                        console.log(e);
-                      });
-                  }, 2000);
-                  // Set back the state to idle
-                  this.previousState = 'IDLE'
-                }
-                break;
-            }
-          });
-        }
       })
       .catch(err => console.log('Error launching dialer', err));
     //this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(this.data) }]);

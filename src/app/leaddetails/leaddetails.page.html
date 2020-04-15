@@ -27,7 +27,7 @@
       <ion-icon name="call" slot="start"></ion-icon>
       <ion-label>
         <h2>Phone Number</h2>
-        <p>{{data.mobile_no}}</p>
+        <p>{{data.phone}}</p>
       </ion-label>
     </ion-item>
     <ion-item lines="none">
@@ -69,7 +69,7 @@
                 <ion-icon name="arrow-back" slot="start"></ion-icon>
               </ion-item>
               <ion-item-options>
-                <ion-item-option (click)="callLead(data.mobile_no)">
+                <ion-item-option (click)="callLead(data.phone)">
                   <ion-icon slot="icon-only"  name="call"></ion-icon>
                 </ion-item-option>
               </ion-item-options>

@@ -220,6 +220,15 @@ export class SocketService {
 		})
 	}
 
+	getLeadsLog(data){
+		return new Promise((resolve,reject) => {
+			this.socket.emit('get-leads-log', JSON.stringify(data), (ack) => {
+				console.log(ack)
+				resolve(ack)
+			})
+		})
+	}
+
 	// /*
 	// * Method to emit the logout event.
 	// */
