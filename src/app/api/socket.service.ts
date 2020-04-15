@@ -94,7 +94,7 @@ export class SocketService {
 					observable.next(data)
 					// observable.complete()
 				})
-	
+
 				// Close the connection to avoid multiple data entry
 				// return () => {
 				// 	this.socket.disconnect();
@@ -221,8 +221,9 @@ export class SocketService {
 	}
 
 	getLeadsLog(data){
+		console.log('come here');
 		return new Promise((resolve,reject) => {
-			this.socket.emit('get-leads-log', JSON.stringify(data), (ack) => {
+			this.socket.emit('leads-log', JSON.stringify(data), (ack) => {
 				console.log(ack)
 				resolve(ack)
 			})

@@ -11,8 +11,8 @@
 </ion-header>
 
 <ion-content>
-  <div class="no_lead" *ngIf="!leadData">
-    <img src="assets/icon/no-lead-ico.png">
+  <div class="no_lead" *ngIf="!leadData.length">
+    <img src="assets/no-lead-ico.png">
     <h3>Ops! No lead yet</h3>
   </div><!-- /no_lead -->
   <div class="refresh">
@@ -29,7 +29,7 @@
       <h2>{{data.customer}}</h2>
       <p>{{data.company_name}}</p>
     </ion-label>
-    <ion-chip slot="end" color="tertiary">Follow Up</ion-chip>
+    <ion-chip slot="end" color="tertiary">{{data.status}}</ion-chip>
   </ion-item>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" loadingSpinner="bubbles"
     loadingText="Loading more...">

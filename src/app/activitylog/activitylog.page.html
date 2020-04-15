@@ -11,8 +11,8 @@
 
 <ion-content fullscreen>
   <div class="ion-padding white_bg">
-    <div class="no_lead">
-      <img src="assets/icon/no-notes.png">
+    <div class="no_lead" *ngIf="!history.length">
+      <img src="assets/no-notes.png">
       <h3>Ops! No note yet</h3>
     </div><!-- /no_lead -->
   <div class="heading_log">
@@ -20,26 +20,26 @@
       <ion-row>
         <ion-col size="6">
           <div class="ion-text-start name">
-            Mark Adam
+            {{data.customer}}
           </div>
         </ion-col>
         <ion-col size="6">
           <div class="ion-text-end status">
-            <ion-chip slot="end" color="tertiary">Follow Up</ion-chip>
+            <ion-chip slot="end" color="tertiary">{{data.status}}</ion-chip>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div><!-- /heading_log -->
 
-  <div class="log_list">
+  <div class="log_list" *ngIf="nextFollow">
     <ul>
       <li class="odd">
         <ion-grid>
           <ion-row>
             <ion-col size="12">
-              <h3 class="next_follow"> Next Follow Up Date: <span>Tomorrow</span></h3>
-              <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
+              <h3 class="next_follow"> Next Follow Up Date: <span>{{nextFollow}}</span></h3>
+              <!--<p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>-->
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -47,21 +47,13 @@
     </ul>
   </div><!-- /log_list -->
 
-  <div class="heading_log history">
+  <div class="heading_log history" *ngIf="history.length">
     <h4>Activity History</h4>
     <div class="history_list">
       <ul>
-        <li>
-          <h5>12 June 2020</h5>
-          <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
-        </li>
-        <li>
-          <h5>12 June 2020</h5>
-          <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
-        </li>
-        <li>
-          <h5>12 June 2020</h5>
-          <p class="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a feugiat purus. Aenean quis nulla eget mi ultrices aliquet id viverra metus. </p>
+        <li *ngFor="let activity of history">
+          <h5>{{activity.created}}</h5>
+          <p class="notes">{{activity.comments}}</p>
         </li>
       </ul>
     </div><!-- /log_list -->

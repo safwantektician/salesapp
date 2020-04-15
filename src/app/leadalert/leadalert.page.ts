@@ -24,7 +24,7 @@ export class LeadalertPage implements OnInit {
     private vibration: Vibration,
     private ringtones: NativeRingtones
   ) {
-    
+
     this.activateRoute.params.subscribe(params => {
       this.data = JSON.parse(params.data)
       console.log(this.data);
@@ -57,7 +57,7 @@ export class LeadalertPage implements OnInit {
 
   // Sets the svg circle time
   ngAfterViewInit() {
-    this.myDiv.nativeElement.style = `animation: countdown ${this.timer}s linear infinite forwards;` 
+    this.myDiv.nativeElement.style = `animation: countdown ${this.timer}s linear infinite forwards;`
   }
 
 
@@ -115,6 +115,15 @@ export class LeadalertPage implements OnInit {
     })
 
   }
+
+  handleSlide(event: any) {
+  let ratio = event.detail.ratio;
+    if(ratio >= 3)
+    {
+      this.acceptLeads(this.data);
+    }
+  }
+
 
   async declineAlertPrompt(leadDetails) {
     console.log(leadDetails);

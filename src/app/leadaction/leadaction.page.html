@@ -16,7 +16,8 @@
       <form>
         <ion-item>
           <ion-label position="floating">Lead Status</ion-label>
-          <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status">
+          <ion-select [(ngModel)]="selectedValue" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select status" [ngModelOptions]="{standalone:
+   true}">
             <ion-select-option value="Lead">Lead</ion-select-option>
             <ion-select-option value="Open">Open</ion-select-option>
             <ion-select-option value="Replied">Replied</ion-select-option>
@@ -30,17 +31,19 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Follow Up</ion-label>
-          <ion-datetime displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date"></ion-datetime>
+          <ion-label position="floating">{{data.status}}</ion-label>
+          <ion-datetime [(ngModel)]="selectedDate" displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date" [ngModelOptions]="{standalone:
+   true}"></ion-datetime>
           <ion-icon name="calendar" slot="end"></ion-icon>
         </ion-item>
 
         <ion-item lines="none">
           <ion-label position="floating">Notes</ion-label>
-          <ion-textarea placeholder="Start typing..."></ion-textarea>
+          <ion-textarea  [(ngModel)]="selectedNote" placeholder="Start typing..." [ngModelOptions]="{standalone:
+   true}"></ion-textarea>
         </ion-item>
 
-        <ion-button expand="block" routerLink="/leadllist">Save</ion-button>
+        <ion-button expand="block" (click)="saveLog()">Save</ion-button>
         </form>
       </div><!-- /action_base -->
   </div>

@@ -31,7 +31,7 @@ export class LeaddetailsPage implements OnInit {
       console.log(this.data)
     });
 
-    
+
     // Check permission
     this.callLog.hasReadPermission().then(hasPermission => {
       if (!hasPermission) {
@@ -126,6 +126,20 @@ export class LeaddetailsPage implements OnInit {
   }
   leadAction() {
     this.router.navigate(['/leadaction', { data: JSON.stringify(this.data) }]);
+  }
+
+  activityLog()
+  {
+    this.router.navigate(['/activitylog', { data: JSON.stringify(this.data) }]);
+  }
+
+  handleSlide(event: any) {
+    console.log(event.detail.ratio);
+  let ratio = event.detail.ratio;
+    if(ratio >= 3)
+    {
+      this.callLead(this.data.phone);
+    }
   }
 
 
