@@ -17,6 +17,7 @@ export class LeaddetailsPage implements OnInit {
   public startCall: any;
   public filters: CallLogObject[];
   public previousState: string;
+  public canAccept: any;
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -105,6 +106,7 @@ export class LeaddetailsPage implements OnInit {
         }
       });
     }
+    this.canAccept = true;
   }
 
   callLead(number: string) {
@@ -136,8 +138,10 @@ export class LeaddetailsPage implements OnInit {
   handleSlide(event: any) {
     //console.log(event.detail.ratio);
   let ratio = event.detail.ratio;
-    if(ratio >= 3)
+
+    if(ratio >= 1 && this.canAccept == true)
     {
+      this.canAccept = false;
       this.callLead(this.data.phone);
     }
   }

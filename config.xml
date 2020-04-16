@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.salesapp.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Sales App</name>
-    <description>Sales App for Setia Awan Holdings</description>
+    <name>Leadboost</name>
+    <description>Lead Boost for Setia Awan Holdings</description>
     <author email="safwan@tektician.com" href="https://tektician.com/">Tektician Sdn Bhd</author>
     <content src="index.html" />
     <access origin="*" />

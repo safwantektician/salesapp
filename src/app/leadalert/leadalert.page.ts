@@ -14,6 +14,7 @@ import * as moment from 'moment';
 export class LeadalertPage implements OnInit {
   public data: any
   public timer: any
+  public canAccept: any;
   @ViewChild('myDiv',{ static: false }) myDiv: ElementRef;
   constructor(
     private activateRoute: ActivatedRoute,
@@ -42,6 +43,8 @@ export class LeadalertPage implements OnInit {
         //alert(localStorage.getItem('tone'))
       }
     },1000);
+
+    this.canAccept = true;
   }
 
   // Runs the countdown
@@ -116,11 +119,13 @@ export class LeadalertPage implements OnInit {
 
   }
 
-  handleSlide(event: any) {
+  async handleSlide(event: any) {
   let ratio = event.detail.ratio;
-    if(ratio >= 3)
+
+    if(ratio >= 1 && this.canAccept == true)
     {
-      this.acceptLeads(this.data);
+      this.canAccept = false;
+      await this.acceptLeads(this.data);
     }
   }
 
