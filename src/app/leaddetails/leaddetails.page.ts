@@ -47,6 +47,9 @@ export class LeaddetailsPage implements OnInit {
     // console.log(this.activateRoute.snapshot.paramMap.get('data'))
 
 
+    //Set temporary lock
+    this.socket.setTempLock({req: 'ENABLE'})
+
     if (window.PhoneCallIntercept) {
       window.PhoneCallIntercept.onCall((state) => {
         switch (state) {
@@ -148,6 +151,18 @@ export class LeaddetailsPage implements OnInit {
 
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter(){
+    console.log("did enter")
+  }
+
+  ionViewDidLeave(){
+    console.log("did Leave")
+  }
+
+  ngOnDestroy(){
+    console.log('destroyed')
   }
 
 }

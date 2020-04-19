@@ -30,6 +30,7 @@
       <p>{{data.company_name}}</p>
     </ion-label>
     <ion-chip slot="end" color="tertiary">{{data.status}}</ion-chip>
+    <ion-chip slot="end" color="tertiary" *ngIf="data.user_active == 'ACTIVE'">{{data.user_active}}</ion-chip>
   </ion-item>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" loadingSpinner="bubbles"
     loadingText="Loading more...">

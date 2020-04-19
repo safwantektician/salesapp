@@ -214,6 +214,22 @@ export class SocketService {
 		});
 	}
 
+	setTempLock(data){
+		// return new Promise((resolve,reject) => {
+		// 	this.socket.emit('temp-lock', JSON.stringify(data), (ack) => {
+		// 		resolve(ack)
+		// 	})
+		// })
+		console.log('disabled')
+	}
+
+	getActiveLeadsListener(){
+		this.socket.on('active-leads', (data) => {
+			console.log('icnoming reshedule')
+			this.route.navigate(['/leaddetails', { data: JSON.stringify(data) }])
+		});
+	}
+
 	getIndividualLeadsDetail(data) {
 		console.log(data)
 		return new Promise((resolve, reject) => {
