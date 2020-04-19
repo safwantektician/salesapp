@@ -204,6 +204,9 @@ export class AppComponent {
 
 	backButtonEvent() {
 		this.platform.backButton.subscribeWithPriority(9999, () => {
+			if(localStorage.getItem('vibrate') == 'true'){
+				this.vibration.vibrate(0);
+			}
 			document.addEventListener('backbutton', function (event) {
 				event.preventDefault();
 				event.stopPropagation();

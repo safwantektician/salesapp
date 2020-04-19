@@ -4,7 +4,7 @@ import { Router } from '@angular/router'
 import { AlertController } from '@ionic/angular'
 
 import * as io from 'socket.io-client';
-
+import { environment } from '../../environments/environment';
 // import { environment } from './../../../environments/environment';
 
 // /* importing interfaces starts */
@@ -17,13 +17,14 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class SocketService {
 
-	private BASE_URL = 'http://35.240.182.194:7000/dev.tektician.com:32006';
+	private BASE_URL = environment.apiUrl;
 	public socket;
 
 	constructor(
 		private route: Router,
 		private alertCtrl: AlertController
-	) { }
+	) {
+	}
 
 	/*
 	* Method to connect the users to socket
@@ -45,6 +46,9 @@ export class SocketService {
 	}
 
 	connectSocket(token): void {
+		if((<any>JSON.parse((<any>localStorage.getItem('authUser'))))){
+			this.BASE_URL = environment.apiUrl + (<any>JSON.parse((<any>localStorage.getItem('authUser')))).data.instance
+		}
 		this.socket = io(this.BASE_URL, { query: `token=${token.userInfo.data.access_token}` });
 		console.log(this.socket)
 		// console.log(token.userInfo.data.access_token)

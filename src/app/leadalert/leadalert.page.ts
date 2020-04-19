@@ -98,7 +98,7 @@ export class LeadalertPage implements OnInit {
         {
           this.ringtones.stopRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
         }
-        this.router.navigate(['/leadacceptsuccess', { data: JSON.stringify(resp.data) }]);
+        this.router.navigate(['/leaddetails', { data: JSON.stringify(resp.data) }]);
       } else {
         loading.dismiss();
         if(localStorage.getItem('tone'))
