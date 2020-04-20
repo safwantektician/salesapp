@@ -17,7 +17,14 @@ export class LeadllistPage implements OnInit {
   public endNo: any = 10;
 
   constructor(private login: LoginService, private socket: SocketService, private route: Router,private ringtones: NativeRingtones) {
+    
     this.loadlist();
+  }
+
+  ionViewWillEnter(){
+    // Disable temp lock and enable notification
+    this.socket.setTempLock({req: 'DISABLE'})
+    console.log("entering view")
   }
 
   ngOnInit() {

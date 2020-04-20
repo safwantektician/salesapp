@@ -127,6 +127,8 @@ export class AppComponent {
 				this.router.navigate(['/leadalert', { data }])
 			})
 
+			this.socketService.getActiveLeadsListener()
+
 			this.socketService.getResheduleListener()
 
 			this.socketService.getUserDetails().subscribe(data => {
