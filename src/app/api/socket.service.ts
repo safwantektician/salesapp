@@ -54,6 +54,10 @@ export class SocketService {
 		// console.log(token.userInfo.data.access_token)
 	}
 
+	disconnectSocket(): void {
+			this.socket.disconnect();
+	}
+
 	getLeadList(startNo, endNo): Observable<any> {
 		//this.socket.emit('lead-list');
 		return new Observable(observer => {

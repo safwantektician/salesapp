@@ -197,6 +197,7 @@ export class AppComponent {
 	}
 
 	logout() {
+		this.socketService.disconnectSocket();
 		this.login.DoLogout();
 		this.menuCtrl.enable(false);
 		this.router.navigate(['/login']);
