@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HTTP } from '@ionic-native/http/ngx';
 import { Storage } from '@ionic/storage';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { Storage } from '@ionic/storage';
 export class LoginService {
 
   isLoggedIn: any = false;
-  apiUrl: string = 'http://35.240.182.194:7000';
+  // apiUrl: string = 'http://35.240.182.194:7000';
+  apiUrl: string = environment.apiUrl
   authUser: any = [];
 
   constructor(private http: HTTP, private storage: Storage) {
