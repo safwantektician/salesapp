@@ -49,6 +49,20 @@ ion-content {
             }
         }
     }
+    .active_notice {
+        background-color: #fccafa;
+        font-size: 14px;
+        padding: 5px 10px;
+        padding-bottom: 15px;
+        ion-label {
+            color: #770073;
+        }
+        ion-icon {
+            color: #770073;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+    }
     .section_title {
         display:block;
         background-color:#DEE6EE;
