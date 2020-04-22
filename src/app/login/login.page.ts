@@ -18,9 +18,10 @@ export class LoginPage implements OnInit {
   public errors: any = [];
 
   constructor(private formBuilder: FormBuilder, private login: LoginService, private router: Router, public menuCtrl: MenuController, public events: Events, public lead: LeadService) {
+
     this.candidate = this.formBuilder.group({
-      username: ['arvindder@tektician.com', Validators.required],
-      password: ['test_123', Validators.required],
+      username: [localStorage.getItem('lastLoginEmail'), Validators.required],
+      password: ['', Validators.required],
     });
 
     //this.candidate.valid = false

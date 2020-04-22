@@ -19,6 +19,11 @@
       </ion-chip>
     </ion-label>
   </div><!-- /avatar_lead -->
+  <div class="active_notice" *ngIf="data.user_active == 'ACTIVE'">
+    <ion-icon name="alert" slot="start"></ion-icon>
+    <ion-label>Lead is still active, please update the status</ion-label>
+  </div>
+
   <div class="section_title">
     <h2>Lead Details</h2>
   </div><!-- /section_title -->

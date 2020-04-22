@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { SocketService } from '../api/socket.service'
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import * as moment from 'moment';
 
 @Component({
@@ -23,7 +24,8 @@ export class LeadalertPage implements OnInit {
     private alertCtrl: AlertController,
     private loading: LoadingController,
     private vibration: Vibration,
-    private ringtones: NativeRingtones
+    private screenOrientation: ScreenOrientation,
+    private nativeAudio: NativeAudio
   ) {
 
     this.activateRoute.params.subscribe(params => {
@@ -36,15 +38,17 @@ export class LeadalertPage implements OnInit {
       this.router.navigate(['/leadllist']);
     });
 
-    setTimeout(()=>{
-      if(localStorage.getItem('tone'))
-      {
-        this.ringtones.playRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
-        //alert(localStorage.getItem('tone'))
-      }
-    },1000);
+    if(localStorage.getItem('tone'))
+    {
+      this.nativeAudio.loop('tone').then(()=>{
+        console.log('Playing');
+      }, ()=>{
+        console.log('Error in Play');
+      });
+    }
 
     this.canAccept = true;
+    this.screenOrientation.lock('portrait')
   }
 
   // Runs the countdown
@@ -96,14 +100,22 @@ export class LeadalertPage implements OnInit {
         }
         if(localStorage.getItem('tone'))
         {
-          this.ringtones.stopRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
+          this.nativeAudio.stop('tone').then(()=>{
+            console.log('Playing');
+          }, ()=>{
+            console.log('Error in Play');
+          });
         }
         this.router.navigate(['/leaddetails', { data: JSON.stringify(resp.data) }]);
       } else {
         loading.dismiss();
         if(localStorage.getItem('tone'))
         {
-          this.ringtones.stopRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
+          this.nativeAudio.stop('tone').then(()=>{
+            console.log('Playing');
+          }, ()=>{
+            console.log('Error in Play');
+          });
         }
         if(localStorage.getItem('vibrate') == 'true'){
           this.vibration.vibrate(0);
@@ -154,7 +166,11 @@ export class LeadalertPage implements OnInit {
               }
               if(localStorage.getItem('tone'))
               {
-                this.ringtones.stopRingtone('file:///android_asset/www/'+localStorage.getItem('tone'));
+                this.nativeAudio.stop('tone').then(()=>{
+                  console.log('Playing');
+                }, ()=>{
+                  console.log('Error in Play');
+                });
               }
               this.router.navigate(['/leadllist']);
             });
@@ -165,6 +181,18 @@ export class LeadalertPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  ionViewDidLeave(){
+    if(localStorage.getItem('tone'))
+    {
+      this.nativeAudio.stop('tone').then(()=>{
+        console.log('Stop');
+      }, ()=>{
+        console.log('Stop in Play');
+      });
+    }
+    this.screenOrientation.unlock();
   }
 
 }

@@ -24,6 +24,8 @@ export class LoginService {
   {
     return Observable.create(observer => {
 
+      localStorage.setItem('lastLoginEmail', (<any>param).username);
+
       this.http.post(this.apiUrl+url, param, headers)
       .then(data => {
         //console.log(data);
@@ -73,6 +75,7 @@ export class LoginService {
       this.isLoggedIn = false;
       this.authUser = [];
     });
+    this.isLoggedIn = false;
     localStorage.removeItem('isLogin');
     localStorage.removeItem('authUser');
     return true;

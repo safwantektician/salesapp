@@ -41,12 +41,25 @@ ion-content {
             height: 23px;
             background-color: #ECFCF3;
             margin: 10px auto;
-            width: 100px;
             text-align: center;
-            display: block;
+            display: table;
             ion-label {
                 line-height: 22px;
             }
+        }
+    }
+    .active_notice {
+    background-color: #fccafa;
+    font-size: 14px;
+    padding: 5px 10px;
+    padding-bottom: 15px;
+    ion-label {
+        color: #770073;
+    }
+    ion-icon {
+        color: #770073;
+        margin-right: 10px;
+        font-size: 18px;
         }
     }
     .section_title {

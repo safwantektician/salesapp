@@ -27,10 +27,11 @@
             <ion-select-option value="Intrested">Intrested</ion-select-option>
             <ion-select-option value="Converted">Converted</ion-select-option>
             <ion-select-option value="Do Not Contact">Do Not Contact</ion-select-option>
+            <ion-select-option value="Follow Up">Follow Up</ion-select-option>
           </ion-select>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="selectedValue == 'Follow Up'">
           <ion-label position="floating">{{data.status}}</ion-label>
           <ion-datetime [(ngModel)]="selectedDate" displayFormat="DD MMM YYYY" min="2020-01" placeholder="Select Date" [ngModelOptions]="{standalone:
    true}"></ion-datetime>
