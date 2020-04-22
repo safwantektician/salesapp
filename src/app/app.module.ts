@@ -19,7 +19,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { CallLog } from '@ionic-native/call-log/ngx';
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
-
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +43,8 @@ import { AppMinimize } from '@ionic-native/app-minimize/ngx';
     CallNumber,
     CallLog,
     NativeRingtones,
-    AppMinimize
+    AppMinimize,
+    Network
   ],
   bootstrap: [AppComponent]
 })

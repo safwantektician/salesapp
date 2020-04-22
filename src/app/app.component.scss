@@ -37,6 +37,13 @@ ion-split-pane{
 }
 
 @import 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/all-animation.css';
+
+ion-chip.network{
+  position: fixed;
+  bottom: 2px;
+  right: 2px;
+}
+
 ion-content.lead_action {
     text-align: center;
     /* --background:#1627AC; */

@@ -1,10 +1,11 @@
-import { MenuController, Events } from '@ionic/angular';
+import { Platform, MenuController, Events } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../api/login.service';
 import { LeadService } from '../api/lead.service';
 
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,8 @@ export class LoginPage implements OnInit {
       username: ['arvindder@tektician.com', Validators.required],
       password: ['test_123', Validators.required],
     });
+
+    //this.candidate.valid = false
     //this.disableButton = this.candidate.valid;
    }
 

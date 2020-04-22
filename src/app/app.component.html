@@ -40,3 +40,10 @@
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
+
+<ion-chip color="secondary" class="network">
+    <ion-icon *ngIf="isOnline" name="checkmark-circle" color="green"></ion-icon>
+    <ion-icon *ngIf="!isOnline" name="close-circle" color="red"></ion-icon>
+    <ion-label *ngIf="isOnline">Online</ion-label>
+    <ion-label *ngIf="!isOnline">Offline</ion-label>
+</ion-chip>

@@ -11,6 +11,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { SocketService } from './api/socket.service'
 import { HttpService } from '../service/http.service'
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 declare var cordova: any
 
@@ -66,6 +67,7 @@ export class AppComponent {
 	public leadData: any;
 	public user: any;
 	public toggleValue: boolean = false;
+	public isOnline: boolean = true;
 
 	constructor(
 		private platform: Platform,
@@ -81,7 +83,8 @@ export class AppComponent {
 		private router: Router,
 		private socketService: SocketService,
 		private http: HttpService,
-		private appMinimize: AppMinimize
+		private appMinimize: AppMinimize,
+		private network: Network
 	) {
 
 		this.initializeApp();
@@ -188,6 +191,25 @@ export class AppComponent {
 			})
 
 			this.backButtonEvent();
+
+			// watch network for a disconnection
+
+			if (this.platform.is('cordova')) {
+				// on Device
+				let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+					console.log('network was disconnected :-(');
+					this.isOnline = false;
+				});
+
+				let connectSubscription = this.network.onConnect().subscribe(() => {
+					console.log('network connected!');
+					this.isOnline = true;
+				});
+			} else {
+			// on Browser
+			this.isOnline = navigator.onLine;
+			}
+
 		});
 
 
