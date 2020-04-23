@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
+import { AlertController } from '@ionic/angular';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { CallLog, CallLogObject } from '@ionic-native/call-log/ngx';
 import { SocketService } from '../api/socket.service'
@@ -25,6 +26,7 @@ export class LeaddetailsPage implements OnInit {
     private callNumber: CallNumber,
     private callLog: CallLog,
     private socket: SocketService,
+    public alertController: AlertController
   ) {
     this.activateRoute.params.subscribe(params => {
       this.data = JSON.parse(params.data)
@@ -148,6 +150,33 @@ export class LeaddetailsPage implements OnInit {
     }
   }
 
+  onCloseLead(){
+    let body = {
+      doctype_name : this.data.doctype_name
+    }
+    this.socket.closeLeads(body).then( (data:any) => {
+      if(data.code == 200) {
+        this.presentAlert('Lead Closed', 'Success', 'Lead has been closed.')
+        this.data.user_active = 'IDLE'
+      } else if (data.code == 400){
+        this.presentAlert('Lead Error', 'Failed', 'Please call the lead before closing.')
+      } else {
+        this.presentAlert('Lead Error', 'System error', 'Please contact system admin to resolve.')
+      }
+    })
+  }
+
+
+  async presentAlert(header, subHeader, message) {
+    const alert = await this.alertController.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
   ngOnInit() {
   }

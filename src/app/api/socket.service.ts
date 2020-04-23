@@ -253,6 +253,15 @@ export class SocketService {
 		})
 	}
 
+	closeLeads(data){
+		return new Promise((resolve, reject) => {
+			this.socket.emit('leads-complete-close', JSON.stringify(data), (ack) => {
+				console.log(ack)
+				resolve(ack)
+			})
+		})
+	}
+
 	getLeadsLog(data){
 		console.log('come here');
 		return new Promise((resolve,reject) => {
