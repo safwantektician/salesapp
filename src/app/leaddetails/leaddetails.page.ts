@@ -84,7 +84,7 @@ export class LeaddetailsPage implements OnInit {
                 this.callLog.getCallLog(this.filters)
                   .then((results) => {
                     //setTimeout(function(){
-                    alert(JSON.stringify(results));
+                    //alert(JSON.stringify(results));
 
                     this.router.navigate(['/leadcallend', { data: JSON.stringify(this.data), callLog: JSON.stringify(results[0]) }]);
                     // if (Object.keys(results).length) {
