@@ -11,7 +11,7 @@ export class AuthRememberService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     let authInfo = this.login.isLogin();
-    //console.log(authInfo);
+    console.log(authInfo);
     if (authInfo) {
       this.events.publish('loginSuccess', {userInfo: JSON.parse(localStorage.getItem('authUser'))});
       this.menuCtrl.enable(true);

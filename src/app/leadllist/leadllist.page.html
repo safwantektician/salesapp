@@ -21,7 +21,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-item lines="none" (click)="onClick(data)" *ngFor="let data of leadData">
+  <ion-item lines="none" (click)="onClick(data)" *ngFor="let data of leadData" class="{{data.user_active.toLowerCase()}}">
     <ion-avatar slot="start">
       <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
     </ion-avatar>
@@ -30,7 +30,9 @@
       <p>{{data.company_name}}</p>
     </ion-label>
     <ion-chip slot="end" color="tertiary">{{data.status}}</ion-chip>
-    <ion-chip slot="end" color="tertiary" *ngIf="data.user_active == 'ACTIVE'">{{data.user_active}}</ion-chip>
+    <div class="alert_active" *ngIf="data.user_active == 'ACTIVE'">
+        <ion-chip slot="end">{{data.user_active}}</ion-chip>
+    </div><!-- /alert_active -->
   </ion-item>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" loadingSpinner="bubbles"
     loadingText="Loading more...">

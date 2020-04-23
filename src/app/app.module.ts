@@ -20,6 +20,7 @@ import { CallLog } from '@ionic-native/call-log/ngx';
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,7 +45,8 @@ import { Network } from '@ionic-native/network/ngx';
     CallLog,
     NativeRingtones,
     AppMinimize,
-    Network
+    Network,
+    NativeAudio
   ],
   bootstrap: [AppComponent]
 })

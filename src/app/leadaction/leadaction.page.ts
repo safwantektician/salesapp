@@ -53,6 +53,7 @@ export class LeadactionPage implements OnInit {
       if(data.code == 200){
         // Navigate to lead list
         loading.dismiss()
+        this.data.status = this.selectedValue;
         this.router.navigate(['/leaddetails', { data: JSON.stringify(this.data) }])
       } else {
         loading.dismiss()

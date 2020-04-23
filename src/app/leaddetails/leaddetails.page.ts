@@ -24,14 +24,13 @@ export class LeaddetailsPage implements OnInit {
     private router: Router,
     private callNumber: CallNumber,
     private callLog: CallLog,
-    private socket: SocketService
+    private socket: SocketService,
   ) {
     this.activateRoute.params.subscribe(params => {
       this.data = JSON.parse(params.data)
       //this.data = params
       console.log(this.data)
     });
-
 
     // Check permission
     this.callLog.hasReadPermission().then(hasPermission => {

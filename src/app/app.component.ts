@@ -12,6 +12,7 @@ import { SocketService } from './api/socket.service'
 import { HttpService } from '../service/http.service'
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 declare var cordova: any
 
@@ -84,7 +85,8 @@ export class AppComponent {
 		private socketService: SocketService,
 		private http: HttpService,
 		private appMinimize: AppMinimize,
-		private network: Network
+		private network: Network,
+		private nativeAudio: NativeAudio
 	) {
 
 		this.initializeApp();
@@ -104,40 +106,52 @@ export class AppComponent {
 			// Get testspace lead
 			// this.socketService.connect()
 			console.log(data);
-			this.user = data.userInfo.data;
-			this.socketService.connectSocket(data)
-			// Save user email on localstorage
-			localStorage.setItem('email', data.userInfo.data.email);
-			if (!localStorage.getItem('vibrate')) {
-				localStorage.setItem('vibrate', 'true');
-			}
 
-			if (!localStorage.getItem('tone')) {
-				localStorage.setItem('tone', 'assets/ringtones/media_p_o_l_i_c_e.mp3');
-			}
+				this.user = (<any>data).userInfo.data;
+				this.socketService.connectSocket(data)
+				// Save user email on localstorage
+				localStorage.setItem('email', (<any>data).userInfo.data.email);
+				if (!localStorage.getItem('vibrate')) {
+					localStorage.setItem('vibrate', 'true');
+				}
 
-			// this.http.setDeviceDetails()
-			this.socketService.getLeadPush().subscribe(data => {
-				console.log(data);
-				// this.leadComing = true;
-				// this.leadData = JSON.parse(data)[0];
-				// if(this.leadComing){
-				//   this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
-				//   setTimeout( () => {
-				//     this.leadClose();
-				//   }, 90000);
-				// }
-				this.router.navigate(['/leadalert', { data }])
-			})
+				if (!localStorage.getItem('tone')) {
+					localStorage.setItem('tone', 'assets/ringtones/media_p_o_l_i_c_e.mp3');
+				}
 
-			this.socketService.getActiveLeadsListener()
+				if(localStorage.getItem('tone'))
+		    {
+		      this.nativeAudio.preloadSimple('tone', localStorage.getItem('tone')).then(()=>{
+		        console.log('DONE Load Ring Tune');
+		      }, ()=>{
+		        console.log('Error Load Ring Tune');
+		      });
+				}
 
-			this.socketService.getResheduleListener()
+				// this.http.setDeviceDetails()
+				this.socketService.getLeadPush().subscribe(data => {
+					console.log(data);
+					// this.leadComing = true;
+					// this.leadData = JSON.parse(data)[0];
+					// if(this.leadComing){
+					//   this.vibration.vibrate([2000,1000,2000,1000,2000,1000,2000]);
+					//   setTimeout( () => {
+					//     this.leadClose();
+					//   }, 90000);
+					// }
+					this.router.navigate(['/leadalert', { data }])
+				})
 
-			this.socketService.getUserDetails().subscribe(data => {
-				localStorage.setItem('UserDetails', data)
-			})
-			this.setupPush();
+				this.socketService.getActiveLeadsListener()
+
+				this.socketService.getResheduleListener()
+
+				this.socketService.getUserDetails().subscribe(data => {
+					localStorage.setItem('UserDetails', data)
+				})
+				this.setupPush();
+
+
 			// console.log(this.socketService.getLeadList());
 
 			//console.log(data.userInfo.data.access_token);
@@ -217,6 +231,14 @@ export class AppComponent {
 
 	leadClose() {
 		this.vibration.vibrate(0);
+		if(localStorage.getItem('tone'))
+    {
+      this.nativeAudio.stop('tone').then(()=>{
+        console.log('Playing');
+      }, ()=>{
+        console.log('Error in Play');
+      });
+    }
 		this.events.publish('leadComing', { leadComing: false, leadData: {} });
 	}
 
@@ -232,6 +254,14 @@ export class AppComponent {
 			if(localStorage.getItem('vibrate') == 'true'){
 				this.vibration.vibrate(0);
 			}
+			if(localStorage.getItem('tone'))
+	    {
+	      this.nativeAudio.stop('tone').then(()=>{
+	        console.log('Playing');
+	      }, ()=>{
+	        console.log('Error in Play');
+	      });
+	    }
 			document.addEventListener('backbutton', function (event) {
 				event.preventDefault();
 				event.stopPropagation();
