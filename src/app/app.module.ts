@@ -21,6 +21,7 @@ import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,7 +47,8 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
     NativeRingtones,
     AppMinimize,
     Network,
-    NativeAudio
+    NativeAudio,
+    ScreenOrientation
   ],
   bootstrap: [AppComponent]
 })

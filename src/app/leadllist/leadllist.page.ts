@@ -16,57 +16,54 @@ export class LeadllistPage implements OnInit {
   public startNo: any = 0;
   public endNo: any = 10;
 
-  constructor(private login: LoginService, private socket: SocketService, private route: Router,private ringtones: NativeRingtones) {
-  //  this.loadlist();
-    this.user = localStorage.getItem('email');
-  }
+  constructor(private login: LoginService, private socket: SocketService, private route: Router, private ringtones: NativeRingtones) {
+    
+    //Observer for lead list refresh
+    this.socket.onLeadListUpdate().subscribe(data => {
+      let temp = JSON.parse(data)
+      console.log("refresh")
+      if (temp.refresh) {
+        this.startNo = 0
+        this.endNo = 10
+        this.leadData = []
+        this.loadlist();
+      }
+    })
 
-  ionViewWillEnter(){
-    // Disable temp lock and enable notification
-    this.startNo = 0;
-    this.endNo = 10;
-    this.socket.setTempLock({req: 'DISABLE'})
     this.loadlist();
   }
 
-  ionViewDidEnter()
-  {
-
-    console.log("did load view")
-  }
-
-  ionViewWillLeave()
-  {
-    this.startNo = 0;
-    this.endNo = 0;
-    this.leadData = [];
+  ionViewWillEnter() {
+    // Disable temp lock and enable notification
+    this.socket.setTempLock({ req: 'DISABLE' })
+    console.log("entering view")
   }
 
   ngOnInit() {
+    this.user = localStorage.getItem('email');
   }
 
-  onClick(data){
+  onClick(data) {
     this.route.navigate(['/leaddetails', { data: JSON.stringify(data) }])
   }
 
-  loadMore(event)
-  {
+  loadMore(event) {
     this.startNo = this.endNo
     this.endNo = this.endNo + 10
     this.loadlist(event)
   }
 
-  loadlist(event?)
-  {
+  loadlist(event?) {
     this.socket.getLeadList(this.startNo, this.endNo).subscribe(data => {
       console.log(data)
-      if(!data.data.length){
-        if(event){
+      if (!data.data.length) {
+        if (event) {
           event.target.disabled = true
         }
-      }else{
+      } else {
+        console.log("now only coming here")
         this.leadData = this.leadData.concat(data.data)
-        if(event){
+        if (event) {
           event.target.complete();
         }
       }

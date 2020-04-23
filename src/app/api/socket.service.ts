@@ -62,12 +62,21 @@ export class SocketService {
 		//this.socket.emit('lead-list');
 		return new Observable(observer => {
 			this.socket.emit('lead-list-page', { start: startNo, end: endNo }, (data: any) => {
+				console.log("lead list has already been send and recievied")
 				observer.next(data);
 			});
 			// return () => {
 			// 	this.socket.disconnect();
 			// };
 		});
+	}
+
+	onLeadListUpdate(): Observable<any>{
+		return new Observable(observer => {
+			this.socket.on('lead-list-refresh', (data: any) => {
+				observer.next(data)
+			})
+		})
 	}
 
 	setDoNotDisturb(timer = 300): Observable<any> {
@@ -238,6 +247,15 @@ export class SocketService {
 		console.log(data)
 		return new Promise((resolve, reject) => {
 			this.socket.emit('get-leads-details', JSON.stringify(data), (ack) => {
+				console.log(ack)
+				resolve(ack)
+			})
+		})
+	}
+
+	closeLeads(data){
+		return new Promise((resolve, reject) => {
+			this.socket.emit('leads-complete-close', JSON.stringify(data), (ack) => {
 				console.log(ack)
 				resolve(ack)
 			})

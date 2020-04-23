@@ -22,6 +22,7 @@
   <div class="active_notice" *ngIf="data.user_active == 'ACTIVE'">
     <ion-icon name="alert" slot="start"></ion-icon>
     <ion-label>Lead is still active, please update the status</ion-label>
+    <ion-button (click)="onCloseLead()">Close Lead</ion-button>
   </div>
 
   <div class="section_title">
