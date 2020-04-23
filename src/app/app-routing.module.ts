@@ -82,7 +82,13 @@ const routes: Routes = [
   },
   {
     path: 'tonesetting',
-    loadChildren: () => import('./tonesetting/tonesetting.module').then( m => m.TonesettingPageModule)
+    loadChildren: () => import('./tonesetting/tonesetting.module').then( m => m.TonesettingPageModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'changepassword',
+    loadChildren: () => import('./changepassword/changepassword.module').then( m => m.ChangepasswordPageModule),
+    canActivate: [AuthGuardService]
   }
 ];
 

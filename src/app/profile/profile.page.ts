@@ -7,9 +7,12 @@ import { errorMessage, errorCode } from '../../service/error.service'
 })
 export class ProfilePage implements OnInit {
 
-  constructor() { 
+  public email: any;
+
+  constructor() {
     errorMessage.success
     errorCode.success
+    this.email = localStorage.getItem('email');
   }
 
   ngOnInit() {
