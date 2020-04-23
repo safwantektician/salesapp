@@ -109,8 +109,7 @@ export class AppComponent {
 
 				this.user = (<any>data).userInfo.data;
 				this.socketService.connectSocket(data)
-				// Save user email on localstorage
-				localStorage.setItem('email', (<any>data).userInfo.data.email);
+				// Save user email on localstorage				
 				if (!localStorage.getItem('vibrate')) {
 					localStorage.setItem('vibrate', 'true');
 				}

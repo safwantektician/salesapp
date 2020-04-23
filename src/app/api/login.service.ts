@@ -31,6 +31,7 @@ export class LoginService {
         //console.log(data);
         let results = JSON.parse(data.data);
         localStorage.setItem('isLogin', 'true');
+        localStorage.setItem('email', results.data.email);
         this.isLoggedIn = true;
         this.authUser = results.data;
         this.storage.set('authUser', this.authUser).then((response) => {

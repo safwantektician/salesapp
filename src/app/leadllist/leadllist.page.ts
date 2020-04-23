@@ -18,6 +18,7 @@ export class LeadllistPage implements OnInit {
 
   constructor(private login: LoginService, private socket: SocketService, private route: Router,private ringtones: NativeRingtones) {
   //  this.loadlist();
+    this.user = localStorage.getItem('email');
   }
 
   ionViewWillEnter(){
@@ -42,7 +43,6 @@ export class LeadllistPage implements OnInit {
   }
 
   ngOnInit() {
-    this.user = localStorage.getItem('email');
   }
 
   onClick(data){
