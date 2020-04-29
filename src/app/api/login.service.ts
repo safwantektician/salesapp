@@ -105,4 +105,25 @@ export class LoginService {
 
   }
 
+  forgotPassword(url, param={}, headers={})
+  {
+    return Observable.create(observer => {
+      this.http.get('http://'+url, param, headers)
+      .then(data => {
+        console.log(data);
+        observer.next(data);
+      }).catch(error => {
+      //  console.log(param);
+      //  console.log(headers);
+      //  console.log(error);
+      //  console.log(error.status);
+      console.log(error);
+        let errors = JSON.parse(error.error);
+      //  console.log(response_got); // error message as string
+        observer.next(errors);
+    //    observer.complete();
+      });
+    });
+  }
+
 }

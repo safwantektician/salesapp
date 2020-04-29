@@ -13,16 +13,27 @@
     <p>Enter the email address associated with your account</p>
   </div><!-- /title_header -->
   <div class="login_form ion-padding">
-    <div class="error_box">
-      Error message display here
+    <div class="error_box" *ngIf="errors.length">
+      <ul>
+        <li *ngFor="let error of errors">
+          {{error}}
+        </li>
+      </ul>
     </div>
     <form>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone:
+true}"></ion-input>
       <ion-icon name="mail" slot="start"></ion-icon>
     </ion-item>
-    <ion-button color="warning" routerLink="/login" expand="block">Reset Password</ion-button>
+    <ion-item *ngIf="myinstances.length" style="margin-top:5px;">
+      <ion-select [(ngModel)]="selectedInstance" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select Instance" [ngModelOptions]="{standalone:
+true}">
+        <ion-select-option *ngFor="let instance of myinstances" value="{{instance}}">{{instance}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button color="warning" (click)="forgotAction()" expand="block">Reset Password</ion-button>
     </form>
   </div><!-- /login_form -->
 

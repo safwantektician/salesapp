@@ -17,8 +17,13 @@
       <ion-input type="text" formControlName="username"></ion-input>
       <ion-icon name="mail" slot="start"></ion-icon>
     </ion-item>
-
-    <ion-item>
+    <ion-item *ngIf="myinstances.length > 1">
+      <ion-select [(ngModel)]="selectedInstance" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select Instance" [ngModelOptions]="{standalone:
+true}">
+        <ion-select-option *ngFor="let instance of myinstances" value="{{instance}}">{{instance}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="myinstances.length">
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
       <ion-icon name="lock" slot="start"></ion-icon>
