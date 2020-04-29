@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { LoginService } from '../api/login.service'
 import { SocketService } from '../api/socket.service'
 import { Router } from '@angular/router'
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-leadllist',
@@ -15,6 +16,10 @@ export class LeadllistPage implements OnInit {
   public leadData: any = [];
   public startNo: any = 0;
   public endNo: any = 10;
+  public whocalled: any
+  public refreshEvent: any
+  public loadMoreEvent:any
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
   constructor(private login: LoginService, private socket: SocketService, private route: Router, private ringtones: NativeRingtones) {
     
@@ -26,11 +31,24 @@ export class LeadllistPage implements OnInit {
         this.startNo = 0
         this.endNo = 10
         this.leadData = []
-        this.loadlist();
+        this.socket.getLeadList(this.startNo,this.endNo)
+        this.toggleInfiniteScroll()
+        // this.loadlist();
       }
     })
 
-    this.loadlist();
+    this.socket.getLeadListResult().subscribe(data => {
+      if(this.whocalled == 'loadMore'){
+        this.loadlist(data, this.loadMoreEvent)
+      } else {
+        this.loadlist(data)
+      }
+      this.whocalled == ''
+      console.log(data)
+    })
+
+    // Get on first load
+    this.socket.getLeadList(this.startNo,this.endNo)
   }
 
   ionViewWillEnter() {
@@ -50,15 +68,16 @@ export class LeadllistPage implements OnInit {
   loadMore(event) {
     this.startNo = this.endNo
     this.endNo = this.endNo + 10
-    this.loadlist(event)
+    this.whocalled = 'loadMore'
+    this.loadMoreEvent = event
+    this.socket.getLeadList(this.startNo,this.endNo)
+    // this.loadlist(event)
   }
 
-  loadlist(event?) {
-    this.socket.getLeadList(this.startNo, this.endNo).subscribe(data => {
-      console.log(data)
+  loadlist(data?,event?) {
       if (!data.data.length) {
         if (event) {
-          event.target.disabled = true
+          event.target.complete()
         }
       } else {
         console.log("now only coming here")
@@ -67,14 +86,18 @@ export class LeadllistPage implements OnInit {
           event.target.complete();
         }
       }
-    });
+  }
+
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = false;
   }
 
   doRefresh(event) {
     this.startNo = 0
     this.endNo = 10
     this.leadData = []
-    this.loadlist();
+    // this.loadlist();
+    this.socket.getLeadList(this.startNo,this.endNo)
 
     setTimeout(() => {
       console.log('Async operation has ended');

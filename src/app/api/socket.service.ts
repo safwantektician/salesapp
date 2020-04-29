@@ -58,10 +58,15 @@ export class SocketService {
 			this.socket.disconnect();
 	}
 
-	getLeadList(startNo, endNo): Observable<any> {
+	getLeadList(startNo, endNo){
+		//this.socket.emit('lead-list');
+			this.socket.emit('lead-list-page', { start: startNo, end: endNo });
+	}
+
+	getLeadListResult(): Observable<any> {
 		//this.socket.emit('lead-list');
 		return new Observable(observer => {
-			this.socket.emit('lead-list-page', { start: startNo, end: endNo }, (data: any) => {
+			this.socket.on('lead-list-page-resp', (data: any) => {
 				console.log("lead list has already been send and recievied")
 				observer.next(data);
 			});
