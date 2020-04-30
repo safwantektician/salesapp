@@ -37,14 +37,14 @@ ion-content {
     }
     .alert_active {
         position: absolute;
-        top: 0;
+        top: -5px;
         right: 28px;
         z-index: 9999;
         ion-chip {
             color: #fff;
             // text-shadow: 0px 0px 4px #EC93A6;
             animation:blinkingText 1.2s infinite;
-            border-radius: 0;
+            border-radius: 5px;
             border:none;
             font-size: 10px;
         }

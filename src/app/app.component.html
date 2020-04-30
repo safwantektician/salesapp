@@ -7,20 +7,20 @@
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
           </ion-avatar> -->
           <ion-item>
-            <ion-label>Safwan Rahman</ion-label>
+            <ion-label>Safwan Rahman<div class="online text-right">Online</div></ion-label>
             <ion-toggle ionChange="presentAlertPrompt()" checked color="success"></ion-toggle>
             <span>DND</span>
-          </ion-item>
+          </ion-item> 
         </div><!-- /side_profile -->
         <ion-list lines="none">
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+           <!--<ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>
             </ion-item>
-          </ion-menu-toggle>
+          </ion-menu-toggle> -->
           <ion-item routerLink="/tonesetting">
             <ion-label>Setting</ion-label>
             <ion-icon name="cog" slot="start"></ion-icon>

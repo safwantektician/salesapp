@@ -2,7 +2,10 @@ ion-split-pane{
     --border: none !important;
     ion-menu{
      --background: #0D167E !important; 
-        ion-content{            
+        ion-content{         
+                .online {
+                    color: #04db62;
+            }
             --background: #0D167E !important; 
             .side_profile {
                 padding-top:30px;
