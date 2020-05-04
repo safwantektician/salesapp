@@ -18,6 +18,17 @@
   <div class="refresh">
     Pull down to refresh
   </div>
+  <ion-list lines="none">
+    <ion-item lines="none" class="no-padding">
+      <ion-label>Filter leads</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="All status">
+        <ion-select-option value="brown">Appointment</ion-select-option>
+        <ion-select-option value="blonde">Follow up</ion-select-option>
+        <ion-select-option value="black">Not interested</ion-select-option>
+        <ion-select-option value="red">Closed</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
   <ion-item lines="none" routerLink="/leaddetails" class="active">
     <ion-avatar slot="start">
       <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
