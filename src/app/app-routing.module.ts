@@ -66,6 +66,10 @@ const routes: Routes = [
   {
     path: 'tonesetting',
     loadChildren: () => import('./tonesetting/tonesetting.module').then( m => m.TonesettingPageModule)
+  },
+  {
+    path: 'selectfilter',
+    loadChildren: () => import('./selectfilter/selectfilter.module').then( m => m.SelectfilterPageModule)
   }
 ];
 

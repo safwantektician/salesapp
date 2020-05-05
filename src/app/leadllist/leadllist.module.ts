@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { LeadllistPageRoutingModule } from './leadllist-routing.module';
+import { SelectfilterPageModule } from '../selectfilter/selectfilter.module'
 
 import { LeadllistPage } from './leadllist.page';
 
@@ -13,7 +14,8 @@ import { LeadllistPage } from './leadllist.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    LeadllistPageRoutingModule
+    LeadllistPageRoutingModule,
+    SelectfilterPageModule
   ],
   declarations: [LeadllistPage]
 })

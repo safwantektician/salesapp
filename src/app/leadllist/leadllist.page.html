@@ -21,12 +21,7 @@
   <ion-list lines="none">
     <ion-item lines="none" class="no-padding">
       <ion-label>Filter leads</ion-label>
-      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="All status">
-        <ion-select-option value="brown">Appointment</ion-select-option>
-        <ion-select-option value="blonde">Follow up</ion-select-option>
-        <ion-select-option value="black">Not interested</ion-select-option>
-        <ion-select-option value="red">Closed</ion-select-option>
-      </ion-select>
+      <ion-button color="primary" (click)='popOverTrigger($event)'>Filter</ion-button>
     </ion-item>
   </ion-list>
   <ion-item lines="none" routerLink="/leaddetails" class="active">
@@ -125,5 +120,21 @@
     <ion-chip slot="end" color="danger">Not Interested</ion-chip>
   </ion-item>
   
+  <!-- Hidden datetime picker -->
+  <ion-item hidden="true">
+    <ion-label position="floating">Follow Up</ion-label>
+    <ion-datetime #timePicker [(ngModel)]="selectedDate" name="dateselect" displayFormat="DD MMM YYYY HH:mm" min="2020-01" placeholder="Select Date" (ionChange)="dateTimeSearchOnClick()"></ion-datetime>
+    <ion-icon name="calendar" slot="end"></ion-icon>
+  </ion-item>
 
+
+  <!-- Hidden select box -->
+  <ion-item hidden="true">
+    <ion-select #statusPicker interface="alert" cancelText="Cancel" okText="Search" [value] = "Appointment" [(ngModel)]="selectStatus" (ionChange)="statusSearchOnClick()">
+      <ion-select-option value="Appointment">Appointment</ion-select-option>
+      <ion-select-option value="Follow Up">Follow up</ion-select-option>
+      <ion-select-option value="Not interested">Not interested</ion-select-option>
+      <ion-select-option value="Opportunity">Opportunity</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-content>

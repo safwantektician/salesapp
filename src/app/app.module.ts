@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { HTTP } from '@ionic-native/http/ngx'
+import { FilterService } from '../service/filter.service'
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { HTTP } from '@ionic-native/http/ngx'
     OneSignal,
     BackgroundMode,
     HTTP,
+    FilterService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
