@@ -24,16 +24,36 @@
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone:
-true}"></ion-input>
+true}" [disabled]="emailDisable"></ion-input>
       <ion-icon name="mail" slot="start"></ion-icon>
     </ion-item>
-    <ion-item *ngIf="myinstances.length" style="margin-top:5px;">
+    <ion-item *ngIf="myinstances.length > 1" style="margin-top:5px;">
       <ion-select [(ngModel)]="selectedInstance" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select Instance" [ngModelOptions]="{standalone:
 true}">
         <ion-select-option *ngFor="let instance of myinstances" value="{{instance}}">{{instance}}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button color="warning" (click)="forgotAction()" expand="block">Reset Password</ion-button>
+    <ion-item *ngIf="verifyOTP">
+      <ion-label position="floating">SMS Code</ion-label>
+      <ion-input type="number" [(ngModel)]="sms_code" [ngModelOptions]="{standalone:
+true}"></ion-input>
+      <ion-icon name="mobile" slot="start"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="confirmPws">
+      <ion-label position="floating">New Password</ion-label>
+      <ion-input type="password" [(ngModel)]="new_password" [ngModelOptions]="{standalone:
+true}"></ion-input>
+      <ion-icon name="lock" slot="start"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="confirmPws">
+      <ion-label position="floating">Retype Password</ion-label>
+      <ion-input type="password" [(ngModel)]="retype_password" [ngModelOptions]="{standalone:
+true}"></ion-input>
+      <ion-icon name="lock" slot="start"></ion-icon>
+    </ion-item>
+    <ion-button color="success" (click)="verifyAction()" expand="block" *ngIf="verifyOTP" [disabled]="verifyDisable">Verify Code</ion-button>
+    <ion-button color="warning" (click)="forgotAction()" expand="block" *ngIf="!verifyOTP && !confirmPws">Reset Password</ion-button>
+    <ion-button color="warning" (click)="changePwsAction()" expand="block" *ngIf="confirmPws">Update Password</ion-button>
     </form>
   </div><!-- /login_form -->
 

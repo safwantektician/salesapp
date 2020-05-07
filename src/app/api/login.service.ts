@@ -126,4 +126,95 @@ export class LoginService {
     });
   }
 
+  forgotPasswordOTP(url, param={}, headers={})
+  {
+    return Observable.create(observer => {
+
+      this.http.post(this.apiUrl+url, param, headers)
+      .then(data => {
+        console.log(data);
+        observer.next(data);
+      }).catch(error => {
+      //  console.log(param);
+      //  console.log(headers);
+      //  console.log(error);
+      //  console.log(error.status);
+      console.log(error);
+        let errors = JSON.parse(error.error);
+      //  console.log(response_got); // error message as string
+        observer.next(errors);
+    //    observer.complete();
+      });
+    });
+  }
+
+  verifyOTP(url, param={}, headers={})
+  {
+    return Observable.create(observer => {
+
+      this.http.post(this.apiUrl+url, param, headers)
+      .then(data => {
+        console.log(data);
+        observer.next(data);
+      }).catch(error => {
+      //  console.log(param);
+      //  console.log(headers);
+      //  console.log(error);
+      //  console.log(error.status);
+      console.log(error);
+        let errors = JSON.parse(error.error);
+      //  console.log(response_got); // error message as string
+        observer.next(errors);
+    //    observer.complete();
+      });
+    });
+  }
+
+  changePasswordSuccess(url, param={}, headers={})
+  {
+    return Observable.create(observer => {
+      this.http.post('http://'+url, param, headers)
+      .then(data => {
+        console.log(data);
+        observer.next(data);
+      }).catch(error => {
+      //  console.log(param);
+      //  console.log(headers);
+      //  console.log(error);
+      //  console.log(error.status);
+      console.log(error);
+        let errors = JSON.parse(error.error);
+      //  console.log(response_got); // error message as string
+        observer.next(errors);
+    //    observer.complete();
+      });
+    });
+  }
+
+
+
+  getProfile(url, param, headers={})
+  {
+
+    return Observable.create(observer => {
+      console.log(param);
+      this.http.post('http://'+url, {"email_address":param}, headers)
+      .then(data => {
+        console.log(data);
+        observer.next(data);
+      }).catch(error => {
+      //  console.log(param);
+      //  console.log(headers);
+      //  console.log(error);
+      //  console.log(error.status);
+      console.log(error);
+        let errors = JSON.parse(error.error);
+      //  console.log(response_got); // error message as string
+        observer.next(errors);
+    //    observer.complete();
+      });
+    })
+
+  }
+
 }

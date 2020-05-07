@@ -9,10 +9,16 @@
 
 <ion-content>
   <div class="profile_header">
-    <ion-avatar>
-      <img src="https://i.pravatar.cc/150" />
+    <ion-avatar *ngIf="userInfo.image">
+      <img src="{{userInfo.image}}" />
     </ion-avatar>
-    <h3>{{email}}</h3>
+    <ion-avatar *ngIf="!userInfo.image">
+      <img src="assets/noavatar.png" />
+    </ion-avatar>
+    <h3>{{userInfo.contact_full_name}}</h3>
+    <h4>{{email}}</h4>
+    <h6>{{userInfo.parent_mobile_sales_team}}</h6>
+    <h6>{{userInfo.mobile_phone}}</h6>
     <ion-button [routerLink]="['/changepassword']">Change Password</ion-button>
   </div><!-- /profile_header -->
 
