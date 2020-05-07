@@ -286,7 +286,7 @@ export class AppComponent {
 	}
 
 
-	setupPush() {
+	async setupPush() {
 		// I recommend to put these into your environment.ts
 		this.oneSignal.startInit('a00c5f60-a0da-4d0a-a42f-97b7b08551cf', '486774138767');
 
@@ -350,6 +350,7 @@ export class AppComponent {
 		});
 		this.oneSignal.endInit();
 	}
+
 	async showAlert(title, msg, task) {
 		const alert = await this.alertCtrl.create({
 			header: title,

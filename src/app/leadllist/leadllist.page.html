@@ -11,17 +11,24 @@
 </ion-header>
 
 <ion-content>
-  <div class="no_lead" *ngIf="!leadData.length">
-    <img src="assets/no-lead-ico.png">
-    <h3>Ops! No lead yet</h3>
-  </div><!-- /no_lead -->
   <div class="refresh">
     Pull down to refresh
   </div>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-item lines="none" (click)="onClick(data)" *ngFor="let data of leadData" class="{{data.user_active.toLowerCase()}}">
+  <ion-list lines="none">
+    <ion-item lines="none" class="no-padding">
+      <ion-label>Filter leads</ion-label>
+      <ion-button color="primary" (click)='popOverTrigger($event)'>Filter</ion-button>
+    </ion-item>
+  </ion-list>
+  <div class="no_lead" *ngIf="!leadData.length">
+    <img src="assets/no-lead-ico.png">
+    <h3>Ops! No lead yet</h3>
+  </div><!-- /no_lead -->
+  <ion-item lines="none" (click)="onClick(data)" *ngFor="let data of leadData"
+    class="{{data.user_active.toLowerCase()}}">
     <ion-avatar slot="start">
       <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
     </ion-avatar>
@@ -31,9 +38,38 @@
     </ion-label>
     <ion-chip slot="end" color="tertiary">{{data.status}}</ion-chip>
     <div class="alert_active" *ngIf="data.user_active == 'ACTIVE'">
-        <ion-chip slot="end">{{data.user_active}}</ion-chip>
+      <ion-chip slot="end">{{data.user_active}}</ion-chip>
     </div><!-- /alert_active -->
   </ion-item>
+
+  <!-- Hidden datetime picker -->
+  <ion-item hidden="true">
+    <ion-label position="floating">Follow Up</ion-label>
+    <ion-datetime #timePicker1 [(ngModel)]="selectedDate1" name="dateselect" displayFormat="DD MMM YYYY HH:mm"
+      min="2020-01" placeholder="Select Date" (ionChange)="dateTimeSearchOnClick()"></ion-datetime>
+    <ion-icon name="calendar" slot="end"></ion-icon>
+  </ion-item>
+
+  <!-- Hidden datetime picker -->
+  <ion-item hidden="true">
+    <ion-label position="floating">Follow Up</ion-label>
+    <ion-datetime #timePicker2 [(ngModel)]="selectedDate2" name="dateselect" displayFormat="DD MMM YYYY HH:mm"
+      min="2020-01" placeholder="Select Date" (ionChange)="dateTimeSearchOnClick()"></ion-datetime>
+    <ion-icon name="calendar" slot="end"></ion-icon>
+  </ion-item>
+
+
+  <!-- Hidden select box -->
+  <ion-item hidden="true">
+    <ion-select #statusPicker interface="alert" cancelText="Cancel" okText="Search" [value]="Appointment"
+      [(ngModel)]="selectStatus" (ionChange)="statusSearchOnClick()">
+      <ion-select-option value="Appointment">Appointment</ion-select-option>
+      <ion-select-option value="Follow Up">Follow up</ion-select-option>
+      <ion-select-option value="Not interested">Not interested</ion-select-option>
+      <ion-select-option value="Opportunity">Opportunity</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" loadingSpinner="bubbles"
     loadingText="Loading more...">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

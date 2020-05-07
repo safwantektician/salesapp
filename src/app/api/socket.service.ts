@@ -58,9 +58,10 @@ export class SocketService {
 			this.socket.disconnect();
 	}
 
-	getLeadList(startNo, endNo){
+	getLeadList(startNo, endNo, filter={filter:{}}){
 		//this.socket.emit('lead-list');
-			this.socket.emit('lead-list-page', { start: startNo, end: endNo });
+		console.log(filter)
+		this.socket.emit('lead-list-page', { start: startNo, end: endNo, ...filter });
 	}
 
 	getLeadListResult(): Observable<any> {
