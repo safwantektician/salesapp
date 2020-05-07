@@ -26,26 +26,26 @@ export class AppComponent {
 	@ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
 
 	public appPages = [
-		{
+/*		{
 			title: 'Log In',
 			url: '/login',
 			icon: 'log-in'
-		},
+		},*/
 		{
 			title: 'Lead List',
 			url: '/leadllist',
 			icon: 'list'
-		},
+		},/*
 		{
 			title: 'Lead Accept',
 			url: '/leadalert',
 			icon: 'call'
-		},
+		},*/
 		{
 			title: 'Profile',
 			url: '/profile',
 			icon: 'person'
-		}
+		}/*
 		,
 		{
 			title: 'Lead Activity Log',
@@ -61,7 +61,7 @@ export class AppComponent {
 			title: 'Lead Accept Failed',
 			url: '/leadacceptfailed',
 			icon: 'person'
-		}
+		}*/
 	];
 
 	public leadComing: boolean = false;
@@ -109,7 +109,7 @@ export class AppComponent {
 
 				this.user = (<any>data).userInfo.data;
 				this.socketService.connectSocket(data)
-				// Save user email on localstorage				
+				// Save user email on localstorage
 				if (!localStorage.getItem('vibrate')) {
 					localStorage.setItem('vibrate', 'true');
 				}

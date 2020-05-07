@@ -191,6 +191,21 @@ export class LoginService {
     });
   }
 
+  resetPasswordKey(url, param={}, headers={})
+  {
+    return Observable.create(observer => {
+      this.http.post('http://'+url, param, headers)
+      .then(data => {
+        console.log(data);
+        observer.next(data);
+      }).catch(error => {
+      console.log(error);
+        let errors = JSON.parse(error.error);
+        observer.next(errors);
+      });
+    });
+  }
+
 
 
   getProfile(url, param, headers={})

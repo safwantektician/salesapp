@@ -100,6 +100,8 @@ export class ForgetpassPage implements OnInit {
      duration: 2000
    });
 
+   loading.present();
+
    this.login.verifyOTP('/auth/verifyresetcode',{"smscode":this.sms_code}).subscribe(result_otp => {
      var resultOTP = JSON.parse(result_otp.data);
      if(resultOTP.success){
