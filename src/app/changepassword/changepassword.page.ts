@@ -40,8 +40,7 @@ export class ChangepasswordPage implements OnInit {
     this.disableButton = true;
     this.errors = [];
     const loading = await this.loading.create({
-      message: 'Please wait...',
-      duration: 2000
+      message: 'Please wait...'
     });
 
     loading.present();
@@ -72,7 +71,7 @@ export class ChangepasswordPage implements OnInit {
 
     if(this.current_password && this.new_password && this.retype_password && (this.new_password == this.retype_password)){
 
-      this.login.resetPasswordKey(this.authInfo.data.instance+'/api/method/erpnext.crm.doctype.lead.api.generate_key_4_pass', {"email":this.authInfo.data.email}).subscribe(result => {
+      this.login.resetPasswordKey(this.authInfo.data.instance+'/api/method/erpnext.crm.doctype.lead.api.generate_key_4_pass', {"email":this.authInfo.data.email},{"Accept":"application/json"}).subscribe(result => {
         loading.dismiss();
         this.disableButton = false;
         console.log(result);
@@ -86,6 +85,7 @@ export class ChangepasswordPage implements OnInit {
     }else{
       this.disableButton = false;
     }
+    loading.dismiss();
 
     //this.router.navigate(['/profile'])
   }

@@ -97,7 +97,6 @@ export class ForgetpassPage implements OnInit {
  async verifyAction(){
    const loading = await this.loading.create({
      message: 'Please wait...',
-     duration: 2000
    });
 
    loading.present();
