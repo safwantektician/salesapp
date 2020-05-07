@@ -22,6 +22,7 @@ import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { FilterService } from '../service/filter.service'
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,7 +49,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
     AppMinimize,
     Network,
     NativeAudio,
-    ScreenOrientation
+    ScreenOrientation,
+    FilterService
   ],
   bootstrap: [AppComponent]
 })
