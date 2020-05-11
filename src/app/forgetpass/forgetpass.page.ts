@@ -101,32 +101,45 @@ export class ForgetpassPage implements OnInit {
 
    loading.present();
 
-   this.login.verifyOTP('/auth/verifyresetcode',{"smscode":this.sms_code}).subscribe(result_otp => {
-     var resultOTP = JSON.parse(result_otp.data);
-     if(resultOTP.success){
-       this.emailDisable = true;
-       this.errors = [];
-       this.errors.push('Please Insert Your New Password');
-       this.verifyOTP = false;
-        console.log(resultOTP);
-        this.keyChangePws = resultOTP.data.erp_generated_code;
-        this.confirmPws = true;
-        loading.dismiss();
-     }else{
-        this.errors = [];
-        loading.dismiss();
-        this.errors.push(resultOTP.message);
-     }
-   })
+   if(!this.sms_code)
+   {
+     this.errors = [];
+     this.errors.push('Please Insert SMS Code');
+     loading.dismiss();
+
+   }else{
+
+     this.login.verifyOTP('/auth/verifyresetcode',{"smscode":this.sms_code}).subscribe(result_otp => {
+       var resultOTP = JSON.parse(result_otp.data);
+       if(resultOTP.success){
+         this.emailDisable = true;
+         this.errors = [];
+         this.errors.push('Please Insert Your New Password');
+         this.verifyOTP = false;
+          //console.log(resultOTP);
+          this.keyChangePws = resultOTP.data.erp_generated_code;
+          this.confirmPws = true;
+          loading.dismiss();
+       }else{
+          this.errors = [];
+          loading.dismiss();
+          this.errors.push(resultOTP.message);
+       }
+     })
+
+   }
  }
 
  changePwsAction()
  {
    if(this.new_password != this.retype_password)
    {
+
      this.errors = [];
      this.errors.push('Your new password not match with retype password');
+
    }else{
+
       this.login.changePasswordSuccess(this.selectedInstance+'/api/method/frappe.core.doctype.user.user.update_password', {"new_password": this.new_password, "key":this.keyChangePws},{"Accept":"application/json"}).subscribe(result_pws => {
         console.log(result_pws);
         if(result_pws.status == 200)

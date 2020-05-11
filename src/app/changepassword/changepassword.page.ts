@@ -16,6 +16,7 @@ export class ChangepasswordPage implements OnInit {
   public disableButton: any = false;
   public errors: any = [];
   public authInfo: any;
+  public keyChangePws: any;
 
   constructor(
       public alertCtrl: AlertController,
@@ -71,10 +72,29 @@ export class ChangepasswordPage implements OnInit {
 
     if(this.current_password && this.new_password && this.retype_password && (this.new_password == this.retype_password)){
 
-      this.login.resetPasswordKey(this.authInfo.data.instance+'/api/method/erpnext.crm.doctype.lead.api.generate_key_4_pass', {"email":this.authInfo.data.email},{"Accept":"application/json"}).subscribe(result => {
+      this.login.resetPasswordKey('auth/geterpresetcode', {"username":this.authInfo.data.email, "instance": this.authInfo.data.instance}).subscribe(result => {
         loading.dismiss();
         this.disableButton = false;
-        console.log(result);
+        const replyResetKey = JSON.parse(result.data);
+        this.keyChangePws = replyResetKey.data.message;
+        this.login.changePasswordSuccess(this.authInfo.data.instance+'/api/method/frappe.core.doctype.user.user.update_password', {"new_password": this.new_password, "old_password": this.current_password, "key":this.keyChangePws},{"Accept":"application/json"}).subscribe(result_pws => {
+          console.log(result_pws);
+          if(result_pws.status == 200)
+          {
+            this.alertExit('Password has been Changed Successfully');
+          }
+          if(result_pws.status == 417)
+          {
+            this.errors = [];
+            this.errors.push('Invalid Password: This is a top-10 common password. All-uppercase is almost as easy to guess as all-lowercase, Include symbols, numbers and capital letters in the password');
+          }
+          if(result_pws.status == 401)
+          {
+            this.errors = [];
+            this.errors.push('Your Current Password is incorrect');
+          }
+        });
+
       }, error => {
         loading.dismiss();
         this.disableButton = false;
@@ -88,6 +108,25 @@ export class ChangepasswordPage implements OnInit {
     loading.dismiss();
 
     //this.router.navigate(['/profile'])
+  }
+
+  async alertExit(message)
+  {
+    const alertX = await this.alertCtrl.create({
+      header: 'Change Password',
+      message: message,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['/profile']);
+          }
+        }
+      ]
+    });
+    await alertX.present();
+    let resulXt = await alertX.onDidDismiss();
+
   }
 
 }

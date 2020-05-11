@@ -194,7 +194,7 @@ export class LoginService {
   resetPasswordKey(url, param={}, headers={})
   {
     return Observable.create(observer => {
-      this.http.post('http://'+url, param, headers)
+      this.http.post(this.apiUrl+url, param, headers)
       .then(data => {
         console.log(data);
         observer.next(data);
