@@ -278,6 +278,14 @@ export class SocketService {
 		})
 	}
 
+	remoteLogOut():Observable<any>{
+		return new Observable(observer => {
+			this.socket.on('user-remote-logout', (data: any) => {
+				console.log(data)
+				observer.next(data)
+			})
+		})
+	}
 	// /*
 	// * Method to emit the logout event.
 	// */

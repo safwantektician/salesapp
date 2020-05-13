@@ -148,6 +148,12 @@ export class AppComponent {
 				this.socketService.getUserDetails().subscribe(data => {
 					localStorage.setItem('UserDetails', data)
 				})
+
+				this.socketService.remoteLogOut().subscribe(data => {
+					this.login.DoLogout();
+					this.menuCtrl.enable(false);
+					this.router.navigate(['/login']);
+				})
 				this.setupPush();
 
 
