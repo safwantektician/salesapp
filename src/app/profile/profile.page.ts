@@ -19,11 +19,10 @@ export class ProfilePage implements OnInit {
     this.email = localStorage.getItem('email');
     this.authInfo = JSON.parse(localStorage.getItem('authUser'));
 
-    console.log(this.authInfo.data.instance);
-    this.login.getProfile(this.authInfo.data.instance+'/api/method/erpnext.crm.doctype.lead.api.getMobileData', this.authInfo.data.email).subscribe(response => {
+    this.login.getProfile('users/profiledata', {}, {"Authorization":"Bearer "+this.authInfo.data.access_token}).subscribe(response => {
         this.userInfo = JSON.parse(response.data);
-        this.userInfo = this.userInfo.message[0];
-        console.log(this.userInfo);
+        this.userInfo = this.userInfo.data.message[0];
+        //console.log();
     });
   }
 

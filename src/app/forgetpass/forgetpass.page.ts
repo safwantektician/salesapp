@@ -109,23 +109,26 @@ export class ForgetpassPage implements OnInit {
 
    }else{
 
-     this.login.verifyOTP('/auth/verifyresetcode',{"smscode":this.sms_code}).subscribe(result_otp => {
-       var resultOTP = JSON.parse(result_otp.data);
-       if(resultOTP.success){
-         this.emailDisable = true;
-         this.errors = [];
-         this.errors.push('Please Insert Your New Password');
-         this.verifyOTP = false;
-          //console.log(resultOTP);
-          this.keyChangePws = resultOTP.data.erp_generated_code;
-          this.confirmPws = true;
-          loading.dismiss();
+     this.login.verifyOTP('auth/verifyresetcode',{"smscode":this.sms_code}).subscribe(result_otp => {
+       if(result_otp.success || result_otp.status == 200)
+       {
+           var resultOTP = JSON.parse(result_otp.data);
+           this.emailDisable = true;
+           this.errors = [];
+           this.errors.push('Please Insert Your New Password');
+           this.verifyOTP = false;
+            //console.log(resultOTP);
+            this.keyChangePws = resultOTP.data.erp_generated_code;
+            this.confirmPws = true;
+            loading.dismiss();
        }else{
-          this.errors = [];
-          loading.dismiss();
-          this.errors.push(resultOTP.message);
+         this.errors = [];
+         loading.dismiss();
+         this.errors.push(result_otp.message);
        }
-     })
+     }, error => {
+        console.log(error);
+     });
 
    }
  }
@@ -140,7 +143,7 @@ export class ForgetpassPage implements OnInit {
 
    }else{
 
-      this.login.changePasswordSuccess(this.selectedInstance+'/api/method/frappe.core.doctype.user.user.update_password', {"new_password": this.new_password, "key":this.keyChangePws},{"Accept":"application/json"}).subscribe(result_pws => {
+      this.login.changePasswordSuccess('auth/changepassword', {"password": this.new_password, "instance": this.selectedInstance, "key":this.keyChangePws, "username": this.email},{"Accept":"application/json"}).subscribe(result_pws => {
         console.log(result_pws);
         if(result_pws.status == 200)
         {

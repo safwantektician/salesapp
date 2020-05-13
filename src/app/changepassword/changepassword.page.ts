@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router'
 import { LoginService } from '../api/login.service';
+import { SocketService } from '../api/socket.service'
 
 @Component({
   selector: 'app-changepassword',
@@ -22,7 +23,10 @@ export class ChangepasswordPage implements OnInit {
       public alertCtrl: AlertController,
       private login: LoginService,
       private router: Router,
-      private loading: LoadingController)
+      private loading: LoadingController,
+      public menuCtrl: MenuController,
+		  private socketService: SocketService
+    )
       {
 
       }
@@ -46,7 +50,7 @@ export class ChangepasswordPage implements OnInit {
 
     loading.present();
 
-    console.log(this.authInfo.data);
+    //console.log(this.authInfo.data);
 
     if(!this.current_password)
     {
@@ -72,29 +76,17 @@ export class ChangepasswordPage implements OnInit {
 
     if(this.current_password && this.new_password && this.retype_password && (this.new_password == this.retype_password)){
 
-      this.login.resetPasswordKey('auth/geterpresetcode', {"username":this.authInfo.data.email, "instance": this.authInfo.data.instance}).subscribe(result => {
+      this.login.changePasswordSuccess('users/changeuserpassword', {"new_password": this.new_password, "old_password": this.current_password},{"Authorization":"Bearer "+this.authInfo.data.access_token}).subscribe(result_pws => {
         loading.dismiss();
         this.disableButton = false;
-        const replyResetKey = JSON.parse(result.data);
-        this.keyChangePws = replyResetKey.data.message;
-        this.login.changePasswordSuccess(this.authInfo.data.instance+'/api/method/frappe.core.doctype.user.user.update_password', {"new_password": this.new_password, "old_password": this.current_password, "key":this.keyChangePws},{"Accept":"application/json"}).subscribe(result_pws => {
-          console.log(result_pws);
-          if(result_pws.status == 200)
-          {
-            this.alertExit('Password has been Changed Successfully');
-          }
-          if(result_pws.status == 417)
-          {
-            this.errors = [];
-            this.errors.push('Invalid Password: This is a top-10 common password. All-uppercase is almost as easy to guess as all-lowercase, Include symbols, numbers and capital letters in the password');
-          }
-          if(result_pws.status == 401)
-          {
-            this.errors = [];
-            this.errors.push('Your Current Password is incorrect');
-          }
-        });
-
+        console.log(result_pws);
+        if(result_pws.status == 200)
+        {
+          this.alertExit('Password has been Changed Successfully');
+        }else{
+          this.errors = [];
+          this.errors.push(result_pws.message);
+        }
       }, error => {
         loading.dismiss();
         this.disableButton = false;
@@ -104,8 +96,9 @@ export class ChangepasswordPage implements OnInit {
 
     }else{
       this.disableButton = false;
+      loading.dismiss();
     }
-    loading.dismiss();
+    //loading.dismiss();
 
     //this.router.navigate(['/profile'])
   }
@@ -119,7 +112,11 @@ export class ChangepasswordPage implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            this.router.navigate(['/profile']);
+            this.socketService.disconnectSocket();
+            this.login.DoLogout();
+            this.menuCtrl.enable(false);
+            this.router.navigate(['/login']);
+//            this.router.navigate(['/profile']);
           }
         }
       ]

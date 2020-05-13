@@ -161,7 +161,7 @@ export class LoginService {
       //  console.log(headers);
       //  console.log(error);
       //  console.log(error.status);
-      console.log(error);
+      //console.log(error.error);
         let errors = JSON.parse(error.error);
       //  console.log(response_got); // error message as string
         observer.next(errors);
@@ -173,7 +173,7 @@ export class LoginService {
   changePasswordSuccess(url, param={}, headers={})
   {
     return Observable.create(observer => {
-      this.http.post('http://'+url, param, headers)
+      this.http.post(this.apiUrl+url, param, headers)
       .then(data => {
         console.log(data);
         observer.next(data);
@@ -213,7 +213,7 @@ export class LoginService {
 
     return Observable.create(observer => {
       console.log(param);
-      this.http.post('http://'+url, {"email_address":param}, headers)
+      this.http.get(this.apiUrl+url, param, headers)
       .then(data => {
         console.log(data);
         observer.next(data);
