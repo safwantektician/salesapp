@@ -51,6 +51,7 @@ export class LeadllistPage implements OnInit {
     })
 
     this.socket.getLeadListResult().subscribe(data => {
+      console.log('hello repeat');
       if (this.whocalled == 'loadMore') {
         this.loadlist(data, this.loadMoreEvent)
       } else {
@@ -76,6 +77,11 @@ export class LeadllistPage implements OnInit {
     // Disable temp lock and enable notification
     this.socket.setTempLock({ req: 'DISABLE' })
     console.log("entering view")
+  }
+
+  ionViewDidEnter()
+  {
+
   }
 
   ngOnInit() {
@@ -130,6 +136,7 @@ export class LeadllistPage implements OnInit {
   // Filteration Logic
   // Get event's from shared child component
   async selectFilter(selected) {
+    console.log('Selected Filter.'+selected);
     if (selected == 'lead') {
       await this.presentLeadNameAlert()
     } else if (selected == 'date') {
@@ -253,7 +260,7 @@ export class LeadllistPage implements OnInit {
     console.log(this.globalFilter)
     this.resetPageCounter()
     this.socket.getLeadList(this.startNo, this.endNo, this.globalFilter)
-    
+
     // Reset after use
     this.selectedDate1 = null
     this.selectedDate2 = null

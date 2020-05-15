@@ -1,5 +1,5 @@
 import { ViewChildren, QueryList, Component } from '@angular/core';
-import { Platform, AlertController, MenuController, Events, IonRouterOutlet } from '@ionic/angular';
+import { Platform, AlertController, MenuController, Events, IonRouterOutlet, NavController } from '@ionic/angular';
 import { Router } from '@angular/router'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -86,7 +86,8 @@ export class AppComponent {
 		private http: HttpService,
 		private appMinimize: AppMinimize,
 		private network: Network,
-		private nativeAudio: NativeAudio
+		private nativeAudio: NativeAudio,
+		private navCtrl: NavController
 	) {
 
 		this.initializeApp();
@@ -271,12 +272,18 @@ export class AppComponent {
 				event.preventDefault();
 				event.stopPropagation();
 			}, false);
+
+
 			if (this.router.url === '/leadllist') {
 							this.alertExit()
 							return;
 			}else if(this.router.url === '/login'){
 							this.alertExit()
 							return;
+			}else if(this.router.url.search("/activitylog")){
+						console.log('Navigate');
+						this.navCtrl.back();
+						return;
 			}else {
 						console.log('Navigate Leadlist');
 						this.router.navigate(['/leadllist']);
@@ -406,7 +413,6 @@ export class AppComponent {
 	}
 
 	async presentAlertPrompt() {
-		this.toggleValue = !this.toggleValue;
 
 		const alert = await this.alertCtrl.create({
 			header: 'Do Not Disturb',
@@ -444,7 +450,7 @@ export class AppComponent {
 					text: 'Cancel',
 					role: 'cancel',
 					cssClass: 'secondary',
-					handler: () => {
+					handler: (data) => {
 						console.log('Confirm Cancel');
 					}
 				}, {
@@ -457,17 +463,27 @@ export class AppComponent {
 			]
 		});
 
-		console.log(this.toggleValue);
+		this.toggleValue = !this.toggleValue;
 
 		if (this.toggleValue === true) {
+
 			await alert.present();
 			let result = await alert.onDidDismiss();
-			console.log(result.data.values);
-			this.socketService.setDoNotDisturb(result.data.values).subscribe(data => {
-				console.log(data);
-			});
+			if(result.role == 'cancel')
+			{
+				this.toggleValue = false;
+				console.log('Cancel');
+			}else{
+
+				console.log(result.data.values);
+				this.socketService.setDoNotDisturb(result.data.values).subscribe(data => {
+					console.log(data);
+				});
+			}
 		} else {
+			console.log('Come Here Off Dnd');
 			this.socketService.setDoNotDisturb(0).subscribe(data => {
+				console.log('Come Here');
 				console.log(data);
 			});
 		}

@@ -35,6 +35,17 @@ export class LeadalertPage implements OnInit {
     });
 
     this.socket.leadExpire().subscribe(data => {
+      if(localStorage.getItem('tone'))
+      {
+        this.nativeAudio.stop('tone').then(()=>{
+          console.log('Playing');
+        }, ()=>{
+          console.log('Error in Play');
+        });
+      }
+      if(localStorage.getItem('vibrate') == 'true'){
+        this.vibration.vibrate(0);
+      }
       this.router.navigate(['/leadllist']);
     });
 

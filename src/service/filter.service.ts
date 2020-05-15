@@ -7,12 +7,13 @@ import { BehaviorSubject } from 'rxjs';
 export class FilterService {
 
     private message = new BehaviorSubject('');
-    
+
     sharedMessage = this.message.asObservable();
 
     constructor() { }
 
     nextMessage(message: string) {
+      console.log('message next');
         this.message.next(message)
     }
 }

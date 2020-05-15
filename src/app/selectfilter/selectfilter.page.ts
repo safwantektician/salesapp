@@ -15,6 +15,7 @@ export class SelectfilterPage implements OnInit {
   }
 
   selectedOption(options){
+    console.log('Selected');
     this.filterService.nextMessage(options)
   }
 

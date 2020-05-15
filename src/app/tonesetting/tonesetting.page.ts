@@ -21,7 +21,7 @@ export class TonesettingPage implements OnInit {
       this.ring1 = true;
     }
 
-    if(localStorage.getItem('tone') == 'assets/ringtones/assets/ringtones/sound_effect.mp3')
+    if(localStorage.getItem('tone') == 'assets/ringtones/sound_effect.mp3')
     {
       this.ring2 = true;
     }
