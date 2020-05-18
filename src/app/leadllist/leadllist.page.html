@@ -36,10 +36,13 @@
       <h2>{{data.customer}}</h2>
       <p>{{data.company_name}}</p>
     </ion-label>
-    <ion-chip slot="end" color="tertiary">{{data.status}}</ion-chip>
-    <div class="alert_active" *ngIf="data.user_active == 'ACTIVE'">
-      <ion-chip slot="end">{{data.user_active}}</ion-chip>
-    </div><!-- /alert_active -->
+    <ion-chip slot="end" color="tertiary" *ngIf="data.user_active != 'ACTIVE'; else activeLead">{{data.status}}</ion-chip>
+
+    <ng-template #activeLead>
+      <div class="alert_active">
+        <ion-chip slot="end">ACTIVE</ion-chip>
+      </div>
+    </ng-template>
   </ion-item>
 
   <!-- Hidden datetime picker -->
