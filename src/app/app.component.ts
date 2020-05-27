@@ -13,6 +13,7 @@ import { HttpService } from '../service/http.service'
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { LoadingController } from '@ionic/angular';
 
 declare var cordova: any
 
@@ -87,7 +88,8 @@ export class AppComponent {
 		private appMinimize: AppMinimize,
 		private network: Network,
 		private nativeAudio: NativeAudio,
-		private navCtrl: NavController
+		private navCtrl: NavController,
+		private loading: LoadingController
 	) {
 
 		this.initializeApp();
@@ -150,10 +152,13 @@ export class AppComponent {
 					localStorage.setItem('UserDetails', data)
 				})
 
-				this.socketService.remoteLogOut().subscribe(data => {
-					this.login.DoLogout();
-					this.menuCtrl.enable(false);
-					this.router.navigate(['/login']);
+				this.socketService.remoteLogOut().subscribe(async (data) => {
+					await this.presentLoading()
+					setTimeout(()=>{
+						this.login.DoLogout();
+						this.menuCtrl.enable(false);
+						this.router.navigate(['/login']);
+					}, 2000)
 				})
 				this.setupPush();
 
@@ -254,6 +259,14 @@ export class AppComponent {
 		this.menuCtrl.enable(false);
 		this.router.navigate(['/login']);
 	}
+
+	async presentLoading() {
+		const loading = await this.loading.create({
+		  message: 'Your account is logged in on another device. Please wait while we log you out....',
+		  duration: 2000
+		});
+		await loading.present();
+	  }
 
 	backButtonEvent() {
 		this.platform.backButton.subscribeWithPriority(9999, () => {
