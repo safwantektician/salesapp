@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @Component({
   selector: 'app-tonesetting',
@@ -13,7 +14,7 @@ export class TonesettingPage implements OnInit {
   public ring3: any = false;
   public vibration: any = true;
 
-  constructor() {
+  constructor(private nativeAudio: NativeAudio) {
     console.log(localStorage.getItem('ringtone'));
 
     if(localStorage.getItem('tone') == 'assets/ringtones/media_p_o_l_i_c_e.mp3')
@@ -36,6 +37,20 @@ export class TonesettingPage implements OnInit {
   selectTone(event)
   {
     localStorage.setItem('tone',event.target.value);
+    this.nativeAudio.preloadSimple('tone', localStorage.getItem('tone')).then(()=>{
+      //console.log('DONE Load Ring Tune');
+      this.nativeAudio.loop('tone').then(()=>{
+        console.log('Playing');
+      }, ()=>{
+        console.log('Error in Play');
+      });
+
+    }, ()=>{
+      console.log('Error Load Ring Tune');
+    });
+
+
+
   }
 
   onVibration(event)
@@ -50,6 +65,15 @@ export class TonesettingPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewDidLeave()
+  {
+    this.nativeAudio.stop('tone').then(()=>{
+      console.log('Playing');
+    }, ()=>{
+      console.log('Error in Play');
+    });
   }
 
 }
