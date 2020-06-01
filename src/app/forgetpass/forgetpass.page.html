@@ -35,9 +35,14 @@ true}">
     </ion-item>
     <ion-item *ngIf="verifyOTP">
       <ion-label position="floating">SMS Code</ion-label>
-      <ion-input type="number" [(ngModel)]="sms_code" [ngModelOptions]="{standalone:
-true}"></ion-input>
-      <ion-icon name="mobile" slot="start"></ion-icon>
+      <p class="text-center">A 6-digit code has been sent to <strong>+6017-2492669</strong>. <a href="#">Change</a></p>
+      <!-- <ion-input type="number" [(ngModel)]="sms_code" [ngModelOptions]="{standalone:
+true}"></ion-input> 
+      <ion-icon name="mobile" slot="start"></ion-icon> -->
+        <ul>
+          <li>The OTP will be expired in 3:00</li>
+          <li>Didn't receive the code? <a href="">Resend</a> or <a href="">Send to email</a></li>
+        </ul>
     </ion-item>
     <ion-item *ngIf="confirmPws">
       <ion-label position="floating">New Password</ion-label>
