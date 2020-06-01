@@ -23,6 +23,8 @@ import { Network } from '@ionic-native/network/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { FilterService } from '../service/filter.service'
+import { Camera } from '@ionic-native/camera/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,7 +52,8 @@ import { FilterService } from '../service/filter.service'
     Network,
     NativeAudio,
     ScreenOrientation,
-    FilterService
+    FilterService,
+    Camera
   ],
   bootstrap: [AppComponent]
 })

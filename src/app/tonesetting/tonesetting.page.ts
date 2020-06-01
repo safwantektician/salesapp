@@ -37,16 +37,23 @@ export class TonesettingPage implements OnInit {
   selectTone(event)
   {
     localStorage.setItem('tone',event.target.value);
+    this.nativeAudio.stop('tone').then(()=>{
     this.nativeAudio.preloadSimple('tone', localStorage.getItem('tone')).then(()=>{
+      console.log('come here');
       //console.log('DONE Load Ring Tune');
-      this.nativeAudio.loop('tone').then(()=>{
-        console.log('Playing');
+      this.nativeAudio.stop('tone').then(()=>{
+        console.log('Stop');
+        this.nativeAudio.loop('tone').then(()=>{
+          console.log('Playing');
+        }, ()=>{
+          console.log('Error in Play');
+        });
       }, ()=>{
         console.log('Error in Play');
       });
-
     }, ()=>{
       console.log('Error Load Ring Tune');
+    });
     });
 
 
