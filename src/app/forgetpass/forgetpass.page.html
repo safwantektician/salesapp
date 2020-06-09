@@ -33,11 +33,12 @@ true}">
         <ion-select-option *ngFor="let instance of myinstances" value="{{instance}}">{{instance}}</ion-select-option>
       </ion-select>
     </ion-item>
+
     <ion-item *ngIf="verifyOTP">
       <ion-label position="floating">SMS Code</ion-label>
-      <ion-input type="number" [(ngModel)]="sms_code" [ngModelOptions]="{standalone:
-true}"></ion-input>
-      <ion-icon name="mobile" slot="start"></ion-icon>
+      <ion-input type="tel" [(ngModel)]="sms_code" [ngModelOptions]="{standalone:
+true}" maxlength="4"></ion-input>
+      <ion-icon name="phone-portrait" slot="start"></ion-icon>
       <!--
       <p class="text-center">A 6-digit code has been sent to your mobile number.</p>
       <ion-input type="number" [(ngModel)]="sms_code" [ngModelOptions]="{standalone:
@@ -48,6 +49,14 @@ true}"></ion-input>
           <li>Didn't receive the code? <a href="#">Resend</a> or <a href="#">Send to email</a></li>
         </ul>
         -->
+    </ion-item>
+    <ion-item *ngIf="!verifyDisable">
+      <p>A 4-digit code has been sent to your mobile number, Your OTP will be expired in <b>{{this.formatted}}</b></p>
+      <ion-icon name="clock" slot="start"></ion-icon>
+    </ion-item>
+    <ion-item *ngIf="resendCode">
+      <p>Your OTP has been expired, Please request for new OTP code.</p>
+      <ion-icon name="clock" slot="start"></ion-icon>
     </ion-item>
     <ion-item *ngIf="confirmPws">
       <ion-label position="floating">New Password</ion-label>
@@ -62,6 +71,7 @@ true}"></ion-input>
       <ion-icon name="lock" slot="start"></ion-icon>
     </ion-item>
     <ion-button color="success" (click)="verifyAction()" expand="block" *ngIf="verifyOTP" [disabled]="verifyDisable">Verify Code</ion-button>
+    <ion-button color="warning" (click)="resendOTP()" expand="block" *ngIf="verifyOTP" [disabled]="!resendCode">Resend</ion-button>
     <ion-button color="warning" (click)="forgotAction()" expand="block" *ngIf="!verifyOTP && !confirmPws">Reset Password</ion-button>
     <ion-button color="warning" (click)="changePwsAction()" expand="block" *ngIf="confirmPws">Update Password</ion-button>
     </form>

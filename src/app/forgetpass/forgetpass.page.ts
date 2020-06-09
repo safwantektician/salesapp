@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { LoginService } from '../api/login.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 
 @Component({
@@ -24,6 +25,10 @@ export class ForgetpassPage implements OnInit {
   public new_password: any;
   public retype_password:any;
   public emailDisable: any = false;
+  public maxTime: any=180;
+  public timer: any;
+  public formatted: any = '00:00:00';
+  public resendCode: any = false;
 
   constructor(public alertCtrl: AlertController, private login: LoginService, private router: Router, private loading: LoadingController) { }
 
@@ -55,7 +60,8 @@ export class ForgetpassPage implements OnInit {
            var resposne_otp = JSON.parse(forgot_result.data);
            loading.dismiss();
            this.verifyDisable = false;
-           this.errors.push(resposne_otp.message);
+           //this.errors.push(resposne_otp.message);
+           this.StartTimer();
          });
        }
        //console.log(this.userinstances);
@@ -74,7 +80,9 @@ export class ForgetpassPage implements OnInit {
      loading.dismiss();
      this.verifyDisable = false;
      this.emailDisable = true;
-     this.errors.push(resposne_otp.message);
+     //this.errors.push(resposne_otp.message);
+     this.StartTimer();
+     //console.log('Call Start Timer');
    })
    /*
    this.login.forgotPassword(this.selectedInstance+'/api/method/frappe.core.doctype.user.user.reset_password',{'user': this.email}).subscribe(result => {
@@ -130,6 +138,30 @@ export class ForgetpassPage implements OnInit {
         console.log(error);
      });
 
+   }
+ }
+
+ async resendOTP()
+ {
+
+   const loading = await this.loading.create({
+     message: 'Please wait...',
+     duration: 2000
+   });
+
+   if(this.myinstances.length == 1)
+   {
+     this.emailDisable = true;
+     this.selectedInstance = this.myinstances[0];
+     this.verifyOTP = true;
+
+     this.login.forgotPasswordOTP('auth/forgotPassword', {"username":this.email,"instance":this.selectedInstance}).subscribe(forgot_result => {
+       var resposne_otp = JSON.parse(forgot_result.data);
+       loading.dismiss();
+       this.verifyDisable = false;
+       this.StartTimer();
+       //this.errors.push(resposne_otp.message);
+     });
    }
  }
 
@@ -198,6 +230,27 @@ export class ForgetpassPage implements OnInit {
    await alertX.present();
    let resulXt = await alertX.onDidDismiss();
 
+ }
+
+
+ StartTimer(){
+   console.log('come here');
+   this.timer = setTimeout(x =>
+     {
+         if(this.maxTime>0){
+           this.resendCode = false;
+           this.maxTime -= 1;
+           this.formatted = <any>moment.utc(<any>moment.duration(this.maxTime,"s").asMilliseconds()).format("mm:ss");
+           this.StartTimer();
+         }
+         else{
+             this.maxTime = 180;
+             this.resendCode = true;
+             this.verifyDisable = true;
+             this.errors = [];
+         }
+
+     }, 1000);
  }
 
   ngOnInit() {

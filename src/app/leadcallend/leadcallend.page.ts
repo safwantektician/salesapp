@@ -31,7 +31,8 @@ export class LeadcallendPage implements OnInit {
       this.displayLog = '00:00:00'
 
       if(this.callLog.duration){
-        var formatted = (<any>moment.duration(this.callLog.duration, 'seconds')).format("hh:mm:ss");
+
+        var formatted = <any>moment.utc(<any>moment.duration(this.callLog.duration,"s").asMilliseconds()).format("mm:ss");
         //var formatted = duration.format("hh:mm:ss");
         this.displayLog = formatted;
       }
