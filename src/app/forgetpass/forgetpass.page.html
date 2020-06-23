@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-toolbar [class.show-background]="showToolbar">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button text="" icon="arrow-round-back" defaultHref="/login"></ion-back-button>
     </ion-buttons>
@@ -28,7 +28,7 @@ true}" [disabled]="emailDisable"></ion-input>
       <ion-icon name="mail" slot="start"></ion-icon>
     </ion-item>
     <ion-item *ngIf="myinstances.length > 1" style="margin-top:5px;">
-      <ion-select [(ngModel)]="selectedInstance" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Select Instance" [ngModelOptions]="{standalone:
+      <ion-select [(ngModel)]="selectedInstance" interface="action-sheet" placeholder="Select Instance" [ngModelOptions]="{standalone:
 true}">
         <ion-select-option *ngFor="let instance of myinstances" value="{{instance}}">{{instance}}</ion-select-option>
       </ion-select>

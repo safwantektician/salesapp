@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  private candidate : FormGroup;
+  public candidate : FormGroup;
   public errors: any = [];
   public userinstances: any = [];
   public myinstances: any = [];

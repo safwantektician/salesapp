@@ -64,7 +64,7 @@
 
   <!-- Hidden select box -->
   <ion-item hidden="true">
-    <ion-select #statusPicker interface="alert" cancelText="Cancel" okText="Search" [value]="Appointment"
+    <ion-select #statusPicker interface="alert" cancelText="Cancel" okText="Search" value="Appointment"
       [(ngModel)]="selectStatus" (ionChange)="statusSearchOnClick()">
       <ion-select-option value="Appointment">Appointment</ion-select-option>
       <ion-select-option value="Follow Up">Follow up</ion-select-option>
