@@ -155,3 +155,6 @@ export class LeadllistPage implements OnInit {
     }
   }
 }
+
+loadpiechart();
+   

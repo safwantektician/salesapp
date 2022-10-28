@@ -11,10 +11,15 @@
 </ion-header>
 
 <ion-content>
+
+  <div id="piechart" style="width: 100%; height: 350px; margin:-50px 0px 0px 0px;"></div>
+  <!--
   <div class="no_lead">
     <img src="assets/icon/no-lead-ico.png">
     <h3>Ops! No lead yet</h3>
-  </div><!-- /no_lead -->
+  </div>
+  -->
+
   <div class="refresh">
     Pull down to refresh
   </div>
@@ -119,7 +124,17 @@
     </ion-label>
     <ion-chip slot="end" color="danger">Not Interested</ion-chip>
   </ion-item>
+
   
+ 
+  <div>
+    <button type="button" class="cta-btn">
+      + Add new lead(s)
+    </button>
+  </div>
+
+
+
   <!-- Hidden datetime picker -->
   <ion-item hidden="true">
     <ion-label position="floating">Follow Up</ion-label>
