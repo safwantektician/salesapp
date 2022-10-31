@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, PopoverController, IonDatetime, IonSelect } from '@ionic/angular';
 import { SelectfilterPage } from '../selectfilter/selectfilter.page'
 import { FilterService } from '../../service/filter.service'
-
+declare let google
 @Component({
   selector: 'app-leadllist',
   templateUrl: './leadllist.page.html',
@@ -27,6 +27,7 @@ export class LeadllistPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loadpiechart()
   }
 
   // Get event's from shared child component
@@ -154,7 +155,32 @@ export class LeadllistPage implements OnInit {
       this.componentPopover.dismiss().then(() => { this.componentPopover = null; });
     }
   }
-}
 
-loadpiechart();
+  loadpiechart(){
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+  
+    function drawChart() {
+  
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Follow Up',     11],
+        ['Call Back',      2],
+        ['Paid Deposit',  2],
+        ['Not Interested', 9]          
+      ]);
+  
+      var options = {
+        title: 'Leads Chart',
+        titlePosition: 'none',
+        legend: {position: 'none'},
+        backgroundColor: { fill:'transparent' }
+      };
+  
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  
+      chart.draw(data, options);
+    }
+  }
+}
    
