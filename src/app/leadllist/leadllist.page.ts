@@ -164,16 +164,17 @@ export class LeadllistPage implements OnInit {
   
       var data = google.visualization.arrayToDataTable([
         ['Task', 'Hours per Day'],
-        ['Follow Up',     11],
-        ['Call Back',      2],
-        ['Paid Deposit',  2],
-        ['Not Interested', 9]          
+        ['Contacted',     11],
+        ['Appointment Made',      2],
+        ['Unit Booked',  2],
+        ['Lost Deal', 9]          
       ]);
   
       var options = {
         title: 'Leads Chart',
         titlePosition: 'none',
-        legend: {position: 'none'},
+        legend: {'position':'bottom'},
+        //legend: {position: 'none'},
         backgroundColor: { fill:'transparent' }
       };
   

@@ -11,7 +11,9 @@ ion-toolbar {
 ion-content {
     margin-top:0;
     .avatar_lead {
-        background:url('../../assets/sales_mobile_bg.jpg');
+        //background:url('../../assets/sales_mobile_bg.jpg');
+        background: rgb(0,81,255);
+        background: linear-gradient(0deg, rgba(0,81,255,1) 0%, rgb(0, 132, 255) 50%, rgba(0,81,255,1) 100%);
         padding-top:10px;
         padding-bottom:30px;
         ion-label {
@@ -188,4 +190,10 @@ ion-footer {
     width:100%; min-width:250px;
     text-align:left;
     font-size:1.15em;
+}
+.editable_auto{ 
+    border-radius:333em !important;
+    border:1px solid #eeeeee !important;
+    padding:.3em .5em;
+    width:auto; display:inline-block;
 }
