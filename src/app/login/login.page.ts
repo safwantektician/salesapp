@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
     setTimeout(() => {
       const box = document.getElementById('preloader');       
       box.style.display = 'none';
-    }, 3000); 
+    }, 7000); 
   }
 
 }
