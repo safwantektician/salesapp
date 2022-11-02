@@ -174,6 +174,9 @@ export class LeadllistPage implements OnInit {
         title: 'Leads Chart',
         titlePosition: 'none',
         legend: {'position':'bottom'},
+        pieHole: 0.4,
+        //colors: ['#2596be', '#3ba1c5', '#51abcb', '#66b6d2', '#7cc0d8'],
+        colors: ['#2564be', '#3b74c5', '#5183cb', '#6693d2', '#7ca2d8'],
         //legend: {position: 'none'},
         backgroundColor: { fill:'transparent' }
       };
