@@ -182,7 +182,8 @@ export class LeadllistPage implements OnInit {
         },
         pieHole: 0.4,
         //colors: ['#2596be', '#3ba1c5', '#51abcb', '#66b6d2', '#7cc0d8'],
-        colors: ['#2564be', '#3b74c5', '#5183cb', '#6693d2', '#7ca2d8'],
+        //colors: ['#2564be', '#3b74c5', '#5183cb', '#6693d2', '#7ca2d8'],
+        colors: ['#186ab9', '#2089ee', '#2d9fe4', '#5fb4e7', '#5fd5e7'],
         //legend: {position: 'none'},
         backgroundColor: { fill:'transparent' }
 
