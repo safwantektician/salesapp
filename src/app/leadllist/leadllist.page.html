@@ -32,12 +32,49 @@
   <div class="refresh">
     Pull down to refresh
   </div>
+  <!--
   <ion-list lines="none">
     <ion-item lines="none" class="no-padding">
       <ion-label>Filter leads</ion-label>
       <ion-button color="primary" (click)='popOverTrigger($event)'>Filter</ion-button>
     </ion-item>
   </ion-list>
+  -->
+  <div style="position:relative; padding:20px 10px 0px 10px;">
+      <div style="padding:5px 0px 10px 0px;"><b>Filter Listing</b></div>
+      <div style="position:relative;  border-radius:5555px; overflow:hidden;">
+        <div class="dropdown" style="text-align:center; position:absolute; top:0px; left:0px; width:auto; min-width:100px;  height:100%; color:#fff; background:var(--ctacolor);"
+          
+        >
+          <select name="filterby" style="background:none; height:100%; width:80%; border:0px; outline:none;">
+            <option value="name" style="color:#333;">Name</option>
+            <option value="tel" style="color:#333;">Phone</option>
+          </select>
+          
+          <!--
+            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve" style=" vertical-align:middle; width: 25px;  margin:0px -5px;  height: 100%;"><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="m20.5 11.5-6 6-6-6" style=" stroke: #ffffff;"/></svg>
+          -->
+        </div>
+        <input type="text" name="filter_keyword" placeholder="Type to filter by" style="width:100%; padding:8px 15px; border:1px solid #ccc; padding-left:110px;  border-radius:5555px;"/>
+      </div>
+      <div style="position:relative;  border-radius:5555px; overflow:; padding-top:10px;">        
+        <select name="status" style="width:100.00%; padding:8px 15px; border:1px solid #ccc; padding-left:;  border-radius:5555px;">
+          <option selected disabled>Select Status</option>
+          <option value="appointment">Appointment</option>
+          <option value="follow_up">Follow up</option>
+          <option value="not_interested">Not interested</option>
+          <option value="opportunity">Opportunity</option>
+        </select>
+      </div>
+      <div style="position:relative;  border-radius:5555px; overflow:; padding-top:10px;">        
+        <input value="" type="date" name="date_from" placeholder="dd/mm/yyyy" style="width:45.00%; padding:8px 15px; border:1px solid #ccc; padding-left:;  border-radius:5555px;"/>
+        <div style="width:9%; display:inline-block; text-align:center;">to</div>
+        <input value="" type="date" name="date_to" placeholder="dd/mm/yyyy" style="width:45.00%; padding:8px 15px; border:1px solid #ccc; padding-left:;  border-radius:5555px;"/>
+      </div>
+      <div style="position:relative;  border-radius:5555px; overflow:; padding-top:10px;">   
+        <button class="cta-btn" type="button" style="margin:0px;"> Filter </button>
+      </div>
+  </div>
   <ion-item lines="none" routerLink="/leaddetails" class="active">
     <ion-avatar slot="start">
       <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">

@@ -196,5 +196,17 @@ export class LeadllistPage implements OnInit {
 
     
   }
+
+
+  /* filter listing function */
+  filterlist(todo){
+    if(todo === "show"){
+      alert("asdasd");
+    }else{
+
+    }
+  }
+
+  
 }
    
