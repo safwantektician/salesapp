@@ -130,7 +130,7 @@ export class AppComponent {
         })
         alert.present();
     }
-    async presentAlertPrompt() {
+    async presentAlertPrompt() {        
         const alert = await this.alertCtrl.create({
           header: 'Do Not Disturb',
           inputs: [
@@ -184,4 +184,18 @@ export class AppComponent {
         console.log(result);
         
       }
+
+      showmodal(modaltarget){
+        //console.log(modaltarget);
+        var getmodal = document.getElementById(modaltarget);
+        getmodal.classList.remove("none");
+      }
+
+      hidemodal(modaltarget){
+        //console.log(modaltarget);
+        var getmodal = document.getElementById(modaltarget);
+        getmodal.classList.add("none");
+      }
+
+      
 }

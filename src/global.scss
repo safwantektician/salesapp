@@ -69,7 +69,8 @@
     margin:auto;
 }  
 
-.none{ display:none; }
+.none{ display:none !important; opacity:0;}
+.none .modalcontent{margin-bottom: -100vh;}
 
 
 .cta-btn{

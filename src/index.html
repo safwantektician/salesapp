@@ -23,5 +23,15 @@
 <body>
   <app-root></app-root>
 </body>
-
+<script>
+  window.addEventListener('click', function(e){   
+        if (document.getElementById('modalcontent').contains(e.target)){
+          console.log("Inside");
+         
+        } else{
+          console.log("Outside");                  
+          
+        }
+      });
+</script>
 </html>
