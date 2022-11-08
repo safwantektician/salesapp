@@ -10,6 +10,14 @@ export class LoginPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.hidepreload()
+  }
+
+  hidepreload(){
+    setTimeout(() => {
+      const box = document.getElementById('preloader');       
+      box.style.display = 'none';
+    }, 7000); 
   }
 
 }

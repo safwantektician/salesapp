@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, PopoverController, IonDatetime, IonSelect } from '@ionic/angular';
 import { SelectfilterPage } from '../selectfilter/selectfilter.page'
 import { FilterService } from '../../service/filter.service'
-
+import { $ } from 'protractor';
+declare let google
 @Component({
   selector: 'app-leadllist',
   templateUrl: './leadllist.page.html',
@@ -27,6 +28,7 @@ export class LeadllistPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loadpiechart()
   }
 
   // Get event's from shared child component
@@ -154,4 +156,58 @@ export class LeadllistPage implements OnInit {
       this.componentPopover.dismiss().then(() => { this.componentPopover = null; });
     }
   }
+
+  loadpiechart(){
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+  
+    function drawChart() {
+  
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Contacted',     11],
+        ['Appointment Made',      2],
+        ['Unit Booked',  2],
+        ['Lost Deal', 9]          
+      ]);
+  
+      var options = {
+        title: 'Leads Chart',
+        titlePosition: 'none',
+        //legend: {'position':'bottom'},
+        legend: {
+          position: 'top',
+          maxLines:5,
+          alignment: 'center',              
+        },
+        pieHole: 0.4,
+        //colors: ['#2596be', '#3ba1c5', '#51abcb', '#66b6d2', '#7cc0d8'],
+        //colors: ['#2564be', '#3b74c5', '#5183cb', '#6693d2', '#7ca2d8'],
+        colors: ['#186ab9', '#2089ee', '#2d9fe4', '#5fb4e7', '#5fd5e7'],
+        //legend: {position: 'none'},
+        backgroundColor: { fill:'transparent' }
+
+        
+      };
+  
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      
+      chart.draw(data, options);
+    }
+
+    
+  }
+
+
+  /* filter listing function */
+  filterlist(todo){
+    if(todo === "show"){
+      alert("asdasd");
+    }else{
+
+    }
+  }
+
+  
 }
+   

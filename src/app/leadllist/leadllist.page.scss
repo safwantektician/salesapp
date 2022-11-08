@@ -1,3 +1,4 @@
+
 ion-toolbar {
     --background:url('../../assets/sales_mobile_bg.jpg');
     --color:#fff !important;
@@ -117,4 +118,21 @@ ion-content {
             padding: 0 !important;
         }
     }
+
+    
+}
+
+*{ fill:transparent !important; }
+.cta-btn{
+    width: -webkit-fill-available;
+    padding: 0.5em 1em;
+    text-align: center;
+    background-color: var(--ctacolor);
+    margin: 0px 10px 10px;
+    color: #ffffff;
+    font-size: 1.1em;
+    border-radius: 0.4em;
+    cursor: pointer;
+    box-shadow: 0px 0px 15px rgb(0 0 0 / 10%);
+    border-bottom: 2px solid var(--ctacolorborder);
 }

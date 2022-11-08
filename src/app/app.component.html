@@ -7,11 +7,24 @@
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
           </ion-avatar> -->
           <ion-item>
-            <ion-label>Safwan Rahman<div class="online text-right">Online</div></ion-label>
-            <ion-toggle ionChange="presentAlertPrompt()" checked color="success"></ion-toggle>
-            <span>DND</span>
+            <ion-label>
+              Safwan Rahman <div class="text-success text-right">Online</div>
+              <div class="text-warning text-right">Idle</div>
+              <div class="text-disabled text-right">offline</div>
+            </ion-label>
+           
           </ion-item> 
         </div><!-- /side_profile -->
+        <div style="display:flex; color:#fff; border-radius:3333px; border:1px dashed #aaa; margin:0px 1em; width:230px;">
+          <div>
+          <ion-toggle ionChange="presentAlertPrompt();" checked color="success" style="vertical-align: middle;"></ion-toggle>
+          <span>DND</span>
+          </div>
+          <div class="duty_toggle">               
+            <ion-toggle color="success" style="vertical-align: middle;"></ion-toggle>
+            <span>Off Duty</span>
+          </div>
+        </div>
         <ion-list lines="none">
            <!--<ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">

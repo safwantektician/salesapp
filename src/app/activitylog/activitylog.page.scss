@@ -132,3 +132,33 @@ box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.29);
         }
     }
 }
+
+.filtertools{ text-align:right;     margin: 10px 0px -13px 0px; }
+.filtertools .ftool{
+    width: auto;
+    display:inline-block;
+    padding: 0.2em 0.5em;
+    text-align: center;
+    background-color: var(--ctacolor);
+    background-color: #f4f0ff;
+    //margin: 0px 10px 10px;
+    margin:2.5px;
+    color: #ffffff;
+    font-size: 1.1em;
+    border-radius: 0.4em;
+    cursor: pointer;
+    color:#646ead;
+    //border-bottom: 2px solid var(--ctacolorborder);
+}
+
+.filtertools .ftool svg{
+    width:20px; vertical-align: top;
+}
+.filtertools .ftool svg line,.filtertools .ftool svg polyline{
+    stroke:#646ead;
+}
+.filtertools .ftool.sortup svg{ transform: rotate(180deg);}
+.list-stat{
+    float:right;    
+    margin:-.5em 0px 0px 0px;    
+}
