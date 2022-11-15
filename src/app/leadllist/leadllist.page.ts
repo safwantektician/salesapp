@@ -15,6 +15,7 @@ export class LeadllistPage implements OnInit {
 
   constructor(private login: LoginService, private socket: SocketService, private route: Router) {
     this.socket.getLeadList().subscribe(data => {
+      console.log(data)
       this.leadData = JSON.parse(data)
     })
   }

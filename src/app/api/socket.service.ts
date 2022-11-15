@@ -15,7 +15,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class SocketService {
 
-	private BASE_URL = 'http://35.240.182.194:8000/dev.tektician.com:32006';
+	private BASE_URL = 'http://192.168.10.106:7000/dev.tektician.com:32006';
 	public socket;
 
 	constructor() { }
@@ -33,6 +33,7 @@ export class SocketService {
 		this.socket.emit('lead-list');
 		return new Observable(observer => {
 			this.socket.on('lead-list-response', (data: any) => {
+				console.log(data)
 				observer.next(data);
 			});
 			// return () => {
@@ -45,6 +46,7 @@ export class SocketService {
 	getLeadPush(): Observable<any>{
 		return new Observable(observer => {
 			this.socket.on('leads-push',(data)=>{
+				console.log(data)
 				observer.next(data);
 			})
 			
@@ -79,7 +81,7 @@ export class SocketService {
 		return new Observable(observable => {
 			// let toReturn = new BehaviorSubject();
 			this.socket.on('leads-awarding-status', (data) => {
-				// console.log(data)
+				console.log(data)
 				observable.next(data)
 				observable.complete()
 			})
@@ -97,6 +99,7 @@ export class SocketService {
 			try{
 				// Emit to socket. 
 				this.socket.emit('leads-after-call', leadDetails, (ack) => {
+					console.log(ack)
 					// resolve acknowlegement
 					resolve(ack)
 				})
