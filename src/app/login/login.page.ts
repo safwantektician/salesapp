@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
 
    logForm(){
     this.errors = [];
-    this.login.doLogin('/auth/login',this.candidate.value, {"x-instance":"192.168.10.41"}).subscribe(result => {
+    this.login.doLogin('/auth/login',this.candidate.value, {"x-instance":"192.168.10.24"}).subscribe(result => {
       //this.information = result;
       if(!result.success)
       {
