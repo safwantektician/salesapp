@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
   public errors: any = [];
   public userinstances: any = [];
   public myinstances: any = [];
+  public userinstance_data: any = [];
   public selectedInstance: any;
 
   constructor(private formBuilder: FormBuilder, private login: LoginService, private router: Router, public menuCtrl: MenuController, public events: Events, public lead: LeadService) {
@@ -35,20 +36,38 @@ export class LoginPage implements OnInit {
     this.errors = [];
     //console.log(this.candidate.value.username);
     if(!this.selectedInstance && !this.myinstances.length){
-      let instances = this.login.getInstaceList('/auth/getinstance',{'email':this.candidate.value.username}).subscribe(instances_result => {
+      console.log('executing this')
+      let instances = this.login.getInstaceList('auth/getinstance',{'email':this.candidate.value.username}).subscribe(instances_result => {
       instances = instances_result;
       if(instances.status == 200)
       {
-        this.userinstances = JSON.parse(instances.data);
-        this.myinstances = [];
-        for(let i=0;i<this.userinstances.data.instance.length;i++)
-        {
-          this.myinstances.push(this.userinstances.data.instance[i].instance);
+        // this.userinstances = JSON.parse(instances.data);
+        // console.log(this.userinstances)
+        // this.userinstance_data = JSON.parse(this.userinstances.data)
+        // this.myinstances = [];
+        // for(let i=0;i<this.userinstance_data.instance.length;i++)
+        // {
+        //   this.myinstances.push(this.userinstances.data.instance[i].instance);
+        // }
+        // if(this.myinstances.length == 1)
+        // {
+        //   this.selectedInstance = this.myinstances[0];
+        // }
+        this.userinstances = JSON.parse(instances.data)
+
+        if(this.userinstances){
+          // JSON PARSE OTHERS
+          this.userinstance_data = JSON.parse(this.userinstances.data)
+          for (let x of this.userinstance_data.instance){
+            console.log(x)
+            this.myinstances.push(x['instance'])
+          }
+          console.log(this.myinstances)
+          if (this.myinstances.length == 1){
+            this.selectedInstance = this.myinstances[0]
+          }
         }
-        if(this.myinstances.length == 1)
-        {
-          this.selectedInstance = this.myinstances[0];
-        }
+
         //console.log(this.userinstances);
       }else{
         this.error_handiling(instances);
@@ -57,7 +76,7 @@ export class LoginPage implements OnInit {
   }else if(!this.selectedInstance && this.myinstances.length){
     this.errors.push('Please Select Instance');
   }else{
-    this.login.doLogin('/auth/login',this.candidate.value, {"x-instance":this.selectedInstance}).subscribe(result => {
+    this.login.doLogin('auth/login',this.candidate.value, {"x-instance":this.selectedInstance}).subscribe(result => {
       //this.information = result;
       if(!result.success)
       {

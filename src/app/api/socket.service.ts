@@ -23,8 +23,7 @@ export class SocketService {
 	constructor(
 		private route: Router,
 		private alertCtrl: AlertController
-	) {
-	}
+	) {}
 
 	/*
 	* Method to connect the users to socket
@@ -192,7 +191,9 @@ export class SocketService {
 		this.socket.emit('get-latest-leads', JSON.stringify({ 'auth': getAuth, 'user': getUserDetails }), (ack) => {
 			console.log(ack)
 			if (ack.length > 0) {
-				this.route.navigate(['/leadalert', { data: JSON.stringify(ack[0].leads.body) }])
+				// JSON Conversion
+				var lead_data = JSON.parse(ack[0].leads)
+				this.route.navigate(['/leadalert', { data: JSON.stringify(lead_data['body']) }])
 			} else {
 				this.showAlert('LEAD EXPIRED', 'Sorry Leads Expired', 'Exit')
 			}

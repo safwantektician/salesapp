@@ -109,6 +109,7 @@ export class LeadllistPage implements OnInit {
     } else {
       console.log("now only coming here")
       this.leadData = this.leadData.concat(data.data)
+      console.log(this.leadData)
       if (event) {
         event.target.complete();
       }

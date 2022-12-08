@@ -191,7 +191,7 @@ export class AppComponent {
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
 
-			this.menuCtrl.enable(false);
+			this.menuCtrl.enable(true);
 
 			this.backgroundMode.enable();
 			// this.backgroundMode.excludeFromTaskList();
